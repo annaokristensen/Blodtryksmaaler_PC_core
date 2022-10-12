@@ -11,7 +11,7 @@ namespace DataLayer_PC
 	/// <summary>
 	/// Klassen står for kommunikationen med RPi-SW via. UDP. PC'en er Clienten
 	/// </summary>
-	class UDPClient : IDisposable
+	public class UDPClient : IDisposable
 	{
 		private const int portNo = 11000;
 		private UdpClient udpClient = new UdpClient(portNo);
