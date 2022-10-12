@@ -17,10 +17,16 @@ namespace Presentation_Layer_PC
 	/// Interaction logic for MaintenanceWindow.xaml
 	/// </summary>
 	public partial class MaintenanceWindow : Window
-	{
+    {
+        
 		public MaintenanceWindow()
 		{
 			InitializeComponent();
+		}
+
+		private void opretforbindelse_button_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+
 		}
 	}
 }

@@ -9,6 +9,7 @@
     <Grid>
         <Button x:Name="calibration_button" Content="Kalibrering" HorizontalAlignment="Center" Margin="0,134,0,0" VerticalAlignment="Top" Height="50" Width="130"/>
         <Button x:Name="zeroPointAdjustment_button" Content="Nulpunktsjustér" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" Height="50" Width="130"/>
+        <Button x:Name ="opretforbindelse_button" Content="Opret forbindelse" HorizontalAlignment="Left" Margin="355,53,0,0" VerticalAlignment="Top" Click="opretforbindelse_button_Click"/>
 
     </Grid>
 </Window>
