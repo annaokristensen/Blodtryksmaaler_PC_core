@@ -11,5 +11,8 @@ namespace DataLayer_PC
 	/// </summary>
 	public interface IDisposable
 	{
+		void SendBroadcast(string message);
+
+		void Receive();
 	}
 }
