@@ -11,7 +11,7 @@ namespace DataLayer_PC
 	/// <summary>
 	/// Klassen står for kommunikationen med RPi-SW via. UDP. PC'en er Clienten
 	/// </summary>
-	class UDPClient
+	class UDPClient : IDisposable
 	{
 		private const int portNo = 11000;
 		private UdpClient udpClient = new UdpClient(portNo);
@@ -46,7 +46,7 @@ namespace DataLayer_PC
 				Console.WriteLine(ex.Message);
 			}
 
-			IPEndPoint server = new IPEndPoint(IPAddress.Any, 0);
+			IPEndPoint server = new IPEndPoint(IPAddress.Any, portNo);
 
 
 			while (true)
