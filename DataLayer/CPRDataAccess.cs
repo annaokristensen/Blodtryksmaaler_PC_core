@@ -11,7 +11,7 @@ namespace DataLayer_PC
 	/// <summary>
 	/// Tilgår CPR-databasen for at kunne tjekke om CPR-nummeret er registreret deri
 	/// </summary>
-	class CPRDataAccess
+	public class CPRDataAccess
 	{
 		//SqlConnection conn;
 

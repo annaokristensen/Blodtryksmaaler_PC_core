@@ -13,10 +13,11 @@ namespace LogicLayer_PC
 	/// </summary>
 	class CPRControl
 	{
-		//CPRDataAccess cprDA = new CPRDataAccess(); (den kan ikke genkende klassen)
+		CPRDataAccess cprDA = new CPRDataAccess(); //(den kan ikke genkende klassen)
+		
 		
 		//Opretter en 'midlertidig' liste til at 'holde' cpr-numrene som modtages fra datalaget.
-		private List<string> midlCPRList = new List<String>();
+		private List<string> midlCPRList = new List<string>();
 		private string cprFromGUI;
 
 		/// <summary>
@@ -25,7 +26,10 @@ namespace LogicLayer_PC
 		/// <returns>En bool som er 'true' hvis CPR-nummeret findes og 'false' hvis ikke.</returns>
 		public bool ValidateCpr()
 		{
-			//cprDA.GetCPRFromDatabase (kalder metoden for at få cpr-numrene)
+			foreach (string cpr in cprDA.GetCPRFromDatabase())
+			{
+				midlCPRList.Add(cpr);
+			}
 
 			//Skriv kode som henter det indtastede cpr-nummer fra præsentationslaget og gemmer i 'cprFromGUI'.
 
