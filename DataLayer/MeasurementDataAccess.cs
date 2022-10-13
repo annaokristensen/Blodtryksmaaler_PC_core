@@ -18,7 +18,7 @@ namespace DataLayer_PC
 
 		public MeasurementDataAccess()
 		{
-			//conn = new SqlConnection(@"INDSÆT CONNECTION STRING")
+			//conn = new SqlConnection(@"INDSÆT CONNECTION STRING TIL MEASUREMENT-DATABASE")
 		}
 
 		public void StoreData(BPMeasurementData bpMesData)
