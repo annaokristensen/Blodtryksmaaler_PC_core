@@ -8,11 +8,14 @@ using DTO_PC;
 namespace LogicLayer_PC
 {
 	/// <summary>
-	/// Indeholder en metode som bliver kaldt når vi trykker på "Stop og Gem" på GUI.
-	/// Sørger for at få data ned til datalaget så det kan gemmes i databasen. 
+	/// Sørger for at få data ned til datalaget, så det kan gemmes i databasen. 
 	/// </summary>
 	class StopAndSave
 	{
+		/// <summary>
+		/// Metoden som bliver kaldt, når vi trykker på "Stop og Gem" på GUI'en
+		/// </summary>
+		/// <param name="bpMesData">Tager DTO-klasse som parameter, så det kan blive gemt i databasen</param>
 		public void SaveMeasurement(BPMeasurementData bpMesData)
 		{
 

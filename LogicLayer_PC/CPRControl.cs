@@ -1,8 +1,8 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;*/
+using System.Threading.Tasks;
 using System.Net;
 using DataLayer_PC;
 
@@ -15,7 +15,6 @@ namespace LogicLayer_PC
 	{
 		CPRDataAccess cprDA = new CPRDataAccess(); //(den kan ikke genkende klassen)
 		
-		
 		//Opretter en 'midlertidig' liste til at 'holde' cpr-numrene som modtages fra datalaget.
 		private List<string> midlCPRList = new List<string>();
 		private string cprFromGUI;
@@ -23,7 +22,7 @@ namespace LogicLayer_PC
 		/// <summary>
 		/// Tjekker om det indtastede CPR-nummer findes i den liste som er hentet fra CPR-databasen
 		/// </summary>
-		/// <returns>En bool som er 'true' hvis CPR-nummeret findes og 'false' hvis ikke.</returns>
+		/// <returns>En bool som er 'true', hvis CPR-nummeret findes og 'false' hvis ikke.</returns>
 		public bool ValidateCpr()
 		{
 			foreach (string cpr in cprDA.GetCPRFromDatabase())
