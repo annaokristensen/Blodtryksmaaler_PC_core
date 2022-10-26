@@ -21,7 +21,7 @@ namespace DataLayer_PC
 			//conn = new SqlConnection(@"INDSÆT CONNECTION STRING TIL MEASUREMENT-DATABASE")
 		}
 
-		public void StoreData(BPMeasurementData bpMesData)
+		public void StoreData(BPMeasurementData_DTO bpMesData)
 		{
 			//Indsæt kode til at gemme i databasen her
 		}

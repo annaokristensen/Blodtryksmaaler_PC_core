@@ -6,10 +6,11 @@ namespace DTO_PC
 	/// <summary>
 	/// DTO-klasse som overfører data mellem logik- og data-laget for, i datalaget, at kunne gemme data i databasen.
 	/// </summary>
-	public class BPMeasurementData
+	public class BPMeasurementData_DTO
 	{
 		public int MeasurementID { get; set; }
-		public string Cpr { get; set; }
+		//Cpr er udkommenteret, fordi den modsat de andre værdier kommer fra GUI'en (tror jeg - Julie)
+		//public string Cpr { get; set; }
 		public List<double> RawData { get; set; }
 		public List<double> SystoliskValues { get; set; }
 		public List<double> DiastoliskValues { get; set; }
@@ -20,12 +21,12 @@ namespace DTO_PC
 		public DateTime AlarmDateTimes { get; set; }
 
 		//En parametiseret constructor, så når vi bruger klassen på logiklaget, så skal vi indskrive alle parametrene for at kunne gemme
-		public BPMeasurementData(int measurementID, string cpr, List<double> rawdata, List<double> systoliskValues,
+		public BPMeasurementData_DTO(int measurementID, /*string cpr*/ List<double> rawdata, List<double> systoliskValues,
 			List<double> diastoliskValues, List<double> pulseValues, List<double> middelValues, DateTime startDateTime,
 			DateTime stopDateTime, DateTime alarmDateTimes)
 		{
 			MeasurementID = measurementID;
-			Cpr = cpr;
+			//Cpr = cpr;
 			RawData = rawdata;
 			SystoliskValues = systoliskValues;
 			DiastoliskValues = diastoliskValues;

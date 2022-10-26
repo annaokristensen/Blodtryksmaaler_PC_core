@@ -13,11 +13,16 @@ namespace LogicLayer_PC
 	class StopAndSave
 	{
 		/// <summary>
-		/// Metoden som bliver kaldt, når vi trykker på "Stop og Gem" på GUI'en
+		/// Metoden som bliver kaldt, når vi trykker på "Stop og Gem" på GUI'en.
+		/// Tager DTO-klasse som parameter, så det kan blive gemt i databasen.
+		/// Metoden samler data fra GUI og rpi så de kan blive gemt samlet.
 		/// </summary>
-		/// <param name="bpMesData">Tager DTO-klasse som parameter, så det kan blive gemt i databasen</param>
-		public void SaveMeasurement(BPMeasurementData bpMesData)
+		/// <param name="bpMesData"></param>
+		public void SaveMeasurement(BPMeasurementData_DTO bpMesData, string cpr)
 		{
+			BPMeasurementData_DTO bpmDataDto = new BPMeasurementData_DTO(bpMesData.MeasurementID, bpMesData.RawData,
+				bpMesData.SystoliskValues, bpMesData.DiastoliskValues, bpMesData.PulseValues, bpMesData.MiddelValues, 
+				bpMesData.StartDateTime, bpMesData.StopDateTime, bpMesData.AlarmDateTimes);
 
 		}
 	}
