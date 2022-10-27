@@ -8,5 +8,6 @@ namespace LogicLayer_PC
     public class MeasurementControlPC
     {
 
+
     }
 }
