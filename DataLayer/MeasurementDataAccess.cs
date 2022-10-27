@@ -13,7 +13,7 @@ namespace DataLayer_PC
 	/// <summary>
 	/// Klassen tilgår databasen og gemmer måledata deri
 	/// </summary>
-	class MeasurementDataAccess
+	public class MeasurementDataAccess
 	{
 		//SqlConnection conn;
 		public List<MeasurementDataAccess>samplesList = new List<MeasurementDataAccess>();
@@ -65,7 +65,7 @@ namespace DataLayer_PC
                 
             }
 			return samplesList;
-			Console.WriteLine(samplesList);
+			
 
 
 
