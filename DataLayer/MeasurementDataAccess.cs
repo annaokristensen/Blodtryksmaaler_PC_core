@@ -17,10 +17,15 @@ namespace DataLayer_PC
 	{
 		//SqlConnection conn;
 		public List<MeasurementDataAccess>samplesList = new List<MeasurementDataAccess>();
-		public string Path = "samplestest.txt";
+		//public string Path = "samplestest.txt";
+		public string Path = "C:\\Users\\rikke\\OneDrive\\Dokumenter\\3. semester\\Semesterprojekt\\BlodtryksmålerPC_\\DataLayer\\bin\\Debug\\net5.0\\testmedtal.txt";
 		public double second { get; set; }
 		public double sampleValue { get; set; }
 
+		public MeasurementDataAccess()
+		{
+			
+		}
 		public MeasurementDataAccess(double second, double sampleValue)
 		{
 			//conn = new SqlConnection(@"INDSÆT CONNECTION STRING TIL MEASUREMENT-DATABASE")
@@ -67,6 +72,28 @@ namespace DataLayer_PC
             }
 			return samplesList;
            // Console.WriteLine(samplesList.Count);
+
+
+
+
+        }
+		//Vi skal have delt metoden ReadSamples op, så klassen MeasurementDataAccess kun har ansvaret for at indlæse data. 
+		//Dataen skal gemmes/opbevares i DTO klassen, som alle klasser kan tilgå. 
+        public List<Eksempel> ReadEksempel()
+        {
+            List<Eksempel> samplesList = new List<Eksempel>();
+            List<string> holder = File.ReadAllLines(Path).ToList();
+            foreach (string sample in holder)
+            {
+                string[] input = sample.Split(' ');
+                Eksempel s = new Eksempel(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]));
+                samplesList.Add(s);
+
+
+            }
+			//return samplesList;
+			return Eksempel;
+            // Console.WriteLine(samplesList.Count);
 
 
 

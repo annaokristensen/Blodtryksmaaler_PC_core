@@ -11,11 +11,17 @@ namespace LogicLayer_PC
 
         public MeasurementControlPC()
         {
-            //measurementDataAccessObject = new MeasurementDataAccess();
+            
+            measurementDataAccessObject = new MeasurementDataAccess();
+            
         }
         public void getSamplesList()
         {
-            Console.WriteLine(measurementDataAccessObject.samplesList.ToString());
+            foreach (var item in measurementDataAccessObject.ReadEksempel())
+            {
+                Console.WriteLine(item.Sekunder +" "+ item.Værdi);
+            }
+            
           
         }
 
