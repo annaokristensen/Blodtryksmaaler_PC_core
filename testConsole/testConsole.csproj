@@ -8,10 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataLayer\DataLayer_PC.csproj" />
-    <ProjectReference Include="..\DTO_PC\DTO_PC.csproj" />
     <ProjectReference Include="..\LogicLayer_PC\LogicLayer_PC.csproj" />
-    <ProjectReference Include="..\PresentationLayerPC_\PresentationLayerPC_.csproj" />
   </ItemGroup>
 
 </Project>

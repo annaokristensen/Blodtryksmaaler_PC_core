@@ -16,7 +16,7 @@ namespace LogicLayer_PC
         public void getSamplesList()
         {
             Console.WriteLine(measurementDataAccessObject.samplesList.ToString());
-    
+          
         }
 
 

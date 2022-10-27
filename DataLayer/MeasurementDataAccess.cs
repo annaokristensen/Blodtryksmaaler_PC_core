@@ -62,10 +62,12 @@ namespace DataLayer_PC
 				string[] input = sample.Split(' ');
 				MeasurementDataAccess s = new MeasurementDataAccess(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]));
 				samplesList.Add(s);
+				
                 
             }
 			return samplesList;
-			
+           // Console.WriteLine(samplesList.Count);
+
 
 
 

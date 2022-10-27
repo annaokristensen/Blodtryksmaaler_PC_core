@@ -1,4 +1,5 @@
 ﻿using System;
+using LogicLayer_PC;
 
 namespace testConsole
 {
@@ -9,6 +10,7 @@ namespace testConsole
             Console.WriteLine("Hello, World!");
             MeasurementControlPC test1 = new MeasurementControlPC();
             test1.getSamplesList();
+            
 
         }
     }
