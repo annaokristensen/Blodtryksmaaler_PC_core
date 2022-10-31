@@ -17,11 +17,12 @@ namespace DataLayer_PC
 	public class MeasurementDataAccess
 	{
 		//SqlConnection conn;
-		public readonly BlockingCollection<BPMeasurementData_DTO> samplesList = new BlockingCollection<BPMeasurementData_DTO>();
+		private readonly BlockingCollection<BPMeasurementData_DTO> samplesList = new BlockingCollection<BPMeasurementData_DTO>();
 		//public string Path = "samplestest.txt";
 		public string Path = "C:\\Users\\rikke\\OneDrive\\Dokumenter\\3. semester\\Semesterprojekt\\BlodtryksmålerPC_\\DataLayer\\bin\\Debug\\net5.0\\testmedtal.txt";
 		public double second { get; set; }
 		public double sampleValue { get; set; }
+		public List<MeasurementDataAccess> LoadedSampleValue;
        
         public MeasurementDataAccess()
 		{
@@ -39,34 +40,24 @@ namespace DataLayer_PC
 		}
 
 		//Vi skal have delt metoden ReadSamples op, så klassen MeasurementDataAccess kun har ansvaret for at indlæse data. 
-		//Dataen skal gemmes/opbevares i DTO klassen, som alle klasser kan tilgå. 
-		//public BlockingCollection<BPMeasurementData_DTO> ReadSample()
-		//{
-		//	List<BPMeasurementData_DTO> samplesList = new List<BPMeasurementData_DTO>();
-		//	List<string> holder = File.ReadAllLines(Path).ToList();
-		//	foreach (string sample in holder)
-		//	{
-		//		string[] input = sample.Split(' ');
-		//		BPMeasurementData_DTO s = new BPMeasurementData_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]));
-		//		samplesList.Add(s);
-		//	}
-		//	return samplesList;
-		//}
+		//Dataen skal gemmes/opbevares i DTO klassen, som alle klasser kan tilgå.
 		public void StoreData(BPMeasurementData_DTO bpMesData)
         {
             //Indsæt kode til at gemme i databasen her
         }
-		public BlockingCollection<BPMeasurementData_DTO> ReadSample()
+		public List<BPMeasurementData_DTO> ReadSample()
 		{
-            BlockingCollection<BPMeasurementData_DTO> samplesList = new BlockingCollection<BPMeasurementData_DTO>();
+            List<BPMeasurementData_DTO> samplesList = new List<BPMeasurementData_DTO>();
 			List<string> holder = File.ReadAllLines(Path).ToList();
 			foreach (string sample in holder)
 			{
 				string[] input = sample.Split(' ');
 				BPMeasurementData_DTO s = new BPMeasurementData_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]));
 				samplesList.Add(s);
+				//samplesList.Add(s);
 			}
 			return samplesList;
 		}
+		
 	}
 }

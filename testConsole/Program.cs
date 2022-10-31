@@ -15,21 +15,20 @@ namespace testConsole
             MeasurementControlPC test1 = new MeasurementControlPC();
             test1.getSamplesList();
 
+            //Tråde
+            //BlockingCollection<BPMeasurementData_DTO> samplesList = new BlockingCollection<BPMeasurementData_DTO>();
 
 
-            BlockingCollection<BPMeasurementData_DTO> samplesList = new BlockingCollection<BPMeasurementData_DTO>();
+            //MeasurementDataAccess test = new MeasurementDataAccess(samplesList);
 
 
-            MeasurementDataAccess test = new MeasurementDataAccess(samplesList);
+            //Thread testDataObjThread = new Thread(test.ReadSample);
 
+            //testDataObjThread.Start();
 
-            Thread testDataObjThread = new Thread(test.ReadSample);
+            //testDataObjThread.Join();
 
-            testDataObjThread.Start();
-
-            testDataObjThread.Join();
-
-            Console.ReadKey();
+            //Console.ReadKey();
 
 
         }
