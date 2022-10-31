@@ -1,4 +1,5 @@
 ﻿using DataLayer_PC;
+using DTO_PC;
 
 namespace LogicLayer_PC
 {
@@ -17,9 +18,9 @@ namespace LogicLayer_PC
         }
         public void getSamplesList()
         {
-            foreach (var item in measurementDataAccessObject.ReadEksempel())
+            foreach (var item in measurementDataAccessObject.ReadSample())
             {
-                Console.WriteLine(item.Sekunder +" "+ item.Værdi);
+                Console.WriteLine(item.second +" "+ item.sampleValue);
             }
             
           

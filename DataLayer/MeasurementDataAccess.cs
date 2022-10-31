@@ -33,71 +33,27 @@ namespace DataLayer_PC
 			this.sampleValue = sampleValue;
 		}
 
-		public void StoreData(BPMeasurementData_DTO bpMesData)
+		//Vi skal have delt metoden ReadSamples op, så klassen MeasurementDataAccess kun har ansvaret for at indlæse data. 
+		//Dataen skal gemmes/opbevares i DTO klassen, som alle klasser kan tilgå. 
+		public List<BPMeasurementData_DTO> ReadSample()
 		{
-			//Indsæt kode til at gemme i databasen her
-		}
-		//public void GetDataFromPhysionet()
-		//{
-		//	string inputRecord;
-		//	string[] inputFields;
-
-		//	///
-		//	//array = File.ReadAllLines()
-		//	///
-			
-		//	//Opretter filestream og format objekt 
-		//	FileStream input = new FileStream("samplestest.txt", FileMode.Open, FileAccess.Read);
-		//	StreamReader fileReader = new StreamReader(input);
-
-		//	//Så længe der er data i filen lægges det ind i listen sampleList
-		//	while((inputRecord = fileReader.ReadLine()) != null)
-		//	{
-		//		//Splitter dataen i tekstfilen op i kolonner 
-		//		inputFields = inputRecord.
-		//	}
-		
-		//}
-		public List<MeasurementDataAccess> ReadSamples()
-		{
-			List<MeasurementDataAccess> samplesList = new List<MeasurementDataAccess>();
+			List<BPMeasurementData_DTO> samplesList = new List<BPMeasurementData_DTO>();
 			List<string> holder = File.ReadAllLines(Path).ToList();
 			foreach (string sample in holder)
 			{
 				string[] input = sample.Split(' ');
-				MeasurementDataAccess s = new MeasurementDataAccess(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]));
+                BPMeasurementData_DTO s = new BPMeasurementData_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]));
 				samplesList.Add(s);
-				
-                
-            }
+
+
+			}
 			return samplesList;
-           // Console.WriteLine(samplesList.Count);
-
-
-
-
+            //return BPMeasurementData_DTO;
         }
-		//Vi skal have delt metoden ReadSamples op, så klassen MeasurementDataAccess kun har ansvaret for at indlæse data. 
-		//Dataen skal gemmes/opbevares i DTO klassen, som alle klasser kan tilgå. 
-        public List<Eksempel> ReadEksempel()
+
+        public void StoreData(BPMeasurementData_DTO bpMesData)
         {
-            List<Eksempel> samplesList = new List<Eksempel>();
-            List<string> holder = File.ReadAllLines(Path).ToList();
-            foreach (string sample in holder)
-            {
-                string[] input = sample.Split(' ');
-                Eksempel s = new Eksempel(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]));
-                samplesList.Add(s);
-
-
-            }
-			//return samplesList;
-			return Eksempel;
-            // Console.WriteLine(samplesList.Count);
-
-
-
-
+            //Indsæt kode til at gemme i databasen her
         }
     }
 }

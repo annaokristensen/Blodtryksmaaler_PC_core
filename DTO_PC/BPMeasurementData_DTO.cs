@@ -8,6 +8,8 @@ namespace DTO_PC
 	/// </summary>
 	public class BPMeasurementData_DTO
 	{
+		public double second { get; set; }
+		public double sampleValue { get; set; }
 		public int MeasurementID { get; set; }
 		//Cpr er udkommenteret, fordi den modsat de andre værdier kommer fra GUI'en (tror jeg - Julie)
 		//public string Cpr { get; set; }
@@ -36,5 +38,12 @@ namespace DTO_PC
 			StopDateTime = stopDateTime;
 			AlarmDateTimes = alarmDateTimes;
 		}
-	}
+
+		//Contructoren bruges til til at gemme det indlæste data
+		public BPMeasurementData_DTO(double second, double sampleValue)
+		{
+			this.second = second;
+			this.sampleValue = sampleValue;
+		}
+    }
 }
