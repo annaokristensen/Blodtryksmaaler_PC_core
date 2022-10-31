@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using DataLayer_PC;
 using DTO_PC;
 using LogicLayer_PC;
+using System.Threading;
 
 namespace testConsole
 {
@@ -15,20 +16,20 @@ namespace testConsole
             MeasurementControlPC test1 = new MeasurementControlPC();
             test1.getSamplesList();
 
-            //Tråde
-            //BlockingCollection<BPMeasurementData_DTO> samplesList = new BlockingCollection<BPMeasurementData_DTO>();
+           // Tråde
+            BlockingCollection<BPMeasurementData_DTO> samplesList = new BlockingCollection<BPMeasurementData_DTO>();
 
 
-            //MeasurementDataAccess test = new MeasurementDataAccess(samplesList);
+            MeasurementDataAccess test = new MeasurementDataAccess(samplesList);
 
 
-            //Thread testDataObjThread = new Thread(test.ReadSample);
+            Thread testDataObjThread = new Thread(test.ReadSample);
 
-            //testDataObjThread.Start();
+            testDataObjThread.Start();
 
-            //testDataObjThread.Join();
+            testDataObjThread.Join();
 
-            //Console.ReadKey();
+            Console.ReadKey();
 
 
         }
