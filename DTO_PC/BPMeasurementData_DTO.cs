@@ -45,5 +45,9 @@ namespace DTO_PC
 			this.second = second;
 			this.sampleValue = sampleValue;
 		}
-    }
+
+		public BPMeasurementData_DTO()
+		{
+		}
+	}
 }

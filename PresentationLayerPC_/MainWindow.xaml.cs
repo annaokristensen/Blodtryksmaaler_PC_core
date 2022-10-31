@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DTO_PC;
 using LogicLayer_PC;
 using Presentation_Layer_PC;
 
@@ -19,10 +20,11 @@ namespace Presentation_Layer
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		
+		public BPMeasurementData_DTO DTOobj;
 		public MainWindow()
 		{
 			InitializeComponent();
+			DTOobj = new BPMeasurementData_DTO();
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -37,6 +39,15 @@ namespace Presentation_Layer
 				this.Close();
 			else
 				this.Show();
+		}
+
+		private void saveChanges_button_Click(object sender, RoutedEventArgs e)
+		{
+			//if(middleBTMax_textbox.Text < DTOobj.sampleValue )
+			//{
+
+			//}
+
 		}
 	}
 }

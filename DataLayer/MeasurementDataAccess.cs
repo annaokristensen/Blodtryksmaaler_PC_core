@@ -50,7 +50,6 @@ namespace DataLayer_PC
 			return samplesList;
             //return BPMeasurementData_DTO;
         }
-
         public void StoreData(BPMeasurementData_DTO bpMesData)
         {
             //Indsæt kode til at gemme i databasen her

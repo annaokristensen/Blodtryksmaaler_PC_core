@@ -1,0 +1,15 @@
+﻿<Window x:Class="Presentation_Layer_PC.MaintenanceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation_Layer_PC"
+        mc:Ignorable="d"
+        Title="MaintenanceWindow" Height="400" Width="500">
+    <Grid>
+        <Button x:Name="calibration_button" Content="Kalibrering" HorizontalAlignment="Center" Margin="0,134,0,0" VerticalAlignment="Top" Height="50" Width="130"/>
+        <Button x:Name="zeroPointAdjustment_button" Content="Nulpunktsjustér" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" Height="50" Width="130"/>
+        <Button x:Name ="opretforbindelse_button" Content="Opret forbindelse" HorizontalAlignment="Left" Margin="355,53,0,0" VerticalAlignment="Top" Click="opretforbindelse_button_Click"/>
+
+    </Grid>
+</Window>
