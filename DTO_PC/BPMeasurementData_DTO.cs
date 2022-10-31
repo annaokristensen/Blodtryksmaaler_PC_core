@@ -22,8 +22,8 @@ namespace DTO_PC
 		public DateTime StopDateTime { get; set; }
 		public DateTime AlarmDateTimes { get; set; }
 
-		//En parametiseret constructor, så når vi bruger klassen på logiklaget, så skal vi indskrive alle parametrene for at kunne gemme
-		public BPMeasurementData_DTO(int measurementID, /*string cpr*/ List<double> rawdata, List<double> systoliskValues,
+        //En parametiseret constructor, så når vi bruger klassen på logiklaget, så skal vi indskrive alle parametrene for at kunne gemme
+        public BPMeasurementData_DTO(int measurementID, /*string cpr*/ List<double> rawdata, List<double> systoliskValues,
 			List<double> diastoliskValues, List<double> pulseValues, List<double> middelValues, DateTime startDateTime,
 			DateTime stopDateTime, DateTime alarmDateTimes)
 		{
@@ -45,9 +45,9 @@ namespace DTO_PC
 			this.second = second;
 			this.sampleValue = sampleValue;
 		}
-
 		public BPMeasurementData_DTO()
 		{
+			
 		}
 	}
 }

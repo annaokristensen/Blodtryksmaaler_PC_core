@@ -8,6 +8,6 @@ namespace DataLayer_PC
 {
     internal class IMeasurementDataAcces
     {
-
+     
     }
 }
