@@ -22,8 +22,11 @@ namespace LogicLayer_PC
             {
                 Console.WriteLine(item.second +" "+ item.sampleValue);
             }
-            
-          
+        }
+        public void testThread()
+        {
+
+            Console.WriteLine("test");
         }
 
 

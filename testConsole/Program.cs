@@ -23,7 +23,7 @@ namespace testConsole
             MeasurementDataAccess test = new MeasurementDataAccess(samplesList);
 
 
-            Thread testDataObjThread = new Thread(test.ReadSample);
+            Thread testDataObjThread = new Thread(test1.getSamplesList);
 
             testDataObjThread.Start();
 
