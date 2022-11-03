@@ -32,7 +32,7 @@ namespace Presentation_Layer
 			this.Hide();
 			CPR_Window cprWindowObj = new CPR_Window();
 			//Sørger for at patientens (det indtastede) cpr-nummer fremstår af cpr-tekstboksen
-			cpr_textbox.Text = cprWindowObj.cpr;
+			cpr_textbox.Text = cprWindowObj.GetEnteredCpr();
 
 			//Sørger for at cpr-vinduet åbner og at koden for mainwindow ikke kører videre før det er lukket
 			if (!cprWindowObj.ShowDialog().Value)

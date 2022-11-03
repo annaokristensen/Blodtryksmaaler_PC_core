@@ -36,7 +36,7 @@ namespace LogicLayer_PC
 			//CPR_Window cprWindowObj = new CPR_Window();
 			//cprFromGUI = cprWindowObj.GetEnteredCpr();
 			
-			if (midlCPRList.Contains(cprFromGUI))
+			if (midlCPRList.Contains(cprParameter))
 				return true;
 			else
 				return false;
