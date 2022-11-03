@@ -24,13 +24,14 @@ namespace testConsole
 
 
             Thread testDataObjThread = new Thread(test1.getSamplesList);
-            Thread test3 = new Thread(test1.testThread);
+            Thread testThread = new Thread(test1.testThread);
+         
 
             testDataObjThread.Start();
-            test3.Start();
+            testThread.Start();
 
             testDataObjThread.Join();
-            test3.Join();
+            testThread.Join();
 
             Console.ReadKey();
 

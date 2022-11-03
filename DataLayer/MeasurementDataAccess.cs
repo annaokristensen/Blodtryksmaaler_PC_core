@@ -23,6 +23,7 @@ namespace DataLayer_PC
 		public double second { get; set; }
 		public double sampleValue { get; set; }
 		public List<MeasurementDataAccess> LoadedSampleValue;
+		private bool shallStop = false;
        
         public MeasurementDataAccess()
 		{
@@ -47,17 +48,23 @@ namespace DataLayer_PC
         }
 		public List<BPMeasurementData_DTO> ReadSample()
 		{
-            List<BPMeasurementData_DTO> samplesList = new List<BPMeasurementData_DTO>();
-			List<string> holder = File.ReadAllLines(Path).ToList();
-			foreach (string sample in holder)
+			do
 			{
-				string[] input = sample.Split(' ');
-				BPMeasurementData_DTO s = new BPMeasurementData_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]));
-				samplesList.Add(s);
-			
-			}
-			return samplesList;
+				while(shallStop) //Skal kører så længe shallstop er true (skal ændres til start/stop knap på GUI)
+				{
+                    List<BPMeasurementData_DTO> samplesList = new List<BPMeasurementData_DTO>();
+                    List<string> holder = File.ReadAllLines(Path).ToList();
+                    foreach (string sample in holder)
+                    {
+                        string[] input = sample.Split(' ');
+                        BPMeasurementData_DTO s = new BPMeasurementData_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1])); //gemmer intput 1 og 2 i DTO
+                        samplesList.Add(s);
+                    }
+                    return samplesList;
+                }
+            }
+			while(true);
+
 		}
-		
 	}
 }
