@@ -18,7 +18,7 @@ namespace DataLayer_PC
 		
 		public CPRDataAccess()
 		{
-			//conn = new SqlConnection(@"INDSÆT CONNECTION STRING TIL CPR-DATABASE")
+			conn = new SqlConnection(@"Data Source=LAPTOP-JKBR8I3G\SQLEXPRESS;Initial Catalog=BloodPressureData_DB;Integrated Security=True");
 		}
 
 		/// <summary>
@@ -30,7 +30,7 @@ namespace DataLayer_PC
 			List<string> cprInDBList = new List<string>();
 
 			//Mangler måske at den læser fra cpr-tabellen og ikke bare databasen
-			string queryString = "select * from BloodPressureData_DB";
+			string queryString = "select * from CPR_table";
 
 			SqlCommand sqlcommand = new SqlCommand(queryString, conn);
 
