@@ -17,7 +17,6 @@ namespace LogicLayer_PC
 		
 		//Opretter en 'midlertidig' liste til at 'holde' cpr-numrene som modtages fra datalaget.
 		private List<string> midlCPRList = new List<string>();
-		private string cprFromGUI;
 
 		/// <summary>
 		/// Tjekker om det indtastede CPR-nummer findes i den liste som er hentet fra CPR-databasen
@@ -25,17 +24,14 @@ namespace LogicLayer_PC
 		/// <returns>En bool som er 'true', hvis CPR-nummeret findes og 'false' hvis ikke.</returns>
 		public bool ValidateCpr(string cprParameter)
 		{
+			//Gemmer CPR-numrene fra databasen i en liste
 			foreach (string cpr in cprDA.GetCPRFromDatabase())
 			{
 				midlCPRList.Add(cpr);
 			}
 
-			//Det indtastede CPR-nummer skal hentes fra GUI. Men det kræver at logiklaget kender præsentationslaget og kan kalde metoden??
-
-			//INDKOMMENTÉR FØLGENDE:
-			//CPR_Window cprWindowObj = new CPR_Window();
-			//cprFromGUI = cprWindowObj.GetEnteredCpr();
-			
+			//Metoden ValidateCpr er blevet kaldt fra CPR_Window med det indtastede CPR-nummer som parameter.
+			//Derved kan vi nu tjekke om det indtastede CPR-nummer findes i listen (som består af cpr-numrene i databasen)
 			if (midlCPRList.Contains(cprParameter))
 				return true;
 			else

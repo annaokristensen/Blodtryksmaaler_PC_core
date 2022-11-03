@@ -29,7 +29,6 @@ namespace DataLayer_PC
 		{
 			List<string> cprInDBList = new List<string>();
 
-			//Mangler måske at den læser fra cpr-tabellen og ikke bare databasen
 			string queryString = "select * from CPR_table";
 
 			SqlCommand sqlcommand = new SqlCommand(queryString, conn);
@@ -38,7 +37,7 @@ namespace DataLayer_PC
 
 			SqlDataReader sdr = sqlcommand.ExecuteReader();
 
-			//Læser fra databasen
+			//Læser fra cpr-kolonnen 
 			while (sdr.Read())
 			{
 					cprInDBList.Add(Convert.ToString(sdr["cpr"])); 
