@@ -20,13 +20,19 @@ namespace LogicLayer_PC
         {
             foreach (var item in measurementDataAccessObject.ReadSample())
             {
-                Console.WriteLine(item.second +" "+ item.sampleValue);
+                Console.WriteLine(item.second + " " + item.sampleValue);
             }
+            
         }
         public void testThread()
         {
-
-            Console.WriteLine("test");
+            int cnt = 10;
+            while(cnt > 0)
+            {
+                Console.WriteLine("test");
+                cnt--;
+            }
+            
         }
 
 

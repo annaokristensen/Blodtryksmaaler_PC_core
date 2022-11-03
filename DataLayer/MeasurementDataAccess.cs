@@ -54,7 +54,7 @@ namespace DataLayer_PC
 				string[] input = sample.Split(' ');
 				BPMeasurementData_DTO s = new BPMeasurementData_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]));
 				samplesList.Add(s);
-				//samplesList.Add(s);
+			
 			}
 			return samplesList;
 		}
