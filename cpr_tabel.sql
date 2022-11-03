@@ -1,0 +1,3 @@
+CREATE TABLE CPR_table3 (
+cpr nVARCHAR (11) PRIMARY KEY,
+);
