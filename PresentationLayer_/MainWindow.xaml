@@ -9,7 +9,7 @@
     <Grid>
         <Label x:Name="cpr_label" Content="CPR-nummer" HorizontalAlignment="Left" Margin="25,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402"/>
         <TextBox x:Name="cpr_textbox" HorizontalAlignment="Left" Margin="111,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
-        <Button x:Name="startMeasurement_button" Content="Start måling" HorizontalAlignment="Left" Margin="46,69,0,0" VerticalAlignment="Top" Width="125" Height="50"/>
+        <Button x:Name="startMeasurement_button" Content="Start måling" HorizontalAlignment="Left" Margin="46,69,0,0" VerticalAlignment="Top" Width="125" Height="50" Click="startMeasurement_button_Click"/>
         <Label x:Name="max_label" Content="Max" HorizontalAlignment="Left" Margin="282,32,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402"/>
         <Label x:Name="min_label" Content="Min" HorizontalAlignment="Left" Margin="282,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402"/>
         <Label x:Name="systolisk_label" Content="Systolisk" HorizontalAlignment="Left" Margin="340,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402" Width="60"/>

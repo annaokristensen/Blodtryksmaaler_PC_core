@@ -50,21 +50,21 @@ namespace DataLayer_PC
 		{
 			do
 			{
-				while(shallStop) //Skal kører så længe shallstop er true (skal ændres til start/stop knap på GUI)
+				while(!shallStop) //Skal kører så længe shallstop er true (skal ændres til start/stop knap på GUI)
 				{
                     List<BPMeasurementData_DTO> samplesList = new List<BPMeasurementData_DTO>();
                     List<string> holder = File.ReadAllLines(Path).ToList();
                     foreach (string sample in holder)
                     {
                         string[] input = sample.Split(' ');
-                        BPMeasurementData_DTO s = new BPMeasurementData_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1])); //gemmer intput 1 og 2 i DTO
+						BPMeasurementData_DTO s = new BPMeasurementData_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2])); //gemmer intput 1, 2, 3 i DTO
                         samplesList.Add(s);
                     }
                     return samplesList;
                 }
             }
 			while(true);
-
 		}
+
 	}
 }

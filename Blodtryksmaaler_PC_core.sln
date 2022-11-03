@@ -7,13 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer_PC", "DataLayer\D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicLayer_PC", "LogicLayer_PC\LogicLayer_PC.csproj", "{91A3961F-E23C-4B06-A7C2-A5CEBEDEF638}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationLayerPC_", "PresentationLayerPC_\PresentationLayerPC_.csproj", "{DF316AAF-0D10-4E26-B5F2-AB370C01EA62}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO_PC", "DTO_PC\DTO_PC.csproj", "{9BC6862E-A7EF-4C5C-9680-41BCE784E1DA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testConsole", "testConsole\testConsole.csproj", "{CB3005DD-05A5-497A-A0D3-687205C4ECB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayer_", "PresentationLayer_\PresentationLayer_.csproj", "{C025A7D9-C955-4E99-B3A2-E2E6E6DE1FBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationLayer_", "PresentationLayer_\PresentationLayer_.csproj", "{C025A7D9-C955-4E99-B3A2-E2E6E6DE1FBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{91A3961F-E23C-4B06-A7C2-A5CEBEDEF638}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91A3961F-E23C-4B06-A7C2-A5CEBEDEF638}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91A3961F-E23C-4B06-A7C2-A5CEBEDEF638}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF316AAF-0D10-4E26-B5F2-AB370C01EA62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF316AAF-0D10-4E26-B5F2-AB370C01EA62}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF316AAF-0D10-4E26-B5F2-AB370C01EA62}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF316AAF-0D10-4E26-B5F2-AB370C01EA62}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9BC6862E-A7EF-4C5C-9680-41BCE784E1DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9BC6862E-A7EF-4C5C-9680-41BCE784E1DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BC6862E-A7EF-4C5C-9680-41BCE784E1DA}.Release|Any CPU.ActiveCfg = Release|Any CPU

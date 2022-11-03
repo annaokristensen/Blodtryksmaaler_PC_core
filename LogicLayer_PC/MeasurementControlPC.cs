@@ -9,20 +9,21 @@ namespace LogicLayer_PC
     public class MeasurementControlPC
     {
         private MeasurementDataAccess measurementDataAccessObject;
+        private BPMeasurementData_DTO DTOObject;
 
         public MeasurementControlPC()
         {
             
             measurementDataAccessObject = new MeasurementDataAccess();
+            DTOObject = new BPMeasurementData_DTO();
             
         }
         public void getSamplesList()
         {
             foreach (var item in measurementDataAccessObject.ReadSample())
             {
-                Console.WriteLine(item.second + " " + item.sampleValue);
+                Console.WriteLine(item.second + " " + item.sampleValue + " " + item.middelValue);
             }
-            
         }
         public void testThread()
         {
@@ -34,7 +35,6 @@ namespace LogicLayer_PC
             }
             
         }
-
 
     }
 }

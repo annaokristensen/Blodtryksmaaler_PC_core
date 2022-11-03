@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +22,7 @@ namespace Presentation_Layer
     public partial class MainWindow : Window
     {
         public BPMeasurementData_DTO DTOobj;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -40,15 +42,17 @@ namespace Presentation_Layer
             else
                 this.Show();
         }
-
         private void saveChanges_button_Click(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToDouble(middleBTMax_textbox.Text) < DTOobj.sampleValue)
-            {
-
-            }
 
         }
 
+        private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
+        {
+            middleBTMax_textbox.Text = Convert.ToString(DTOobj.middelValue); //Udskriver MiddelValue i tekstboksen 
+            
+        }
+        
+        }
     }
-}
+
