@@ -8,24 +8,32 @@ namespace LogicLayer_PC
     /// </summary>
     public class MeasurementControlPC
     {
-        private MeasurementDataAccess measurementDataAccessObject;
+        private MeasurementDataAccess mesDataAccessObj;
         private BPMeasurementData_DTO DTOObject;
 
         public MeasurementControlPC()
         {
             
-            measurementDataAccessObject = new MeasurementDataAccess();
+            mesDataAccessObj = new MeasurementDataAccess();
             DTOObject = new BPMeasurementData_DTO();
             
         }
-        public void getSamplesList()
+        public void GetSamplesList()
         {
-            foreach (var item in measurementDataAccessObject.ReadSample())
+            foreach (var item in mesDataAccessObj.ReadSample())
             {
-                Console.WriteLine(item.second + " " + item.sampleValue + " " + item.middelValue);
+                Console.WriteLine(item.Second + " " + item.SampleValue + " " + item.MiddelValue);
             }
         }
-        public void testThread()
+
+        public double GetMiddelValueTest()
+        {
+	        mesDataAccessObj.ReadSample();
+	        double middelValue = DTOObject.MiddelValue;
+	        return middelValue;
+        }
+
+        public void TestThread()
         {
             int cnt = 10;
             while(cnt > 0)

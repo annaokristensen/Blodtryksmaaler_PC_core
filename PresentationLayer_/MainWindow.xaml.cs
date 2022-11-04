@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DataLayer_PC;
 using DTO_PC;
 using LogicLayer_PC;
 using Presentation_Layer_PC;
@@ -22,11 +23,13 @@ namespace Presentation_Layer
     public partial class MainWindow : Window
     {
         public BPMeasurementData_DTO DTOobj;
+        private MeasurementControlPC mesControlObj;
 
         public MainWindow()
         {
             InitializeComponent();
             DTOobj = new BPMeasurementData_DTO();
+            mesControlObj = new MeasurementControlPC();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -48,10 +51,11 @@ namespace Presentation_Layer
         }
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
-
-            middleBTValue_textbox.Text = Convert.ToString(DTOobj.middelValue); //Udskriver MiddelValue i tekstboksen    
+	        //middleBTMax_textbox.Text = Convert.ToString(mesControlObj.GetMiddelValueTest());
+	        //mesControlObj.GetMiddelValueTest();
+            middleBTValue_textbox.Text = Convert.ToString(DTOobj.MiddelValue); //Udskriver MiddelValue i tekstboksen
         }
 
-        }
-    }
+	}
+}
 

@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <Label x:Name="enterCPR_label" Content="Indtast patientens CPR-nummer" HorizontalAlignment="Left" Margin="153,127,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.053,-0.037" Width="182" Grid.Column="1"/>
         <TextBox x:Name="enterCPR_textbox" HorizontalAlignment="Left" Margin="184,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" GotFocus="enterCPR_textbox_GotFocus"/>
-        <Button x:Name="register_button" Content="Registrér" HorizontalAlignment="Left" Margin="184,192,0,0" VerticalAlignment="Top" Width="120" Height="50" RenderTransformOrigin="0.533,0.701" Click="register_button_Click" Grid.Column="1"/>
+        <Button x:Name="register_button" Content="Registrér" HorizontalAlignment="Left" Margin="184,192,0,0" VerticalAlignment="Top" Width="120" Height="50" RenderTransformOrigin="0.533,0.701" Click="register_button_Click" Grid.Column="1" IsDefault="True"/>
         <Label x:Name="errorMessage_label" Content="Det indtastede CPR-nummer findes ikke i databasen" HorizontalAlignment="Left" Margin="102,247,0,0" VerticalAlignment="Top" Width="284" FontStyle="Italic" RenderTransformOrigin="0.082,-0.884" Grid.Column="1" Background="White" Foreground="Red"/>
 
     </Grid>
