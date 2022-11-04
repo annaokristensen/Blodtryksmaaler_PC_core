@@ -14,7 +14,7 @@ namespace testConsole
             //Test til at udskrive tekstfilen
             Console.WriteLine("Hello, World!");
             MeasurementControlPC test1 = new MeasurementControlPC();
-            test1.getSamplesList();
+            test1.GetSamplesList();
 
            // Tråde
             BlockingCollection<BPMeasurementData_DTO> samplesList = new BlockingCollection<BPMeasurementData_DTO>();
@@ -23,8 +23,8 @@ namespace testConsole
             MeasurementDataAccess test = new MeasurementDataAccess(samplesList);
 
 
-            Thread testDataObjThread = new Thread(test1.getSamplesList);
-            Thread testThread = new Thread(test1.testThread);
+            Thread testDataObjThread = new Thread(test1.GetSamplesList);
+            Thread testThread = new Thread(test1.TestThread);
          
 
             testDataObjThread.Start();
