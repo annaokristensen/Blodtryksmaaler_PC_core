@@ -48,6 +48,7 @@ namespace Presentation_Layer
         }
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
+
             middleBTValue_textbox.Text = Convert.ToString(DTOobj.middelValue); //Udskriver MiddelValue i tekstboksen    
         }
 

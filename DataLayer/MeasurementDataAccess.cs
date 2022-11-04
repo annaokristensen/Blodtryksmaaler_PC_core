@@ -19,7 +19,7 @@ namespace DataLayer_PC
 		//SqlConnection conn;
 		private readonly BlockingCollection<BPMeasurementData_DTO> samplesList = new BlockingCollection<BPMeasurementData_DTO>();
 		//public string Path = "samplestest.txt";
-		public string Path = "C:\\Users\\rikke\\OneDrive\\Dokumenter\\3. semester\\Semesterprojekt\\BlodtryksmålerPC_\\DataLayer\\bin\\Debug\\net5.0\\testmedtal.txt";
+		public string Path = @"testmedtal.txt";
 		public double second { get; set; }
 		public double sampleValue { get; set; }
 		public List<MeasurementDataAccess> LoadedSampleValue;

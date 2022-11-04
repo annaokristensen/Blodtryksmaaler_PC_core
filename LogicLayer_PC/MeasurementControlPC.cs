@@ -33,7 +33,7 @@ namespace LogicLayer_PC
                 Console.WriteLine("test");
                 cnt--;
             }
-            
+ 
         }
 
     }

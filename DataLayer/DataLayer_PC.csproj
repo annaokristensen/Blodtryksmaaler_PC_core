@@ -12,4 +12,10 @@
     <ProjectReference Include="..\DTO_PC\DTO_PC.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="testmedtal.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
