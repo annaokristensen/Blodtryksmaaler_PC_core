@@ -14,6 +14,10 @@ using DataLayer_PC;
 using DTO_PC;
 using LogicLayer_PC;
 using Presentation_Layer_PC;
+using System.Forms;
+
+
+
 
 namespace Presentation_Layer
 {
@@ -24,6 +28,7 @@ namespace Presentation_Layer
     {
         public BPMeasurementData_DTO DTOobj;
         private MeasurementControlPC mesControlObj;
+        
 
         public MainWindow()
         {
@@ -54,6 +59,16 @@ namespace Presentation_Layer
 	        //middleBTMax_textbox.Text = Convert.ToString(mesControlObj.GetMiddelValueTest());
 	        //mesControlObj.GetMiddelValueTest();
             middleBTValue_textbox.Text = Convert.ToString(DTOobj.MiddelValue); //Udskriver MiddelValue i tekstboksen
+        }
+
+        private void Alarm()
+        {
+            if (Convert.ToInt32((middleBTMax_textbox.Text)) < Convert.ToInt32(middleBTValue_textbox.Text) ||
+                Convert.ToInt32(middleBTValue_textbox.Text) < Convert.ToInt32(middleBTMin_textbox.Text))
+            {
+                //middleBTValue_textbox.ForeColor = Color.Red;
+                // kan ikke finde ud af at gøre teksten rød. er lidt i tvivl om vi mangler en nuget package
+            }
         }
 
 	}
