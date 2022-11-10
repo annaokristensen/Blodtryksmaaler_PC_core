@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="C:\Users\julie\OneDrive\Andet end uni\Skrivebord\Lokal gemt semesterprojekt kode backup\BPMeasurementData_DTO.cs" Link="BPMeasurementData_DTO.cs" />
+  </ItemGroup>
+
 </Project>

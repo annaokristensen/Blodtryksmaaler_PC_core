@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography.Xml;
-using System.Text;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows.Threading;
-using DataLayer_PC;
-using DTO_PC;
+﻿using DTO_PC;
 using LogicLayer_PC;
 using Presentation_Layer_PC;
+using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Media;
+
 
 namespace Presentation_Layer
 {
@@ -30,7 +20,7 @@ namespace Presentation_Layer
         int taeller = 0;
 
 
-		public MainWindow()
+        public MainWindow()
         {
             InitializeComponent();
             DTOobj = new BPMeasurementData_DTO();
@@ -52,21 +42,27 @@ namespace Presentation_Layer
                 this.Show();
 
             dispatcherTimer.Tick += DispatcherTimer_Tick;
+<<<<<<< HEAD
             dispatcherTimer.Interval = new TimeSpan(0, 0, 2); //Intervallet for hvor ofte data skifter på GUI'en
             
 		}
+=======
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
+
+        }
+>>>>>>> 3d2ab6af5e6732812b712825fff6e6f6426368da
 
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
-	        List<BPMeasurementData_DTO> dtoGUI_list = mesControlObj.GetAllValues();
+            List<BPMeasurementData_DTO> dtoGUI_list = mesControlObj.GetAllValues();
 
-			if (taeller < dtoGUI_list.Count)
-			{
-				middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
-				pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
-				sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
-				taeller++;
-			}
+            if (taeller < dtoGUI_list.Count)
+            {
+                middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
+                pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
+                sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
+                taeller++;
+            }
         }
 
         private void saveChanges_button_Click(object sender, RoutedEventArgs e)
@@ -77,9 +73,24 @@ namespace Presentation_Layer
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
             //Når der trykkes på "Start Måling" så går timeren i gang. Den udfører det den er implementeret til med det interval den er sat til at gøre det med
-			dispatcherTimer.Start();
-		}
+            dispatcherTimer.Start();
+            Alarm();
 
-	}
+        }
+
+        private void Alarm()
+        {
+            if (Convert.ToInt32((middleBTMax_textbox.Text)) < Convert.ToInt32(middleBTValue_textbox.Text) ||
+                Convert.ToInt32(middleBTValue_textbox.Text) < Convert.ToInt32(middleBTMin_textbox.Text))
+            {
+                middleBTValue_textbox.Foreground = Brushes.Red;
+            }
+            else
+            {
+                middleBTValue_textbox.Foreground = Brushes.Black;
+            }
+        }
+
+    }
 }
 
