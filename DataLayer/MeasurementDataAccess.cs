@@ -57,7 +57,7 @@ namespace DataLayer_PC
                     foreach (string sample in holder)
                     {
                         string[] input = sample.Split(' ');
-						BPMeasurementData_DTO s = new BPMeasurementData_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2])); //gemmer intput 1, 2, 3 i DTO
+						BPMeasurementData_DTO s = new BPMeasurementData_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3])); //gemmer intput 1, 2, 3 i DTO
                         samplesList.Add(s);
                     }
                     return samplesList;

@@ -8,8 +8,9 @@ namespace DTO_PC
 	/// </summary>
 	public class BPMeasurementData_DTO
 	{
-		public double Second { get; set; }
-		public double SampleValue { get; set; }
+		public double Pulse { get; set; }
+		public double SystoliskValue { get; set; }
+		public double DiastoliskValue { get; set; }
 		public double MiddelValue { get; set; }
 		public int MeasurementID { get; set; }
 		//Cpr er udkommenteret, fordi den modsat de andre værdier kommer fra GUI'en (tror jeg - Julie)
@@ -41,10 +42,11 @@ namespace DTO_PC
 		}
 
 		//Contructoren bruges til til at gemme det indlæste data
-		public BPMeasurementData_DTO(double second, double sampleValue, double middelValue)
+		public BPMeasurementData_DTO(double pulse, double systoliskValue, double diastoliskValue, double middelValue)
 		{
-			this.Second = second;
-			this.SampleValue = sampleValue;
+			this.Pulse = pulse;
+			this.SystoliskValue = systoliskValue;
+			this.DiastoliskValue = diastoliskValue;
 			this.MiddelValue = middelValue;
 		}
 		public BPMeasurementData_DTO()

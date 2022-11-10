@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography.Xml;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using DataLayer_PC;
 using DTO_PC;
 using LogicLayer_PC;
@@ -28,13 +30,16 @@ namespace Presentation_Layer
     {
         public BPMeasurementData_DTO DTOobj;
         private MeasurementControlPC mesControlObj;
-        
+        private System.Windows.Threading.DispatcherTimer dispatcherTimer;
+        int taeller = 0;
 
-        public MainWindow()
+
+		public MainWindow()
         {
             InitializeComponent();
             DTOobj = new BPMeasurementData_DTO();
             mesControlObj = new MeasurementControlPC();
+            dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -49,17 +54,34 @@ namespace Presentation_Layer
                 this.Close();
             else
                 this.Show();
+
+            dispatcherTimer.Tick += DispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
+            
+		}
+
+        private void DispatcherTimer_Tick(object? sender, EventArgs e)
+        {
+	        List<BPMeasurementData_DTO> dtoGUI_list = mesControlObj.GetAllValues();
+
+			if (taeller < dtoGUI_list.Count)
+			{
+				middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
+				pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
+				sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
+				taeller++;
+			}
         }
+
         private void saveChanges_button_Click(object sender, RoutedEventArgs e)
         {
 
         }
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
-	        //middleBTMax_textbox.Text = Convert.ToString(mesControlObj.GetMiddelValueTest());
-	        //mesControlObj.GetMiddelValueTest();
-            middleBTValue_textbox.Text = Convert.ToString(DTOobj.MiddelValue); //Udskriver MiddelValue i tekstboksen
-        }
+            //Når der trykkes på "Start Måling" så går timeren i gang. Den udfører det den er implementeret til med det interval den er sat til at gøre det med
+			dispatcherTimer.Start();
+		}
 
         private void Alarm()
         {

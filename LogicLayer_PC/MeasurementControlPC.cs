@@ -13,8 +13,8 @@ namespace LogicLayer_PC
 
         public MeasurementControlPC()
         {
-            
-            mesDataAccessObj = new MeasurementDataAccess();
+
+	        mesDataAccessObj = new MeasurementDataAccess();
             DTOObject = new BPMeasurementData_DTO();
             
         }
@@ -22,15 +22,14 @@ namespace LogicLayer_PC
         {
             foreach (var item in mesDataAccessObj.ReadSample())
             {
-                Console.WriteLine(item.Second + " " + item.SampleValue + " " + item.MiddelValue);
+                Console.WriteLine(item.Pulse + " " + item.SystoliskValue + " " + item.DiastoliskValue + " " + item.MiddelValue);
             }
         }
 
-        public double GetMiddelValueTest()
+        public List<BPMeasurementData_DTO> GetAllValues()
         {
-	        mesDataAccessObj.ReadSample();
-	        double middelValue = DTOObject.MiddelValue;
-	        return middelValue;
+	        List<BPMeasurementData_DTO> dto_List = mesDataAccessObj.ReadSample();
+	        return dto_List;
         }
 
         public void TestThread()
