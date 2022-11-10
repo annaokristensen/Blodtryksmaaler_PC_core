@@ -74,9 +74,14 @@ namespace Presentation_Layer
 
         }
 
+        
         private void Alarm()
         {
-            if (Convert.ToInt32((middleBTMax_textbox.Text)) < Convert.ToInt32(middleBTValue_textbox.Text) ||
+            int MiddelMax = Convert.ToInt32(middleBTMax_textbox);
+            int MiddelMin = Convert.ToInt32(middleBTMin_textbox);
+            int MiddelVærdi = Convert.ToInt32((middleBTValue_textbox));
+
+            if MiddelMax < mid ||
                 Convert.ToInt32(middleBTValue_textbox.Text) < Convert.ToInt32(middleBTMin_textbox.Text))
             {
                 middleBTValue_textbox.Foreground = Brushes.Red;
@@ -85,6 +90,16 @@ namespace Presentation_Layer
             {
                 middleBTValue_textbox.Foreground = Brushes.Black;
             }
+
+            //if (Convert.ToInt32((middleBTMax_textbox.Text)) < Convert.ToInt32(middleBTValue_textbox.Text) ||
+            //    Convert.ToInt32(middleBTValue_textbox.Text) < Convert.ToInt32(middleBTMin_textbox.Text))
+            //{
+            //    middleBTValue_textbox.Foreground = Brushes.Red;
+            //}
+            //else
+            //{
+            //    middleBTValue_textbox.Foreground = Brushes.Black;
+            //}
         }
 
     }
