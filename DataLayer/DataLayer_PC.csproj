@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="C:\Users\julie\OneDrive\Andet end uni\Skrivebord\Lokal gemt semesterprojekt kode backup\MeasurementDataAccess.cs" Link="MeasurementDataAccess.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.4" />
   </ItemGroup>
 

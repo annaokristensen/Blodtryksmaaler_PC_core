@@ -26,13 +26,14 @@ namespace Presentation_Layer
         private System.Windows.Threading.DispatcherTimer dispatcherTimer;
         int taeller = 0;
 
-
         public MainWindow()
         {
             InitializeComponent();
             DTOobj = new BPMeasurementData_DTO();
             mesControlObj = new MeasurementControlPC();
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            mesControlObj = new MeasurementControlPC();
+            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -49,12 +50,7 @@ namespace Presentation_Layer
                 this.Show();
 
             dispatcherTimer.Tick += DispatcherTimer_Tick;
-<<<<<<< HEAD
             dispatcherTimer.Interval = new TimeSpan(0, 0, 2); //Intervallet for hvor ofte data skifter på GUI'en
-            
-		}
-=======
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
             
 		}
 
@@ -91,7 +87,9 @@ namespace Presentation_Layer
             int MiddelMin = Convert.ToInt32(middleBTMin_textbox);
             int MiddelVærdi = Convert.ToInt32((middleBTValue_textbox));
 
-            if MiddelMax < mid ||
+            int mid = 12; // TODO Fix later
+
+            if (MiddelMax < mid ||
                 Convert.ToInt32(middleBTValue_textbox.Text) < Convert.ToInt32(middleBTMin_textbox.Text))
             {
                 middleBTValue_textbox.Foreground = Brushes.Red;

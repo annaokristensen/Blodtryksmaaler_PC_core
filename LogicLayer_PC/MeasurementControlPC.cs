@@ -29,7 +29,8 @@ namespace LogicLayer_PC
         public double GetMiddelValueTest()
         {
 	        List<BPMeasurementData_DTO> dto_List = mesDataAccessObj.ReadSample();
-	        return dto_List;
+            // TODO FIX return dto_List;
+            return 0.0;
         }
 
         public void TestThread()
@@ -43,5 +44,9 @@ namespace LogicLayer_PC
  
         }
 
+        public List<BPMeasurementData_DTO> GetAllValues()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
