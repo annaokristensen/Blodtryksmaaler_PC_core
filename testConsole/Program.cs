@@ -16,7 +16,7 @@ namespace testConsole
             MeasurementControlPC test1 = new MeasurementControlPC();
             test1.GetSamplesList();
 
-           // Tråde
+            // Tråde
             BlockingCollection<BPMeasurementData_DTO> samplesList = new BlockingCollection<BPMeasurementData_DTO>();
 
 
@@ -25,7 +25,7 @@ namespace testConsole
 
             Thread testDataObjThread = new Thread(test1.GetSamplesList);
             Thread testThread = new Thread(test1.TestThread);
-         
+
 
             testDataObjThread.Start();
             testThread.Start();

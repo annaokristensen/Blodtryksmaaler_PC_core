@@ -5,6 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using System.Windows.Threading;
+using DataLayer_PC;
+using DTO_PC;
+using LogicLayer_PC;
+using Presentation_Layer_PC;
 
 
 namespace Presentation_Layer
@@ -48,9 +55,8 @@ namespace Presentation_Layer
 		}
 =======
             dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
-
-        }
->>>>>>> 3d2ab6af5e6732812b712825fff6e6f6426368da
+            
+		}
 
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
