@@ -25,7 +25,6 @@ namespace LogicLayer_PC
                 Console.WriteLine(item.Second + " " + item.SampleValue + " " + item.MiddelValue);
             }
         }
-
         public double GetMiddelValueTest()
         {
 	        mesDataAccessObj.ReadSample();
