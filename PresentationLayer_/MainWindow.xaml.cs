@@ -74,8 +74,8 @@ namespace Presentation_Layer
 
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
-            //Når der trykkes på "Start Måling" så går timeren i gang. Den udfører det den er implementeret til med det interval den er sat til at gøre det med
-            dispatcherTimer.Start();
+	        //Når der trykkes på "Start Måling" så går timeren i gang. Den udfører det den er implementeret til med det interval den er sat til at gøre det med
+			dispatcherTimer.Start();
             Alarm();
 
         }
