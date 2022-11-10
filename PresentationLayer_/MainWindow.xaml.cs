@@ -52,7 +52,7 @@ namespace Presentation_Layer
                 this.Show();
 
             dispatcherTimer.Tick += DispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 2); //Intervallet for hvor ofte data skifter på GUI'en
             
 		}
 
@@ -73,6 +73,7 @@ namespace Presentation_Layer
         {
 
         }
+
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
             //Når der trykkes på "Start Måling" så går timeren i gang. Den udfører det den er implementeret til med det interval den er sat til at gøre det med
