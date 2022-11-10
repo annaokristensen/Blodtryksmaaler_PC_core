@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="C:\Users\julie\OneDrive\Andet end uni\Skrivebord\Lokal gemt semesterprojekt kode backup\MeasurementControlPC.cs" Link="MeasurementControlPC.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer_PC.csproj" />
     <ProjectReference Include="..\DTO_PC\DTO_PC.csproj" />
   </ItemGroup>

@@ -26,7 +26,7 @@ namespace LogicLayer_PC
             }
         }
 
-        public List<BPMeasurementData_DTO> GetAllValues()
+        public double GetMiddelValueTest()
         {
 	        List<BPMeasurementData_DTO> dto_List = mesDataAccessObj.ReadSample();
 	        return dto_List;

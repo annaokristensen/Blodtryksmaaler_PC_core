@@ -5,9 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
-
-
-
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using System.Windows.Threading;
+using DataLayer_PC;
+using DTO_PC;
+using LogicLayer_PC;
+using Presentation_Layer_PC;
 
 
 namespace Presentation_Layer
@@ -45,9 +49,14 @@ namespace Presentation_Layer
                 this.Show();
 
             dispatcherTimer.Tick += DispatcherTimer_Tick;
+<<<<<<< HEAD
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 2); //Intervallet for hvor ofte data skifter på GUI'en
+            
+		}
+=======
             dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
-
-        }
+            
+		}
 
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
@@ -66,6 +75,7 @@ namespace Presentation_Layer
         {
 
         }
+
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
             //Når der trykkes på "Start Måling" så går timeren i gang. Den udfører det den er implementeret til med det interval den er sat til at gøre det med
