@@ -34,6 +34,7 @@ namespace Presentation_Layer
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             mesControlObj = new MeasurementControlPC();
             
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -64,6 +65,7 @@ namespace Presentation_Layer
                 pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
                 sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
                 taeller++;
+                Alarm();
             }
         }
 
@@ -74,22 +76,18 @@ namespace Presentation_Layer
 
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
-	        //Når der trykkes på "Start Måling" så går timeren i gang. Den udfører det den er implementeret til med det interval den er sat til at gøre det med
-			dispatcherTimer.Start();
-            Alarm();
+            
+            //Når der trykkes på "Start Måling" så går timeren i gang. Den udfører det den er implementeret til med det interval den er sat til at gøre det med
+            dispatcherTimer.Start();
+            
+            
 
         }
 
         
         private void Alarm()
         {
-            int MiddelMax = Convert.ToInt32(middleBTMax_textbox);
-            int MiddelMin = Convert.ToInt32(middleBTMin_textbox);
-            int MiddelVærdi = Convert.ToInt32((middleBTValue_textbox));
-
-            int mid = 12; // TODO Fix later
-
-            if (MiddelMax < mid ||
+            if (Convert.ToInt32((middleBTMax_textbox.Text)) < Convert.ToInt32(middleBTValue_textbox.Text) ||
                 Convert.ToInt32(middleBTValue_textbox.Text) < Convert.ToInt32(middleBTMin_textbox.Text))
             {
                 middleBTValue_textbox.Foreground = Brushes.Red;
@@ -98,16 +96,6 @@ namespace Presentation_Layer
             {
                 middleBTValue_textbox.Foreground = Brushes.Black;
             }
-
-            //if (Convert.ToInt32((middleBTMax_textbox.Text)) < Convert.ToInt32(middleBTValue_textbox.Text) ||
-            //    Convert.ToInt32(middleBTValue_textbox.Text) < Convert.ToInt32(middleBTMin_textbox.Text))
-            //{
-            //    middleBTValue_textbox.Foreground = Brushes.Red;
-            //}
-            //else
-            //{
-            //    middleBTValue_textbox.Foreground = Brushes.Black;
-            //}
         }
 
     }
