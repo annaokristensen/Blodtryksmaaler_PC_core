@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <lvc:CartesianChart Name="BloodPressureGraph" Height="300" Width="600" LegendLocation="Left" Margin="-160,110,10,96" >
+        <lvc:CartesianChart Name="MiddelGraph" Height="90" Width="600" LegendLocation="Left" Margin="-160,110,10,96" >
             <lvc:CartesianChart.Series>
                 <lvc:LineSeries Name="MiddelValue" Title="Middel" Values="{Binding Ymiddel}"/>
             </lvc:CartesianChart.Series>
@@ -21,8 +21,22 @@
                 <lvc:Axis Title="Second" LabelsRotation="45" Labels="{Binding XdateTime}"/>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
-        
-        
+
+        <lvc:CartesianChart Name="SystoliskDiastoliskGraph" Height="90" Width="600" LegendLocation="Left" Margin="-160,50,10,96" >
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries Name="MiddelValue" Title="Middel" Values="{Binding Ymiddel}"/>
+            </lvc:CartesianChart.Series>
+
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="mmHg"/>
+            </lvc:CartesianChart.AxisY>
+
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Second" LabelsRotation="45" Labels="{Binding XdateTime}"/>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
+
+
         <Label x:Name="cpr_label" Content="CPR-nummer" HorizontalAlignment="Left" Margin="25,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402"/>
         <TextBox x:Name="cpr_textbox" HorizontalAlignment="Left" Margin="111,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
         <Button x:Name="startMeasurement_button" Content="Start måling" HorizontalAlignment="Left" Margin="46,69,0,0" VerticalAlignment="Top" Width="125" Height="50" Click="startMeasurement_button_Click"/>
