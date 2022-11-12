@@ -8,10 +8,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <lvc:CartesianChart Name="BloodPressureGraph" Height="300" Width="600" LegendLocation="Left" Margin="-160,145,10,96" >
+        <lvc:CartesianChart Name="BloodPressureGraph" Height="300" Width="600" LegendLocation="Left" Margin="-160,110,10,96" >
             <lvc:CartesianChart.Series>
                 <lvc:LineSeries Name="MiddelValue" Title="Middel" Values="{Binding Ymiddel}"/>
             </lvc:CartesianChart.Series>
+
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="mmHg"/>
+            </lvc:CartesianChart.AxisY>
+            
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Second" LabelsRotation="45" Labels="{Binding XdateTime}"/>
+            </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
         
         

@@ -32,6 +32,7 @@ namespace Presentation_Layer
 
         //Tilknyt data til livecharts graf
         public ChartValues<double> Ymiddel { get; set; }
+        public ChartValues<string> XdateTime { get; set; }
 
         public MainWindow()
         {
@@ -42,6 +43,7 @@ namespace Presentation_Layer
             mesControlObj = new MeasurementControlPC();
 
             Ymiddel = new ChartValues<double>();
+            XdateTime = new ChartValues<string>();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -60,14 +62,20 @@ namespace Presentation_Layer
             dispatcherTimer.Interval = new TimeSpan(0, 0, 2); //Intervallet for hvor ofte data skifter på GUI'en   
 
 
-            //Graf
+            /////Graf
             List<double> middelvalue = mesControlObj.GetMiddelValue();
             foreach (var item in middelvalue)
             {
                 Ymiddel.Add(item); //Add middelvalues fra getMiddelVlaue()
             }
             DataContext = this;
-             
+
+            List<string> dateTime = mesControlObj.GetDateTime();
+            foreach (var item in dateTime)
+            {
+                XdateTime.Add(item);
+            }
+            DataContext = this;
 		}
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {

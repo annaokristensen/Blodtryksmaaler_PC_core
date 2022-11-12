@@ -13,7 +13,7 @@ namespace DTO_PC
 		public double DiastoliskValue { get; set; }
 		public double MiddelValue { get; set; }
 		public int MeasurementID { get; set; }
-		public DateTime dateTime { get; set; }
+		public string dateTime { get; set; }
 
 		//Cpr er udkommenteret, fordi den modsat de andre værdier kommer fra GUI'en (tror jeg - Julie)
 		//public string Cpr { get; set; }
@@ -44,7 +44,7 @@ namespace DTO_PC
 		}
 
 		//Contructoren bruges til til at gemme det indlæste data
-		public BPMeasurementData_DTO(double pulse, double systoliskValue, double diastoliskValue, double middelValue, DateTime dateTime)
+		public BPMeasurementData_DTO(double pulse, double systoliskValue, double diastoliskValue, double middelValue, string dateTime)
 		{
 			this.Pulse = pulse;
 			this.SystoliskValue = systoliskValue;

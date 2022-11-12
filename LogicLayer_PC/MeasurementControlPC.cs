@@ -57,5 +57,14 @@ namespace LogicLayer_PC
             }
             return middelValue_List;
         }
+        public List<string> GetDateTime()
+        {
+            List<string> dateTime_List = new List<string>();
+            foreach (var item in mesDataAccessObj.ReadSample())
+            {
+                dateTime_List.Add(item.dateTime);
+            }
+            return dateTime_List;
+        }
     }
 }
