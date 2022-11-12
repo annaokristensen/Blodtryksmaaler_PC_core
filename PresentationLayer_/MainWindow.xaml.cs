@@ -12,6 +12,7 @@ using DataLayer_PC;
 using DTO_PC;
 using LogicLayer_PC;
 using Presentation_Layer_PC;
+using System.Runtime.ConstrainedExecution;
 
 
 namespace Presentation_Layer
@@ -33,10 +34,7 @@ namespace Presentation_Layer
             mesControlObj = new MeasurementControlPC();
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             mesControlObj = new MeasurementControlPC();
-            
-
         }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Hide();
@@ -51,10 +49,8 @@ namespace Presentation_Layer
                 this.Show();
 
             dispatcherTimer.Tick += DispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 2); //Intervallet for hvor ofte data skifter på GUI'en
-            
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 2); //Intervallet for hvor ofte data skifter på GUI'en   
 		}
-
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
             List<BPMeasurementData_DTO> dtoGUI_list = mesControlObj.GetAllValues();
@@ -68,23 +64,15 @@ namespace Presentation_Layer
                 Alarm();
             }
         }
-
         private void saveChanges_button_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
-            
             //Når der trykkes på "Start Måling" så går timeren i gang. Den udfører det den er implementeret til med det interval den er sat til at gøre det med
             dispatcherTimer.Start();
-            
-            
-
-        }
-
-        
+        }        
         private void Alarm()
         {
             if (Convert.ToInt32((middleBTMax_textbox.Text)) < Convert.ToInt32(middleBTValue_textbox.Text) ||
@@ -97,7 +85,27 @@ namespace Presentation_Layer
                 middleBTValue_textbox.Foreground = Brushes.Black;
             }
         }
+        private void stopAndSave_button_Click(object sender, RoutedEventArgs e)
+        {
 
+
+
+
+
+            //if (findesIOffentligDB = true && TB_kommentar.Text != "")
+            //{
+            //    logikObj.setMaaling(CPR, voltage, dato, AV_blok, TB_kommentar.Text);
+            //    Close();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Skriv en kommentar til målingen i kommentarfeltet. Gem derefter målingen");
+            //}
+
+
+            ////findesIOffentligDB = true;
+            ////Close();
+        }
     }
 }
 

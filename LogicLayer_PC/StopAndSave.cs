@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DTO_PC;
+using DataLayer_PC;
 
 namespace LogicLayer_PC
 {
@@ -12,6 +13,12 @@ namespace LogicLayer_PC
 	/// </summary>
 	class StopAndSave
 	{
+		private SaveMeasurement saveMeasurementObj;
+
+		public StopAndSave()
+		{
+			saveMeasurementObj = new SaveMeasurement();
+		}
 		/// <summary>
 		/// Metoden som bliver kaldt, når vi trykker på "Stop og Gem" på GUI'en.
 		/// Tager DTO-klasse som parameter, så det kan blive gemt i databasen.
@@ -21,9 +28,12 @@ namespace LogicLayer_PC
 		public void SaveMeasurement(BPMeasurementData_DTO bpMesData, string cpr)
 		{
 			BPMeasurementData_DTO bpmDataDto = new BPMeasurementData_DTO(bpMesData.MeasurementID, bpMesData.RawData,
-				bpMesData.SystoliskValues, bpMesData.DiastoliskValues, bpMesData.PulseValues, bpMesData.MiddelValues, 
+				bpMesData.SystoliskValues, bpMesData.DiastoliskValues, bpMesData.PulseValues, bpMesData.MiddelValues,
 				bpMesData.StartDateTime, bpMesData.StopDateTime, bpMesData.AlarmDateTimes);
-
-		}
+			
+			
+			//saveMeasurementObj.setMeasurement(bpMesData, cpr); ???? 
+        }
+		
 	}
 }
