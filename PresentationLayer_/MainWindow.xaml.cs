@@ -13,6 +13,8 @@ using DTO_PC;
 using LogicLayer_PC;
 using Presentation_Layer_PC;
 using System.Runtime.ConstrainedExecution;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 
 namespace Presentation_Layer
