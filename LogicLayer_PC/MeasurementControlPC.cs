@@ -66,6 +66,27 @@ namespace LogicLayer_PC
             }
             return dateTime_List;
         }
-        
+
+        public List<double> GetSystolic()
+        {
+            List<double> systolic_list = new List<double>();
+            foreach (var item in mesDataAccessObj.ReadSample())
+            {
+                systolic_list.Add(item.SystoliskValue);
+            }
+
+            return systolic_list;
+        }
+        public List<double> GetDiastolic()
+        {
+            List<double> diastolic_list = new List<double>();
+            foreach (var item in mesDataAccessObj.ReadSample())
+            {
+                diastolic_list.Add(item.SystoliskValue);
+            }
+
+            return diastolic_list;
+        }
+
     }
 }

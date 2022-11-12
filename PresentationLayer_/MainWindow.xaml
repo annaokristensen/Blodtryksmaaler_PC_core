@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <lvc:CartesianChart Name="MiddelGraph" Height="90" Width="600" LegendLocation="Left" Margin="-160,110,10,96" >
+        <lvc:CartesianChart Name="MiddelGraph" Height="110" Width="600" LegendLocation="Left" Margin="-160,110,10,96" >
             <lvc:CartesianChart.Series>
                 <lvc:LineSeries Name="MiddelValue" Title="Middel" Values="{Binding Ymiddel}"/>
             </lvc:CartesianChart.Series>
@@ -22,9 +22,10 @@
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 
-        <lvc:CartesianChart Name="SystoliskDiastoliskGraph" Height="90" Width="600" LegendLocation="Left" Margin="-160,50,10,96" >
+        <lvc:CartesianChart Name="SystolicDiastolicGraph" Height="110" Width="600" LegendLocation="Left" Margin="-160,-100,10,96" >
             <lvc:CartesianChart.Series>
-                <lvc:LineSeries Name="MiddelValue" Title="Middel" Values="{Binding Ymiddel}"/>
+                <lvc:LineSeries Name="Systolic" Title="Systolisk" Values="{Binding Ysystolic}"/>
+                <lvc:LineSeries Name="Diastolic" Title="Diastolisk" Values="{Binding Ydiastolic}"/>
             </lvc:CartesianChart.Series>
 
             <lvc:CartesianChart.AxisY>

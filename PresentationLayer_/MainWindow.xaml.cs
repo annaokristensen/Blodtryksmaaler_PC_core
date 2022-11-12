@@ -34,6 +34,9 @@ namespace Presentation_Layer
         public ChartValues<double> Ymiddel { get; set; }
         public ChartValues<string> XdateTime { get; set; }
 
+        public  ChartValues<double> Ysystolic { get; set; }
+        public ChartValues<double> Ydiastolic { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -44,6 +47,8 @@ namespace Presentation_Layer
 
             Ymiddel = new ChartValues<double>();
             XdateTime = new ChartValues<string>();
+            Ysystolic = new ChartValues<double>();
+            Ydiastolic = new ChartValues<double>();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -76,7 +81,23 @@ namespace Presentation_Layer
                 XdateTime.Add(item);
             }
             DataContext = this;
-		}
+
+            List<double> systolic = mesControlObj.GetSystolic();
+            foreach (var item in systolic)
+            {
+                Ysystolic.Add(item);
+            }
+
+            DataContext = this;
+
+            List<double> diastolic = mesControlObj.GetDiastolic();
+            foreach (var item in diastolic)
+            {
+                Ydiastolic.Add(item);
+            }
+
+            DataContext = this;
+        }
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
             List<BPMeasurementData_DTO> dtoGUI_list = mesControlObj.GetAllValues();
