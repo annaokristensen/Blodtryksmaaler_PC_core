@@ -82,10 +82,20 @@ namespace LogicLayer_PC
             List<double> diastolic_list = new List<double>();
             foreach (var item in mesDataAccessObj.ReadSample())
             {
-                diastolic_list.Add(item.SystoliskValue);
+                diastolic_list.Add(item.DiastoliskValue);
             }
 
             return diastolic_list;
+        }
+        public List<double> GetPulse()
+        {
+            List<double> pulse_list = new List<double>();
+            foreach (var item in mesDataAccessObj.ReadSample())
+            {
+                pulse_list.Add(item.Pulse);
+            }
+
+            return pulse_list;
         }
 
     }

@@ -15,6 +15,7 @@ namespace LogicLayer_PC
 	{
 		CPRDataAccess cprDA = new CPRDataAccess(); //(den kan ikke genkende klassen)
 		
+		
 		//Opretter en 'midlertidig' liste til at 'holde' cpr-numrene som modtages fra datalaget.
 		private List<string> midlCPRList = new List<string>();
 

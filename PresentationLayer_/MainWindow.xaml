@@ -8,9 +8,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <lvc:CartesianChart Name="MiddelGraph" Height="110" Width="600" LegendLocation="Left" Margin="-160,110,10,96" >
+        <lvc:CartesianChart Name="MiddelGraph" Height="110" Width="600" LegendLocation="Left" Margin="15,221,185,203" >
             <lvc:CartesianChart.Series>
-                <lvc:LineSeries Name="MiddelValue" Title="Middel" Values="{Binding Ymiddel}"/>
+                <lvc:LineSeries Name="MiddelValue" Title="Middel" Values="{Binding Ymiddel}" Fill="Transparent" PointGeometry="{x:Null}"/>
             </lvc:CartesianChart.Series>
 
             <lvc:CartesianChart.AxisY>
@@ -24,8 +24,22 @@
 
         <lvc:CartesianChart Name="SystolicDiastolicGraph" Height="110" Width="600" LegendLocation="Left" Margin="-160,-100,10,96" >
             <lvc:CartesianChart.Series>
-                <lvc:LineSeries Name="Systolic" Title="Systolisk" Values="{Binding Ysystolic}"/>
-                <lvc:LineSeries Name="Diastolic" Title="Diastolisk" Values="{Binding Ydiastolic}"/>
+                <lvc:LineSeries Name="Systolic" Title="Systolisk" Values="{Binding Ysystolic}" Fill="Transparent" PointGeometry="{x:Null}" Stroke="green"/>
+                <lvc:LineSeries Name="Diastolic" Title="Diastolisk" Values="{Binding Ydiastolic}" Fill="Transparent" PointGeometry="{x:Null}"/>
+            </lvc:CartesianChart.Series>
+
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="mmHg"/>
+            </lvc:CartesianChart.AxisY>
+
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Second" LabelsRotation="45" Labels="{Binding XdateTime}"/>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
+
+        <lvc:CartesianChart Name="PulseGraph" Height="110" Width="600" LegendLocation="Left" Margin="-160,340,10,96" >
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries Name="Pulse" Title="Puls" Values="{Binding Ypulse}" Fill="Transparent" PointGeometry="{x:Null}"/>
             </lvc:CartesianChart.Series>
 
             <lvc:CartesianChart.AxisY>
