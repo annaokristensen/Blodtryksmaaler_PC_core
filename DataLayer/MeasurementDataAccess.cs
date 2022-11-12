@@ -20,6 +20,7 @@ namespace DataLayer_PC
 		private readonly BlockingCollection<BPMeasurementData_DTO> samplesList = new BlockingCollection<BPMeasurementData_DTO>();
 		//public string Path = "samplestest.txt";
 		public string Path = @"testmedtal.txt";
+		//@"Physionet.txt";
 		public double second { get; set; }
 		public double sampleValue { get; set; }
 		public List<MeasurementDataAccess> LoadedSampleValue;
