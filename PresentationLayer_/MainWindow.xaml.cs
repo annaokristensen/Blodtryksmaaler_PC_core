@@ -28,6 +28,10 @@ namespace Presentation_Layer
         private MeasurementControlPC mesControlObj;
         private System.Windows.Threading.DispatcherTimer dispatcherTimer;
         int taeller = 0;
+        
+
+        //Tilknyt data til livecharts graf
+        public ChartValues<double> Ymiddel { get; set; }
 
         public MainWindow()
         {
@@ -36,6 +40,8 @@ namespace Presentation_Layer
             mesControlObj = new MeasurementControlPC();
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             mesControlObj = new MeasurementControlPC();
+
+            Ymiddel = new ChartValues<double>();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -52,6 +58,16 @@ namespace Presentation_Layer
 
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 2); //Intervallet for hvor ofte data skifter på GUI'en   
+
+
+            //Graf
+            List<double> middelvalue = mesControlObj.GetMiddelValue();
+            foreach (var item in middelvalue)
+            {
+                Ymiddel.Add(item); //Add middelvalues fra getMiddelVlaue()
+            }
+            DataContext = this;
+             
 		}
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {

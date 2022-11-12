@@ -43,11 +43,19 @@ namespace LogicLayer_PC
             }
  
         }
-
         public List<BPMeasurementData_DTO> GetAllValues()
         {
 			List<BPMeasurementData_DTO> dto_List = mesDataAccessObj.ReadSample();
 			return dto_List;
 		}
+        public List<double> GetMiddelValue()
+        {
+            List<double> middelValue_List = new List<double>(); //hvis vi kun får en værdi så skal vi bare slette listen og kun skrive double 
+            foreach (var item in mesDataAccessObj.ReadSample())
+            {
+                middelValue_List.Add(item.MiddelValue);
+            }
+            return middelValue_List;
+        }
     }
 }
