@@ -20,6 +20,7 @@ namespace DataLayer_PC
 		private readonly BlockingCollection<BPMeasurementData_DTO> samplesList = new BlockingCollection<BPMeasurementData_DTO>();
 		//public string Path = "samplestest.txt";
 		public string Path = @"testmedtal.txt";
+		//@"Physionet.txt";
 		public double second { get; set; }
 		public double sampleValue { get; set; }
 		public List<MeasurementDataAccess> LoadedSampleValue;
@@ -57,7 +58,7 @@ namespace DataLayer_PC
                     foreach (string sample in holder)
                     {
                         string[] input = sample.Split(' ');
-						BPMeasurementData_DTO s = new BPMeasurementData_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3])); //gemmer intput 1, 2, 3 i DTO
+						BPMeasurementData_DTO s = new BPMeasurementData_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]), Convert.ToString(input[4])); //gemmer intput 1, 2, 3 i DTO
                         samplesList.Add(s);
                     }
                     return samplesList;
@@ -65,6 +66,7 @@ namespace DataLayer_PC
             }
 			while(true);
 		}
+
 
 	}
 }

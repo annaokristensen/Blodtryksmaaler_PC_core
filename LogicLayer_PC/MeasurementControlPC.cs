@@ -43,11 +43,60 @@ namespace LogicLayer_PC
             }
  
         }
-
         public List<BPMeasurementData_DTO> GetAllValues()
         {
 			List<BPMeasurementData_DTO> dto_List = mesDataAccessObj.ReadSample();
 			return dto_List;
 		}
+        public List<double> GetMiddelValue()
+        {
+            List<double> middelValue_List = new List<double>(); //hvis vi kun får en værdi så skal vi bare slette listen og kun skrive double 
+            foreach (var item in mesDataAccessObj.ReadSample())
+            {
+                middelValue_List.Add(item.MiddelValue);
+            }
+            return middelValue_List;
+        }
+        public List<string> GetDateTime()
+        {
+            List<string> dateTime_List = new List<string>();
+            foreach (var item in mesDataAccessObj.ReadSample())
+            {
+                dateTime_List.Add(item.dateTime);
+            }
+            return dateTime_List;
+        }
+
+        public List<double> GetSystolic()
+        {
+            List<double> systolic_list = new List<double>();
+            foreach (var item in mesDataAccessObj.ReadSample())
+            {
+                systolic_list.Add(item.SystoliskValue);
+            }
+
+            return systolic_list;
+        }
+        public List<double> GetDiastolic()
+        {
+            List<double> diastolic_list = new List<double>();
+            foreach (var item in mesDataAccessObj.ReadSample())
+            {
+                diastolic_list.Add(item.DiastoliskValue);
+            }
+
+            return diastolic_list;
+        }
+        public List<double> GetPulse()
+        {
+            List<double> pulse_list = new List<double>();
+            foreach (var item in mesDataAccessObj.ReadSample())
+            {
+                pulse_list.Add(item.Pulse);
+            }
+
+            return pulse_list;
+        }
+
     }
 }

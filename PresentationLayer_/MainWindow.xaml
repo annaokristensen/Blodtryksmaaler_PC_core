@@ -1,4 +1,5 @@
 ﻿<Window x:Class="Presentation_Layer.MainWindow"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,6 +8,50 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="800" Loaded="Window_Loaded">
     <Grid>
+        <lvc:CartesianChart Name="MiddelGraph" Height="110" Width="600" LegendLocation="Left" Margin="15,221,185,203" >
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries Name="MiddelValue" Title="Middel" Values="{Binding Ymiddel}" Fill="Transparent" PointGeometry="{x:Null}"/>
+            </lvc:CartesianChart.Series>
+
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="mmHg"/>
+            </lvc:CartesianChart.AxisY>
+            
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Second" LabelsRotation="45" Labels="{Binding XdateTime}"/>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
+
+        <lvc:CartesianChart Name="SystolicDiastolicGraph" Height="110" Width="600" LegendLocation="Left" Margin="-160,-100,10,96" >
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries Name="Systolic" Title="Systolisk" Values="{Binding Ysystolic}" Fill="Transparent" PointGeometry="{x:Null}" Stroke="green"/>
+                <lvc:LineSeries Name="Diastolic" Title="Diastolisk" Values="{Binding Ydiastolic}" Fill="Transparent" PointGeometry="{x:Null}"/>
+            </lvc:CartesianChart.Series>
+
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="mmHg"/>
+            </lvc:CartesianChart.AxisY>
+
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Second" LabelsRotation="45" Labels="{Binding XdateTime}"/>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
+
+        <lvc:CartesianChart Name="PulseGraph" Height="110" Width="600" LegendLocation="Left" Margin="-160,340,10,96" >
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries Name="Pulse" Title="Puls" Values="{Binding Ypulse}" Fill="Transparent" PointGeometry="{x:Null}"/>
+            </lvc:CartesianChart.Series>
+
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="mmHg"/>
+            </lvc:CartesianChart.AxisY>
+
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Second" LabelsRotation="45" Labels="{Binding XdateTime}"/>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
+
+
         <Label x:Name="cpr_label" Content="CPR-nummer" HorizontalAlignment="Left" Margin="25,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402"/>
         <TextBox x:Name="cpr_textbox" HorizontalAlignment="Left" Margin="111,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
         <Button x:Name="startMeasurement_button" Content="Start måling" HorizontalAlignment="Left" Margin="46,69,0,0" VerticalAlignment="Top" Width="125" Height="50" Click="startMeasurement_button_Click"/>
@@ -24,7 +69,7 @@
         <TextBox x:Name="middleBTMin_textbox" HorizontalAlignment="Left" Margin="497,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="80"/>
         <TextBox x:Name="pulseMax_textbox" HorizontalAlignment="Left" Margin="580,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="180"/>
         <TextBox x:Name="pulseMin_textbox" HorizontalAlignment="Left" Margin="580,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="40"/>
-        <Button x:Name="stopAndSave_button" Content="Stop og gem måling" HorizontalAlignment="Left" Margin="484,454,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.318,0.192" Width="125" Height="50"/>
+        <Button x:Name="stopAndSave_button" Content="Stop og gem måling" HorizontalAlignment="Left" Margin="484,454,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.318,0.192" Width="125" Height="50" Click="stopAndSave_button_Click"/>
         <Button x:Name="finishOperation_button" Content="Afslut operation" HorizontalAlignment="Left" Margin="648,454,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.318,0.192" Width="125" Height="50"/>
         <TextBox x:Name="sysDiaValue_textbox" HorizontalAlignment="Left" Margin="647,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127" Height="60" IsReadOnly="True" FontSize="30" TextAlignment="Center"/>
         <Label x:Name="sysDiaValue_label" Content="Systolisk / Diastolisk" HorizontalAlignment="Left" Margin="646,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402" Width="127"/>
@@ -34,6 +79,7 @@
         <Label x:Name="pulseValue_label" Content="Puls" HorizontalAlignment="Left" Margin="646,401,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402" Width="127"/>
         <Label x:Name="MinMaxErrorMessage_label" Content="Indsæt eventuel fejlmeddelse her" HorizontalAlignment="Left" Margin="340,97,0,0" VerticalAlignment="Top" Width="300" FontStyle="Italic"/>
         <Button x:Name="saveChanges_button" Content="Gem ændringer" HorizontalAlignment="Left" Margin="674,47,0,0" VerticalAlignment="Top" Width="100" Height="34" Click="saveChanges_button_Click"/>
+       
 
     </Grid>
 </Window>

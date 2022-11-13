@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.4" />
   </ItemGroup>
 
@@ -13,6 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Physionet.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="testmedtal.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -20,17 +20,17 @@ namespace DataLayer_PC
 		{
 			//RIKKE:
 			conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TestDBProjekt3;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-			//LINE:
-			//conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            //LINE:
+			//conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Bloodpressure;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 			//JULIE:
 
 		}
 
-		/// <summary>
-		/// Henter alle cpr-numre fra databasen og gemmer den i en liste af strings
-		/// </summary>
-		/// <returns>En liste af strings (cpr-numrene i databasen)</returns>
-		public List<string> GetCPRFromDatabase()
+        /// <summary>
+        /// Henter alle cpr-numre fra databasen og gemmer den i en liste af strings
+        /// </summary>
+        /// <returns>En liste af strings (cpr-numrene i databasen)</returns>
+        public List<string> GetCPRFromDatabase()
 		{
 			List<string> cprInDBList = new List<string>();
 

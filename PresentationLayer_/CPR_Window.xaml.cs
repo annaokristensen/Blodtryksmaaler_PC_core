@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using LogicLayer_PC;
+using Presentation_Layer;
 
 namespace Presentation_Layer_PC
 {
@@ -20,10 +21,13 @@ namespace Presentation_Layer_PC
 	{
 		public string cpr { get; set; }
 		CPRControl cprControl = new CPRControl();
+
+		private MainWindow mainwindowRef;
 		
 		public CPR_Window()
 		{
 			InitializeComponent();
+			mainwindowRef = new MainWindow();
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -32,14 +36,17 @@ namespace Presentation_Layer_PC
 			errorMessage_label.Visibility = Visibility.Hidden;
 			//Sørger for at cursoren starter i tekstfeltet til cpr-nummeret
 			enterCPR_textbox.Focus();
-		}
+
+			mainwindowRef.cpr = enterCPR_textbox.Text;
+
+        }
 
 		private void register_button_Click(object sender, RoutedEventArgs e)
 		{
 			//tjekker for om cpr-nummeret er i databasen ved at kalde metoden ValidateCpr og angive det indtastede cpr-nummer som parameter
 			if (cprControl.ValidateCpr(enterCPR_textbox.Text))
 			{
-				cpr = enterCPR_textbox.Text;
+				mainwindowRef.cpr = enterCPR_textbox.Text;
 				this.DialogResult = true;
 				this.Close();
 			}
