@@ -72,7 +72,7 @@ namespace Presentation_Layer
             cpr_textbox.Text = cprWindowObj.GetEnteredCpr();
 
 			dispatcherTimer.Tick += DispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 250); //Intervallet for hvor ofte data skifter på GUI'en
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1, 0); //Intervallet for hvor ofte data skifter på GUI'en
 															  
 			middelMax = Convert.ToInt32(middleBTMax_textbox.Text);
 			middelMin = Convert.ToInt32(middleBTMin_textbox.Text);
