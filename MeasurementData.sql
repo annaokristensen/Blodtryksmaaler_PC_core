@@ -1,6 +1,6 @@
-CREATE TABLE MeasurementData_DB (
-measurementID int primary key,
-cpr nVARCHAR (11) foreign key references CPR_table3(cpr),
+CREATE TABLE MeasurementData_DB_2 (
+measurementID int IDENTITY primary key,
+cpr nVARCHAR (11) foreign key references CPR_table(cpr),
 rawData varbinary(MAX),
 systoliskValues varbinary(MAX),
 diastoliskValues varbinary(MAX),

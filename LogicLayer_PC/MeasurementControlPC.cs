@@ -9,13 +9,13 @@ namespace LogicLayer_PC
     public class MeasurementControlPC
     {
         private MeasurementDataAccess mesDataAccessObj;
-        private BPMeasurementData_DTO DTOObject;
+        private BPMesDataGUI_DTO DTOObject;
 
         public MeasurementControlPC()
         {
 
 	        mesDataAccessObj = new MeasurementDataAccess();
-            DTOObject = new BPMeasurementData_DTO();
+            DTOObject = new BPMesDataGUI_DTO();
             
         }
         public void GetSamplesList()
@@ -28,7 +28,7 @@ namespace LogicLayer_PC
 
         public double GetMiddelValueTest()
         {
-	        List<BPMeasurementData_DTO> dto_List = mesDataAccessObj.ReadSample();
+	        List<BPMesDataGUI_DTO> dto_List = mesDataAccessObj.ReadSample();
             // TODO FIX return dto_List;
             return 0.0;
         }
@@ -43,9 +43,9 @@ namespace LogicLayer_PC
             }
  
         }
-        public List<BPMeasurementData_DTO> GetAllValues()
+        public List<BPMesDataGUI_DTO> GetAllValues()
         {
-			List<BPMeasurementData_DTO> dto_List = mesDataAccessObj.ReadSample();
+			List<BPMesDataGUI_DTO> dto_List = mesDataAccessObj.ReadSample();
 			return dto_List;
 		}
         public List<double> GetMiddelValue()
@@ -62,7 +62,7 @@ namespace LogicLayer_PC
             List<string> dateTime_List = new List<string>();
             foreach (var item in mesDataAccessObj.ReadSample())
             {
-                dateTime_List.Add(item.dateTime);
+                dateTime_List.Add(item.CurrentSecond);
             }
             return dateTime_List;
         }

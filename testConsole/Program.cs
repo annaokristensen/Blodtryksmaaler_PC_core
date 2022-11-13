@@ -17,7 +17,7 @@ namespace testConsole
             test1.GetSamplesList();
 
             // Tråde
-            BlockingCollection<BPMeasurementData_DTO> samplesList = new BlockingCollection<BPMeasurementData_DTO>();
+            BlockingCollection<BPMesDataGUI_DTO> samplesList = new BlockingCollection<BPMesDataGUI_DTO>();
 
 
             MeasurementDataAccess test = new MeasurementDataAccess(samplesList);

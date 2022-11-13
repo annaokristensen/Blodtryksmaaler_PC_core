@@ -17,7 +17,7 @@ namespace DataLayer_PC
 	public class MeasurementDataAccess
 	{
 		//SqlConnection conn;
-		private readonly BlockingCollection<BPMeasurementData_DTO> samplesList = new BlockingCollection<BPMeasurementData_DTO>();
+		private readonly BlockingCollection<BPMesDataGUI_DTO> samplesList = new BlockingCollection<BPMesDataGUI_DTO>();
 		//public string Path = "samplestest.txt";
 		public string Path = @"testmedtal.txt";
 		//@"Physionet.txt";
@@ -36,29 +36,29 @@ namespace DataLayer_PC
 			this.second = second;
 			this.sampleValue = sampleValue;
 		}
-		public MeasurementDataAccess(BlockingCollection<BPMeasurementData_DTO> samplesList)
+		public MeasurementDataAccess(BlockingCollection<BPMesDataGUI_DTO> samplesList)
 		{
 			this.samplesList = samplesList;
 		}
 
 		//Vi skal have delt metoden ReadSamples op, så klassen MeasurementDataAccess kun har ansvaret for at indlæse data. 
 		//Dataen skal gemmes/opbevares i DTO klassen, som alle klasser kan tilgå.
-		public void StoreData(BPMeasurementData_DTO bpMesData)
+		public void StoreData(BPMesDataGUI_DTO bpMesData)
         {
             //Indsæt kode til at gemme i databasen her
         }
-		public List<BPMeasurementData_DTO> ReadSample()
+		public List<BPMesDataGUI_DTO> ReadSample()
 		{
 			do
 			{
 				while(!shallStop) //Skal kører så længe shallstop er true (skal ændres til start/stop knap på GUI)
 				{
-                    List<BPMeasurementData_DTO> samplesList = new List<BPMeasurementData_DTO>();
+					List<BPMesDataGUI_DTO> samplesList = new List<BPMesDataGUI_DTO>();
                     List<string> holder = File.ReadAllLines(Path).ToList();
                     foreach (string sample in holder)
                     {
                         string[] input = sample.Split(' ');
-						BPMeasurementData_DTO s = new BPMeasurementData_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]), Convert.ToString(input[4])); //gemmer intput 1, 2, 3 i DTO
+						BPMesDataGUI_DTO s = new BPMesDataGUI_DTO(input[0], Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]), Convert.ToInt32(input[4])); //gemmer intput 1, 2, 3.. i DTO
                         samplesList.Add(s);
                     }
                     return samplesList;
