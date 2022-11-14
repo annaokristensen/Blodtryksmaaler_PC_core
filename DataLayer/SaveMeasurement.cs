@@ -11,16 +11,19 @@ namespace DataLayer_PC
     public class SaveMeasurement
     {
 	    private SqlConnection conn;
-        private SqlConnection connection;
-        private SqlCommand command;
-        private string connectionstring = @"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TestDBProjekt3;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+	    private SqlCommand command;
 
         public SaveMeasurement()
         {
 			conn = new SqlConnection(@"Data Source=LAPTOP-JKBR8I3G\SQLEXPRESS;Initial Catalog=BloodPressureData_DB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
 
-		public void SaveBPMeasurement(BPMesDataDB_DTO bpDB_DTO, string cpr)
+		/// <summary>
+		/// Metoden kaldes fra logiklaget. Indeholder det sql-kode som skal 'sendes' til databasen så data kan blive gemt
+		/// </summary>
+		/// <param name="bpDB_DTO"></param>
+		/// <param name="cpr"></param>
+		public void SaveBpMeasurement(BPMesDataDB_DTO bpDB_DTO, string cpr)
 		{
 			conn.Open();
 			//sql-kode som sørger for at gemme i databasen. Det er delt op på flere linjer for syns skyld
@@ -46,7 +49,7 @@ namespace DataLayer_PC
 			                   //  ", " + "@alarmTimes)";
 
 			SqlCommand command = new SqlCommand(queryString, conn);
-			//Kode der sørger for at de List's vi har, bliver gemt på det korrekte format:
+			//Kode der sørger for at de List's vi har, bliver gemt på det korrekte format. NEDENSTÅENDE KODE ER KOPIERET FRA NETTET
 			command.Parameters.AddWithValue("@rawData", bpDB_DTO.RawData.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
 			command.Parameters.AddWithValue("@sysValues", bpDB_DTO.SystoliskValues.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
 			command.Parameters.AddWithValue("@diaValues", bpDB_DTO.DiastoliskValues.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
@@ -57,23 +60,5 @@ namespace DataLayer_PC
 			//command.ExecuteNonQuery();
 			conn.Close();
 		}
-
-
-        public void SetMeasurement(List<BPMesDataGUI_DTO> bpMesData, string cpr)
-        {
-
-            double[] pulseValueArray = new double[bpMesData.Count];
-            connection = new SqlConnection(connectionstring);
-            string insertStringParam = @"INSERT INTO measurementValue (cpr, pulse) values ('" + cpr + "',@bpMesData,')";
-            using (command = new SqlCommand(insertStringParam, connection))
-            {
-                command.Parameters.AddWithValue("@pulseVoltage", pulseValueArray); //blob
-            }
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
-
-
-        }
     }
 }

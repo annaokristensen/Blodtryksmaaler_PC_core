@@ -31,11 +31,9 @@ namespace Presentation_Layer
         private List<BPMesDataGUI_DTO> dtoGUI_list;
         private List<DateTime> alarmTriggeredTimes;
 
-
-		//Tilknyt data til livecharts graf
+        //Tilknyt data til livecharts graf
 		public ChartValues<double> Ymiddel { get; set; }
         public ChartValues<string> XdateTime { get; set; }
-
         public  ChartValues<double> Ysystolic { get; set; }
         public ChartValues<double> Ydiastolic { get; set; }
         public ChartValues<double> Ypulse { get; set; }
@@ -55,8 +53,8 @@ namespace Presentation_Layer
             Ysystolic = new ChartValues<double>();
             Ydiastolic = new ChartValues<double>();
             Ypulse = new ChartValues<double>();
-            
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Hide();
@@ -68,12 +66,13 @@ namespace Presentation_Layer
             else
                 this.Show();
 
-            //Sørger for at patientens (det indtastede) cpr-nummer fremstår af cpr-tekstboksen
+            //Sørger for at patientens (det indtastede) cpr-nummer fremstår af cpr-tekstboksen på mainWindow
             cpr_textbox.Text = cprWindowObj.GetEnteredCpr();
 
 			dispatcherTimer.Tick += DispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1, 0); //Intervallet for hvor ofte data skifter på GUI'en
-															  
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 100); //Intervallet for hvor ofte data skifter på GUI'en
+					
+            //De to variable bruges nede i saveChanges_button_click. De sættes her i starten til de default værdier der står i textboxene.
 			middelMax = Convert.ToInt32(middleBTMax_textbox.Text);
 			middelMin = Convert.ToInt32(middleBTMin_textbox.Text);
 		}
@@ -106,29 +105,36 @@ namespace Presentation_Layer
 	                Ypulse.Remove(dtoGUI_list[taeller - removeFactor].Pulse);
 	                XdateTime.Remove(dtoGUI_list[taeller - removeFactor].CurrentSecond);
                 }
-                
+
                 Alarm();
+                //tælleren tæller 1 op for hver gang koden er kørt i gennnem, så vi hele tiden får de næste punkter i rækken
 				taeller++;
             }
         }
 
-
+		//Når vi trykker "Gem ændringer" efter at have ændret på grænseværdierne for middelværdi, skal de nye tal gemmes i variablerne middelMax og middelMin
         private void saveChanges_button_Click(object sender, RoutedEventArgs e)
         {
 	        middelMax = Convert.ToInt32(middleBTMax_textbox.Text);
 	        middelMin = Convert.ToInt32(middleBTMin_textbox.Text);
 		}
+
+        //Når der trykkes på "Start Måling" så går timeren i gang. Den udfører det den er implementeret til med det interval den er sat til at gøre det med
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
-            //Når der trykkes på "Start Måling" så går timeren i gang. Den udfører det den er implementeret til med det interval den er sat til at gøre det med
             dispatcherTimer.Start();
-        }        
+        }
+        
+        /// <summary>
+        /// Alarm-metode som bliver kaldt hver gang tallene og grafen på GUI'en er blevet opdateret, så den holder øje med hver eneste opdatering
+        /// </summary>
         private void Alarm()
         {
             if (middelMax < Convert.ToInt32(middleBTValue_textbox.Text) ||
                 Convert.ToInt32(middleBTValue_textbox.Text) < middelMin)
             {
                 middleBTValue_textbox.Foreground = Brushes.Red;
+                //For hver gang alarmen går i gang skal der gemmes et tidsstempel i en liste, så den liste af 'alarmtriggers' kan blive gemt i databasen
                 alarmTriggeredTimes.Add(DateTime.Now);
             }
             else
@@ -136,26 +142,17 @@ namespace Presentation_Layer
                 middleBTValue_textbox.Foreground = Brushes.Black;
             }
         }
+
         private void stopAndSave_button_Click(object sender, RoutedEventArgs e)
         {
+            //Når der trykkes "Stop og gem" så skal dispatcherTimer stoppe, så graferne og tallene stopper med at blive opdateret
             dispatcherTimer.Stop();
             //TODO: StartTime og StopTime står nu til DateTime.Now, men dem skal vi senere have fra rpi ligesom sys, dia osv.
+            //Når der trykkes "Stop og gem" skal SaveMeasurement kaldes. Vi giver den dtoGUIlisten, cpr-nummeret og listen af alarm-tidspunkter med som parameter
             stopAndSaveObj.SaveMeasurement(dtoGUI_list, cpr_textbox.Text, DateTime.Now, DateTime.Now, alarmTriggeredTimes);
-
-            //if (findesIOffentligDB = true && TB_kommentar.Text != "")
-            //{
-            //    logikObj.setMaaling(CPR, voltage, dato, AV_blok, TB_kommentar.Text);
-            //    Close();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Skriv en kommentar til målingen i kommentarfeltet. Gem derefter målingen");
-            //}
-
-
-            ////findesIOffentligDB = true;
-            ////Close();
         }
+
+        // Metoden sørger for at lave x-aksen hvor tidspunktet for målepunktet skal vises
         public void ShowSecondOnXAxis()
         {
 	        List<string> dateTime = mesControlObj.GetDateTime();
@@ -164,37 +161,7 @@ namespace Presentation_Layer
 		        XdateTime.Add(item);
 	        }
 	        DataContext = this;
-
-			/*List<double> middelvalue = mesControlObj.GetMiddelValue();
-            foreach (var item in middelvalue)
-            {
-                Ymiddel.Add(item); //Add middelvalues fra getMiddelVlaue()
-            }
-            DataContext = this;
-
-			List<double> systolic = mesControlObj.GetSystolic();
-            foreach (var item in systolic)
-            {
-                Ysystolic.Add(item);
-            }
-
-            DataContext = this;
-
-            List<double> diastolic = mesControlObj.GetDiastolic();
-            foreach (var item in diastolic)
-            {
-                Ydiastolic.Add(item);
-            }
-
-            DataContext = this;
-
-            List<double> pulse = mesControlObj.GetPulse();
-            foreach (double item in pulse)
-            {
-                Ypulse.Add(item);
-            }
-            DataContext = this;*/
-		}
+        }
     }
 }
 

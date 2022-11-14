@@ -1,4 +1,4 @@
-CREATE TABLE MeasurementData_DB_2 (
+CREATE TABLE MeasurementData_DB (
 measurementID int IDENTITY primary key,
 cpr nVARCHAR (11) foreign key references CPR_table(cpr),
 rawData varbinary(MAX),
