@@ -44,9 +44,13 @@ namespace LogicLayer_PC
  
         }
 
+        /// <summary>
+        /// Metoden kaldes fra mainWindow. Tager fat i ReadSample (på datalaget) og putter de værdier vi får derfra ind i en liste af dto_DB
+        /// </summary>
+        /// <returns></returns>
         public List<BPMesDataGUI_DTO> GetAllValues()
         {
-			List<BPMesDataGUI_DTO> dto_List = mesDataAccessObj.ReadSample();
+	        List<BPMesDataGUI_DTO> dto_List = mesDataAccessObj.ReadSample();
 			return dto_List;
 		}
 
