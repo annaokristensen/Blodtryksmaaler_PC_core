@@ -22,8 +22,9 @@ namespace DataLayer_PC
 		public double SampleValue { get; set; }
 		public List<MeasurementDataAccess> LoadedSampleValue;
 		private bool shallStop = false;
-       
-        public MeasurementDataAccess()
+		public UDPServer udpServerObj = new UDPServer();
+
+		public MeasurementDataAccess()
 		{
 			
 		}
@@ -63,12 +64,12 @@ namespace DataLayer_PC
 			while(true);
 		}
 
-		//TODO: Path er ikke en tekstfil - i stedet læser vi fra bytes
-		public string udpPath = @"testmedtal.txt";
 
 		//Vi returnerer ét objekt af en DTO i stedet for at returnere en liste af DTO'er. Så skal vi kalde metoden kontinuerligt
 		public BPMesDataGUI_DTO ReadValues()
 		{
+			//Sætter udpPath til at være den string som udpServeren returnerer. Det er deri at data fra rpi står
+			string udpPath = udpServerObj.GetBroadcast();
 			do
 			{
 				while (!shallStop)
