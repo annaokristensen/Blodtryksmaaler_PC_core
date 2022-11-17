@@ -21,7 +21,7 @@ namespace LogicLayer_PC
         }
         public void GetZeropoint()
         {
-            List<BPMesDataGUI_DTO> list = mesDataAccessObj.ReadRawData();
+            BPMesDataGUI_DTO list = mesDataAccessObj.Read();
             List<double> doubles = new List<double>();
             foreach (BPMesDataGUI_DTO data in list)
             {
