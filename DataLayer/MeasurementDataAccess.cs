@@ -66,14 +66,14 @@ namespace DataLayer_PC
 		//TODO: Path er ikke en tekstfil - i stedet læser vi fra bytes
 		public string udpPath = @"testmedtal.txt";
 
-		//TODO: Skal laves om til at returnere 1 DTO i stedet for en liste af DTO'er. DTO'en returneres så kontinuerligt
-		public List<BPMesDataGUI_DTO> ReadCalculatedValues()
+		//Vi returnerer ét objekt af en DTO i stedet for at returnere en liste af DTO'er. Så skal vi kalde metoden kontinuerligt
+		public BPMesDataGUI_DTO ReadValues()
 		{
 			do
 			{
 				while (!shallStop)
 				{
-					List<BPMesDataGUI_DTO> samplesList = new List<BPMesDataGUI_DTO>();
+					BPMesDataGUI_DTO dtoObj;
 					List<double> rawDataList = new List<double>();
 					List<string> holder = File.ReadAllLines(udpPath).ToList();
 
@@ -92,10 +92,10 @@ namespace DataLayer_PC
 					foreach (string sample in holder)
 					{
 						string[] input = sample.Split(' ');
-						BPMesDataGUI_DTO s = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]), rawDataList);
-						samplesList.Add(s);
+						dtoObj = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]), rawDataList);
 					}
-					return samplesList;
+
+					return dtoObj;
 				}
 			}
 			while (true);
