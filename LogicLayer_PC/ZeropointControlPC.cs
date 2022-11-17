@@ -1,4 +1,5 @@
 ﻿using DataLayer_PC;
+using DTO_PC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,15 @@ namespace LogicLayer_PC
         }
         public void GetZeropoint()
         {
-            List<double> list = mesDataAccessObj.;
+            List<BPMesDataGUI_DTO> list = mesDataAccessObj.ReadRawData();
+            List<double> doubles = new List<double>();
+            foreach (BPMesDataGUI_DTO data in list)
+            {
+                doubles.Add(data.RawData);
+            }
 
             double total = 0;
-            foreach(double s in list)
+            foreach(double s in doubles)
             {
                 total += s;
             }
