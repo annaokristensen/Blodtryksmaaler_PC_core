@@ -74,11 +74,25 @@ namespace DataLayer_PC
 				while (!shallStop)
 				{
 					List<BPMesDataGUI_DTO> samplesList = new List<BPMesDataGUI_DTO>();
+					List<double> rawDataList = new List<double>();
 					List<string> holder = File.ReadAllLines(udpPath).ToList();
+
 					foreach (string sample in holder)
 					{
 						string[] input = sample.Split(' ');
-						BPMesDataGUI_DTO s = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]));
+
+							rawDataList.Add(Convert.ToDouble(sample));
+					}
+
+					for (int i = 0; i < 4; i++)
+					{
+						rawDataList.Remove(i);
+					}
+
+					foreach (string sample in holder)
+					{
+						string[] input = sample.Split(' ');
+						BPMesDataGUI_DTO s = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]), rawDataList);
 						samplesList.Add(s);
 					}
 					return samplesList;
@@ -87,7 +101,8 @@ namespace DataLayer_PC
 			while (true);
 		}
 
-		public List<BPMesDataGUI_DTO> ReadRawData()
+		//DROPPET fordi vi bare indlæser listen af rawData ovenover
+		/*public List<BPMesDataGUI_DTO> ReadRawData()
 		{
 			do
 			{
@@ -111,7 +126,7 @@ namespace DataLayer_PC
 				}
 			}
 			while (true);
-		}
+		}*/
 
 
 	}
