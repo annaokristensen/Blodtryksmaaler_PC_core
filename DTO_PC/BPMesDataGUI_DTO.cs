@@ -14,23 +14,18 @@ namespace DTO_PC
 		public double MiddelValue { get; set; }
 		//public string CurrentSecond { get; set; }
 
-		public double RawData { get; set; }
+		public List<double> RawDataList { get; set; }
 
 		//Contructoren bruges til til at 'holde' de beregnede værdier - dem får vi samme antl af med samme interval
-		public BPMesDataGUI_DTO(double pulse, double middelValue, double systoliskValue, double diastoliskValue)
+		public BPMesDataGUI_DTO(double pulse, double middelValue, double systoliskValue, double diastoliskValue, List<double> rawDataList)
 		{
 			Pulse = pulse;
 			MiddelValue = middelValue;
 			SystoliskValue = systoliskValue;
 			DiastoliskValue = diastoliskValue;
+			RawDataList = rawDataList;
 		}
 
-		//Vi har en seperat constructor til rawdata, fordi vi modtager langt flere værdier end for de beregnede (ovenstående) og derfor ville det være svært
-		//at gemme rawdata i samme dto_objekt
-		public BPMesDataGUI_DTO(double rawData)
-		{
-			RawData = rawData;
-		}
 
 		public BPMesDataGUI_DTO()
 		{
