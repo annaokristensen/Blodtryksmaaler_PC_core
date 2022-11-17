@@ -12,7 +12,7 @@ namespace DataLayer_PC
     {
         public const int listenPort = 12000;   //Portnummer 11000
         //public float svar;
-        public string ReceivedFromRPi;
+        public string DataFromRPi;
 
         public void StartListener()   //Lytter efter porten på PC
         {
@@ -33,7 +33,7 @@ namespace DataLayer_PC
                     Console.WriteLine(
                         $"{Encoding.ASCII.GetString(bytes, 0, bytes.Length)}"); //tager string og laver den om til Ascii værdi
 
-                    ReceivedFromRPi = ($"{Encoding.ASCII.GetString(bytes, 0, bytes.Length)}"); //tager string og laver den om til Ascii værdi
+                    DataFromRPi = ($"{Encoding.ASCII.GetString(bytes, 0, bytes.Length)}"); //tager string og laver den om til Ascii værdi
 
                     //TODO: Skal måske indkommenteres hvis udp ikke virker. 
                     //listener.Send(bytes, bytes.Length, groupEP); 
@@ -51,6 +51,10 @@ namespace DataLayer_PC
             {
                 listener.Close();
             }
+        }
+        public string GetBroadcast()
+        {
+            return DataFromRPi;
         }
         //Test metode
         public void testUDPServerThread()
