@@ -20,7 +20,7 @@ namespace LogicLayer_PC
         }
         public void GetSamplesList()
         {
-            foreach (var item in mesDataAccessObj.ReadSample())
+            foreach (var item in mesDataAccessObj.ReadSampleTest())
             {
                 Console.WriteLine(item.Pulse + " " + item.SystoliskValue + " " + item.DiastoliskValue + " " + item.MiddelValue);
             }
@@ -28,7 +28,7 @@ namespace LogicLayer_PC
 
         public double GetMiddelValueTest()
         {
-	        List<BPMesDataGUI_DTO> dto_List = mesDataAccessObj.ReadSample();
+	        List<BPMesDataGUI_DTO> dto_List = mesDataAccessObj.ReadSampleTest();
             // TODO FIX return dto_List;
             return 0.0;
         }
@@ -50,14 +50,14 @@ namespace LogicLayer_PC
         /// <returns></returns>
         public List<BPMesDataGUI_DTO> GetAllValues()
         {
-	        List<BPMesDataGUI_DTO> dto_List = mesDataAccessObj.ReadSample();
+	        List<BPMesDataGUI_DTO> dto_List = mesDataAccessObj.ReadSampleTest();
 			return dto_List;
 		}
 
         public List<string> GetDateTime()
         {
 	        List<string> dateTime_List = new List<string>();
-	        foreach (var item in mesDataAccessObj.ReadSample())
+	        foreach (var item in mesDataAccessObj.ReadSampleTest())
 	        {
 		        dateTime_List.Add(item.CurrentSecond);
 	        }
