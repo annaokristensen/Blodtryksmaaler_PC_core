@@ -32,7 +32,7 @@ namespace LogicLayer_PC
             // TODO FIX return dto_List;
             return 0.0;
         }
-
+        //Test metode skal slettes
         public void TestThread()
         {
             int cnt = 10;

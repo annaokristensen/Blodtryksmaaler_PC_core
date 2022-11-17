@@ -40,6 +40,7 @@ namespace testConsole
             serverThread.Start();
             testerServerThread.Start();
 
+
             testDataObjThread.Join();
             testThread.Join();
             serverThread.Join();
@@ -47,14 +48,14 @@ namespace testConsole
 
             Console.ReadKey();
 
-            //UDP test
+            //UDP 
             s1 = new UDPServer();
             s1.StartListener();
 
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             IPAddress broadcst = IPAddress.Parse("172.20.10.2");
 
-     
+
 
 
         }
