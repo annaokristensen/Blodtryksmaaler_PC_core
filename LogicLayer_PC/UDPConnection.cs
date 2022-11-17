@@ -11,11 +11,11 @@ namespace LogicLayer_PC
 {
 	class UDPConnection
 	{
-		private UDPClient udpClient = new UDPClient();
+		//private UDPClient udpClient = new UDPClient();
 		
-		public void StartConnecting(string message)
-		{
-			udpClient.SendBroadcast(message);
-		}
+		//public void StartConnecting(string message)
+		//{
+		//	udpClient.SendBroadcast(message);
+		//}
 	}
 }
