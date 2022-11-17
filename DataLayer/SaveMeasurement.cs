@@ -27,36 +27,42 @@ namespace DataLayer_PC
 		{
 			conn.Open();
 			//sql-kode som sørger for at gemme i databasen. Det er delt op på flere linjer for syns skyld
-			string queryString = "INSERT INTO dbo.MeasurementData_DB(" +
-			                     "cpr" +
-			                     ", startDateTime" +
-			                     ", stopDateTime" +
-			                     ", rawData" +
-			                     ", systoliskValues" +
-			                     ", diastoliskValues" +
-			                     ", pulseValues" +
-			                     ", middelValues)" +
+			string queryString = "INSERT INTO dbo.MeasurementData_DB (" +
+			                     "cpr)" +
+			                     //", startDateTime" +
+			                     //", stopDateTime" +
+			                     //", rawData" +
+			                     //", systoliskValues" +
+			                     //", diastoliskValues" +
+			                     //", pulseValues" +
+			                     //", middelValues)" +
 			                     //  ", alarmDateTimes" +
 			                     " VALUES (" +
-			                     cpr +
-			                     ", '" + bpDB_DTO.StartDateTime.ToString("yyyMMdd HH:mm:ss") + "'" +
-			                     ", '" + bpDB_DTO.StopDateTime.ToString("yyyMMdd HH:mm:ss") + "'" +
-			                     ", " + "@rawData" +
-			                     ", " + "@sysValues" +
-			                     ", " + "@diaValues" +
-			                     ", " + "@pulseValues" +
-			                     ", " + "@middelValues)";
+			                     cpr + ")";
+			                     //", '" + bpDB_DTO.StartDateTime.ToString("yyyMMdd HH:mm:ss") + "'" +
+			                     //", '" + bpDB_DTO.StopDateTime.ToString("yyyMMdd HH:mm:ss") + "'" +
+			                     //", " + "@rawData" +
+			                     //", " + "@sysValues" +
+			                     //", " + "@diaValues" +
+			                     //", " + "@pulseValues" +
+			                     //", " + "@middelValues)";
 			                   //  ", " + "@alarmTimes)";
 
 			SqlCommand command = new SqlCommand(queryString, conn);
-			//Kode der sørger for at de List's vi har, bliver gemt på det korrekte format. NEDENSTÅENDE KODE ER KOPIERET FRA NETTET
-			command.Parameters.AddWithValue("@rawData", bpDB_DTO.RawData.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
-			command.Parameters.AddWithValue("@sysValues", bpDB_DTO.SystoliskValues.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
-			command.Parameters.AddWithValue("@diaValues", bpDB_DTO.DiastoliskValues.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
-			command.Parameters.AddWithValue("@pulseValues", bpDB_DTO.PulseValues.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
-			command.Parameters.AddWithValue("@middelValues", bpDB_DTO.MiddelValues.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
-			//command.Parameters.AddWithValue("@alarmTimes", bpDB_DTO.AlarmDateTimes.ToArray().SelectMany(value => BitConverter.GetBytes(value.Ticks).ToArray()));
+
 			command.ExecuteScalar();
+
+			//Kode der sørger for at de List's vi har, bliver gemt på det korrekte format. NEDENSTÅENDE KODE ER KOPIERET FRA NETTET
+			
+			//command.Parameters.AddWithValue("@rawData", bpDB_DTO.RawData.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
+			
+			//command.Parameters.AddWithValue("@sysValues", bpDB_DTO.SystoliskValues.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
+			//command.Parameters.AddWithValue("@diaValues", bpDB_DTO.DiastoliskValues.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
+			//command.Parameters.AddWithValue("@pulseValues", bpDB_DTO.PulseValues.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
+			//command.Parameters.AddWithValue("@middelValues", bpDB_DTO.MiddelValues.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
+			//command.Parameters.AddWithValue("@alarmTimes", bpDB_DTO.AlarmDateTimes.ToArray().SelectMany(value => BitConverter.GetBytes(value.Ticks).ToArray()));
+			
+			//command.ExecuteScalar();
 			//command.ExecuteNonQuery();
 			conn.Close();
 		}
