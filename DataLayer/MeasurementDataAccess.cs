@@ -18,6 +18,7 @@ namespace DataLayer_PC
 	{
 		private readonly BlockingCollection<BPMesDataGUI_DTO> samplesList = new BlockingCollection<BPMesDataGUI_DTO>();
 		public string TestPath = @"testmedtal.txt";
+		public string testPath2 = @"udpFormatTestFile.txt";
 		public double Second { get; set; }
 		public double SampleValue { get; set; }
 		public List<MeasurementDataAccess> LoadedSampleValue;
@@ -38,32 +39,6 @@ namespace DataLayer_PC
 		{
 			this.samplesList = samplesList;
 		}
-
-		
-		/// <summary>
-		/// Test-metode til at læse fra vores egen testfilt
-		/// </summary>
-		/// <returns></returns>
-		public List<BPMesDataGUI_DTO> ReadSampleTest()
-		{
-			do
-			{
-				while(!shallStop) //Skal kører så længe shallstop er true (skal ændres til start/stop knap på GUI)
-				{
-					List<BPMesDataGUI_DTO> samplesList = new List<BPMesDataGUI_DTO>();
-                    List<string> holder = File.ReadAllLines(TestPath).ToList();
-                    foreach (string sample in holder)
-                    {
-                        string[] input = sample.Split(' ');
-						BPMesDataGUI_DTO s = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3])); //gemmer intput 1, 2, 3.. i DTO
-                        samplesList.Add(s);
-                    }
-                    return samplesList;
-                }
-            }
-			while(true);
-		}
-
 
 		//Vi returnerer ét objekt af en DTO i stedet for at returnere en liste af DTO'er. Så skal vi kalde metoden kontinuerligt
 		public BPMesDataGUI_DTO ReadValues()
@@ -102,32 +77,65 @@ namespace DataLayer_PC
 			while (true);
 		}
 
-		//DROPPET fordi vi bare indlæser listen af rawData ovenover
-		/*public List<BPMesDataGUI_DTO> ReadRawData()
+		/// <summary>
+		/// TESTMETODE TIL FILEN testmedtal.txt
+		/// </summary>
+		/// <returns></returns>
+		public List<BPMesDataGUI_DTO> ReadSampleTest()
 		{
+			do
+			{
+				while (!shallStop) //Skal kører så længe shallstop er true (skal ændres til start/stop knap på GUI)
+				{
+					List<BPMesDataGUI_DTO> samplesList = new List<BPMesDataGUI_DTO>();
+					List<string> holder = File.ReadAllLines(TestPath).ToList();
+					foreach (string sample in holder)
+					{
+						string[] input = sample.Split(' ');
+						BPMesDataGUI_DTO s = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3])); //gemmer intput 1, 2, 3.. i DTO
+						samplesList.Add(s);
+					}
+					return samplesList;
+				}
+			}
+			while (true);
+		}
+
+		public BPMesDataGUI_DTO TestReadValues()
+		{
+			//Sætter udpPath til at være den string som udpServeren returnerer. Det er deri at data fra rpi står
+			
 			do
 			{
 				while (!shallStop)
 				{
-					List<BPMesDataGUI_DTO> rawDataList = new List<BPMesDataGUI_DTO>();
-					List<string> holder = File.ReadAllLines(udpPath).ToList();
-					double rawData;
+					BPMesDataGUI_DTO dtoObjTest;
+					List<double> rawDataList = new List<double>();
+					List<string> holder = File.ReadAllLines(testPath2).ToList();
+
 					foreach (string sample in holder)
 					{
 						string[] input = sample.Split(' ');
 
-						for (int i = 4; i < holder.Count(); i++)
-						{
-							BPMesDataGUI_DTO rd = new BPMesDataGUI_DTO(Convert.ToDouble(input[i]));
-
-							rawDataList.Add(rd);
-						}
+						rawDataList.Add(Convert.ToDouble(sample));
 					}
-					return rawDataList;
+
+					for (int i = 0; i < 4; i++)
+					{
+						rawDataList.Remove(i);
+					}
+
+					foreach (string sample in holder)
+					{
+						string[] input = sample.Split(' ');
+						dtoObjTest = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]), rawDataList);
+					}
+
+					return dtoObjTest;
 				}
 			}
 			while (true);
-		}*/
+		}
 
 
 	}
