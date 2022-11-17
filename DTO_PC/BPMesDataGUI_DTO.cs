@@ -12,17 +12,21 @@ namespace DTO_PC
 		public double SystoliskValue { get; set; }
 		public double DiastoliskValue { get; set; }
 		public double MiddelValue { get; set; }
-		public string CurrentSecond { get; set; }
+		//public string CurrentSecond { get; set; }
 
-		//Contructoren bruges til til at gemme det indlæste data
-		public BPMesDataGUI_DTO(string currentSecond, double pulse, double systoliskValue, double diastoliskValue, double middelValue)
+		public List<double> RawDataList { get; set; }
+
+		//Contructoren bruges til til at 'holde' de beregnede værdier - dem får vi samme antl af med samme interval
+		public BPMesDataGUI_DTO(double pulse, double middelValue, double systoliskValue, double diastoliskValue, List<double> rawDataList)
 		{
-			this.CurrentSecond = currentSecond;
-			this.Pulse = pulse;
-			this.SystoliskValue = systoliskValue;
-			this.DiastoliskValue = diastoliskValue;
-			this.MiddelValue = middelValue;
+			Pulse = pulse;
+			MiddelValue = middelValue;
+			SystoliskValue = systoliskValue;
+			DiastoliskValue = diastoliskValue;
+			RawDataList = rawDataList;
 		}
+
+
 		public BPMesDataGUI_DTO()
 		{
 			
