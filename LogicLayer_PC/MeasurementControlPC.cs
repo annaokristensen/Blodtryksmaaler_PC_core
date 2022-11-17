@@ -56,12 +56,12 @@ namespace LogicLayer_PC
 
         public List<string> GetDateTime()
         {
-	        List<string> dateTime_List = new List<string>();
-	        foreach (var item in mesDataAccessObj.ReadSampleTest())
-	        {
-		        dateTime_List.Add(item.CurrentSecond);
-	        }
-	        return dateTime_List;
+            List<string> dateTime_List = new List<string>();
+            //foreach (var item in mesDataAccessObj.ReadSampleTest())
+            //{
+            //    dateTime_List.Add(item.CurrentSecond);
+            //}
+            return dateTime_List;
         }
     }
 }

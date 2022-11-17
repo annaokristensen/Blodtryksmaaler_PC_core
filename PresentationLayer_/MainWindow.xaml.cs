@@ -105,7 +105,7 @@ namespace Presentation_Layer
 	                Ysystolic.Remove(dtoGUI_list[taeller - removeFactor].SystoliskValue);
 	                Ydiastolic.Remove(dtoGUI_list[taeller - removeFactor].DiastoliskValue);
 	                Ypulse.Remove(dtoGUI_list[taeller - removeFactor].Pulse);
-	                XdateTime.Remove(dtoGUI_list[taeller - removeFactor].CurrentSecond);
+	                //XdateTime.Remove(dtoGUI_list[taeller - removeFactor].CurrentSecond);
                 }
 
                 Alarm();

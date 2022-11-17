@@ -49,7 +49,7 @@ namespace DataLayer_PC
 			{
 				while (!shallStop)
 				{
-					BPMesDataGUI_DTO dtoObj;
+					BPMesDataGUI_DTO dtoObj = null;
 					List<double> rawDataList = new List<double>();
 					List<string> holder = File.ReadAllLines(udpPath).ToList();
 
