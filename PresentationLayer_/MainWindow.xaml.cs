@@ -162,7 +162,7 @@ namespace Presentation_Layer
 	        {
 		        XdateTime.Add(item);
 	        }
-	        DataContext = this;
+	        DataContext = this; 
         }
     }
 }
