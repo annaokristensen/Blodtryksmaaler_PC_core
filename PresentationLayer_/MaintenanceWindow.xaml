@@ -6,10 +6,31 @@
         xmlns:local="clr-namespace:Presentation_Layer_PC"
         mc:Ignorable="d"
         Title="MaintenanceWindow" Height="400" Width="500">
-    <Grid>
-        <Button x:Name="calibration_button" Content="Kalibrering" HorizontalAlignment="Center" Margin="0,134,0,0" VerticalAlignment="Top" Height="50" Width="130"/>
-        <Button x:Name="zeroPointAdjustment_button" Content="Nulpunktsjustér" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" Height="50" Width="130"/>
-        <Button x:Name ="opretforbindelse_button" Content="Opret forbindelse" HorizontalAlignment="Left" Margin="355,53,0,0" VerticalAlignment="Top" Click="opretforbindelse_button_Click"/>
+    <Grid Background="Black">
+        <Button x:Name="calibration_button" Content="Kalibrering" BorderThickness="3" HorizontalAlignment="Center" Margin="0,134,0,0" VerticalAlignment="Top" Height="50" Width="130">
+        <Button.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="6"></Setter>
+
+            </Style>
+        </Button.Resources>
+        </Button>
+        <Button x:Name="zeroPointAdjustment_button" Content="Nulpunktsjustér" BorderThickness="3" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" Height="50" Width="130">
+        <Button.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="6"></Setter>
+
+            </Style>
+        </Button.Resources>
+        </Button>
+        <Button x:Name ="opretforbindelse_button" Content="Opret forbindelse" BorderThickness="3" HorizontalAlignment="Left" Margin="355,53,0,0" VerticalAlignment="Top" Click="opretforbindelse_button_Click" Height="31" Width="111">
+        <Button.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="6"></Setter>
+
+            </Style>
+        </Button.Resources>
+        </Button>
 
     </Grid>
 </Window>
