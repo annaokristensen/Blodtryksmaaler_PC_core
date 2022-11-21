@@ -28,29 +28,29 @@ namespace DataLayer_PC
 			conn.Open();
 			//sql-kode som sørger for at gemme i databasen. Det er delt op på flere linjer for syns skyld
 			string queryString = "INSERT INTO dbo.MeasurementData_DB (" +
-			                     "cpr)" +
-			                     //", startDateTime" +
-			                     //", stopDateTime" +
-			                     //", rawData" +
+			                     "cpr" +
+			                     ", startDateTime" +
+			                     ", stopDateTime)" +
+			                     ", rawData)" +
 			                     //", systoliskValues" +
 			                     //", diastoliskValues" +
 			                     //", pulseValues" +
 			                     //", middelValues)" +
-			                     //  ", alarmDateTimes" +
-			                     " VALUES (" +
-			                     cpr + ")";
-			                     //", '" + bpDB_DTO.StartDateTime.ToString("yyyMMdd HH:mm:ss") + "'" +
-			                     //", '" + bpDB_DTO.StopDateTime.ToString("yyyMMdd HH:mm:ss") + "'" +
-			                     //", " + "@rawData" +
+			                     //", alarmDateTimes" +
+			                     " VALUES ('" +
+			                     cpr + "'" +
+			                     ", '" + bpDB_DTO.StartDateTime.ToString("yyyMMdd HH:mm:ss") + "'" +
+			                     ", '" + bpDB_DTO.StopDateTime.ToString("yyyMMdd HH:mm:ss") + "')" +
+			                     ", " + "@rawData)";
 			                     //", " + "@sysValues" +
 			                     //", " + "@diaValues" +
 			                     //", " + "@pulseValues" +
 			                     //", " + "@middelValues)";
-			                   //  ", " + "@alarmTimes)";
+			                     //", " + "@alarmTimes)";
 
 			SqlCommand command = new SqlCommand(queryString, conn);
 
-			command.ExecuteScalar();
+			//command.ExecuteScalar();
 
 			//Kode der sørger for at de List's vi har, bliver gemt på det korrekte format. NEDENSTÅENDE KODE ER KOPIERET FRA NETTET
 			
@@ -60,9 +60,9 @@ namespace DataLayer_PC
 			//command.Parameters.AddWithValue("@diaValues", bpDB_DTO.DiastoliskValues.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
 			//command.Parameters.AddWithValue("@pulseValues", bpDB_DTO.PulseValues.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
 			//command.Parameters.AddWithValue("@middelValues", bpDB_DTO.MiddelValues.ToArray().SelectMany(value => BitConverter.GetBytes(value).ToArray()));
-			//command.Parameters.AddWithValue("@alarmTimes", bpDB_DTO.AlarmDateTimes.ToArray().SelectMany(value => BitConverter.GetBytes(value.Ticks).ToArray()));
+			command.Parameters.AddWithValue("@alarmTimes", bpDB_DTO.AlarmDateTimes.ToArray().SelectMany(value => BitConverter.GetBytes(value.Ticks).ToArray()));
 			
-			//command.ExecuteScalar();
+			command.ExecuteScalar();
 			//command.ExecuteNonQuery();
 			conn.Close();
 		}
