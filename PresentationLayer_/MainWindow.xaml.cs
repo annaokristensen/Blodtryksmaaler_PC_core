@@ -12,6 +12,7 @@ using DataLayer_PC;
 using System.Runtime.ConstrainedExecution;
 using LiveCharts;
 using LiveCharts.Wpf;
+using LiveCharts.Definitions.Charts;
 
 
 namespace Presentation_Layer
@@ -75,7 +76,8 @@ namespace Presentation_Layer
             //De to variable bruges nede i saveChanges_button_click. De sættes her i starten til de default værdier der står i textboxene.
 			middelMax = Convert.ToInt32(middleBTMax_textbox.Text);
 			middelMin = Convert.ToInt32(middleBTMin_textbox.Text);
-		}
+
+        }
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
             dtoGUI_list = mesControlObj.GetAllValues();
@@ -103,7 +105,7 @@ namespace Presentation_Layer
 	                Ysystolic.Remove(dtoGUI_list[taeller - removeFactor].SystoliskValue);
 	                Ydiastolic.Remove(dtoGUI_list[taeller - removeFactor].DiastoliskValue);
 	                Ypulse.Remove(dtoGUI_list[taeller - removeFactor].Pulse);
-	                XdateTime.Remove(dtoGUI_list[taeller - removeFactor].CurrentSecond);
+	                //XdateTime.Remove(dtoGUI_list[taeller - removeFactor].CurrentSecond);
                 }
 
                 Alarm();
@@ -160,7 +162,7 @@ namespace Presentation_Layer
 	        {
 		        XdateTime.Add(item);
 	        }
-	        DataContext = this;
+	        DataContext = this; 
         }
     }
 }
