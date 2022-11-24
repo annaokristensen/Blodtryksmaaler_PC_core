@@ -76,11 +76,11 @@
             </Style>
         </Button.Resources>
         </Button>
-        <TextBox x:Name="sysDiaValue_textbox" HorizontalAlignment="Left" Margin="975,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127" Height="60" IsReadOnly="True" FontSize="30" TextAlignment="Center" Background="Black"/>
+        <TextBox x:Name="sysDiaValue_textbox" HorizontalAlignment="Left" Margin="975,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127" Height="60" IsReadOnly="True" FontSize="30" TextAlignment="Center" Background="Black" Foreground="White"/>
         <Label x:Name="sysDiaValue_label" Content="Systolisk / Diastolisk" HorizontalAlignment="Left" Margin="980,175,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402" Width="127" Background="#FF030202" Foreground="White"/>
-        <TextBox x:Name="middleBTValue_textbox" HorizontalAlignment="Left" Margin="975,242,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127" Height="60" IsReadOnly="True" TextAlignment="Center" FontSize="30" Background="Black" Foreground="White"/>
+        <TextBox x:Name="middleBTValue_textbox" HorizontalAlignment="Left" Margin="975,242,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127" Height="60" IsReadOnly="True" TextAlignment="Center" FontSize="40" Background="Black" Foreground="White"/>
         <Label x:Name="middleValue_label" Content="Middel" HorizontalAlignment="Left" Margin="975,308,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402" Width="127" Foreground="White"/>
-        <TextBox x:Name="pulseValue_textbox" HorizontalAlignment="Left" Margin="980,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127" Height="60" IsReadOnly="True" FontSize="30" TextAlignment="Center" Background="Black" Foreground="White"/>
+        <TextBox x:Name="pulseValue_textbox" HorizontalAlignment="Left" Margin="980,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127" Height="60" IsReadOnly="True" FontSize="40" TextAlignment="Center" Background="Black" Foreground="White"/>
         <Label x:Name="pulseValue_label" Content="Puls" HorizontalAlignment="Left" Margin="980,430,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402" Width="127" Foreground="White"/>
         <Label x:Name="MinMaxErrorMessage_label" Content="Indsæt eventuel fejlmeddelse her" HorizontalAlignment="Left" Margin="340,97,0,0" VerticalAlignment="Top" Width="300" FontStyle="Italic"/>
         <Button x:Name="saveChanges_button" Content="Gem ændringer" HorizontalAlignment="Left" Margin="699,47,0,0" VerticalAlignment="Top" Width="100" Height="34" BorderThickness="3" Click="saveChanges_button_Click">

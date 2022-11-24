@@ -10,6 +10,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using DataLayer_PC;
 using System.Runtime.ConstrainedExecution;
+using System.Windows.Documents;
 using LiveCharts;
 using LiveCharts.Wpf;
 using LiveCharts.Definitions.Charts;
@@ -136,6 +137,7 @@ namespace Presentation_Layer
                 Convert.ToInt32(middleBTValue_textbox.Text) < middelMin)
             {
                 middleBTValue_textbox.Foreground = Brushes.Red;
+                middleBTValue_textbox.FontWeight = FontWeights.Bold;
                 //For hver gang alarmen går i gang skal der gemmes et tidsstempel i en liste, så den liste af 'alarmtriggers' kan blive gemt i databasen
                 alarmTriggeredTimes.Add(DateTime.Now);
             }
