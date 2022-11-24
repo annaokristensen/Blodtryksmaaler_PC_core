@@ -22,5 +22,17 @@ namespace Presentation_Layer_PC
 		{
 			InitializeComponent();
 		}
+
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void finishCalibration_button_Click(object sender, RoutedEventArgs e)
+		{
+			MaintenanceWindow maintenanceWindowObj = new MaintenanceWindow();
+			this.Close();
+			maintenanceWindowObj.ShowDialog();
+		}
 	}
 }

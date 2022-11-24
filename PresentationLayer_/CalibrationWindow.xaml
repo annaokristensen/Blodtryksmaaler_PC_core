@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation_Layer_PC"
         mc:Ignorable="d"
-        Title="CalibrationWindow" Height="400" Width="600">
+        Title="CalibrationWindow" Height="400" Width="600" Loaded="Window_Loaded">
     <Grid Background="Black">
         <Label x:Name="enterPressure_label" Content="Indtast tryk (mmHg)" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top" Background="Black" Foreground="White"/>
         <TextBox x:Name="enterPressure_textbox" HorizontalAlignment="Left" Margin="140,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -18,7 +18,7 @@
         </Button.Resources>
         </Button>
         <Label x:Name="succesOrErrorMessage_label" Content="Indsæt eventuel succes eller fejlmeddelse her" HorizontalAlignment="Left" Margin="19,336,0,0" VerticalAlignment="Top" FontStyle="Italic" Foreground="White" Background="Black"/>
-        <Button x:Name="finishCalibration_button" BorderThickness="3" Content="Afslut kalibrering" HorizontalAlignment="Left" Margin="451,324,0,0" VerticalAlignment="Top" Height="50" Width="130">
+        <Button x:Name="finishCalibration_button" BorderThickness="3" Content="Afslut kalibrering" HorizontalAlignment="Left" Margin="451,324,0,0" VerticalAlignment="Top" Height="50" Width="130" Click="finishCalibration_button_Click">
         <Button.Resources>
             <Style TargetType="{x:Type Border}">
                 <Setter Property="CornerRadius" Value="6"></Setter>
