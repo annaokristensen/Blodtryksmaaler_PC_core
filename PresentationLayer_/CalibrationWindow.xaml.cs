@@ -33,6 +33,7 @@ namespace Presentation_Layer_PC
 			MaintenanceWindow maintenanceWindowObj = new MaintenanceWindow();
 			this.Close();
 			maintenanceWindowObj.ShowDialog();
+			//Kommentar
 		}
 	}
 }
