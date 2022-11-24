@@ -25,6 +25,6 @@
         <Label x:Name="succesOrErrorMessage_label" Content="Indsæt eventuel succes eller fejlmeddelse her" HorizontalAlignment="Left" Margin="19,336,0,0" VerticalAlignment="Top" FontStyle="Italic"/>
         <Button x:Name="finishCalibration_button" Content="Afslut kalibrering" HorizontalAlignment="Left" Margin="451,324,0,0" VerticalAlignment="Top" Height="50" Width="130"/>
         <Button x:Name="acceptCalibration_button" Content="Godkend og gem" HorizontalAlignment="Left" Margin="300,324,0,0" VerticalAlignment="Top" Width="130" Height="50"/>
-        <Button x:Name="makeLinearReg_button" Content="Lineær regression" HorizontalAlignment="Left" Margin="451,82,0,0" VerticalAlignment="Top" Height="50" Width="130"/>
+        <Button x:Name="makeLinearReg_button" Content="Lineær regression" HorizontalAlignment="Left" Margin="451,82,0,0" VerticalAlignment="Top" Height="50" Width="130" Click="makeLinearReg_button_Click"/>
     </Grid>
 </Window>
