@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTO_PC;
 
 namespace LogicLayer_PC
 {
@@ -18,18 +19,24 @@ namespace LogicLayer_PC
             Volt = 0;
         }
 
-        public List<double> GetVolt()
+        public double GetVolt()
         {
-            List<double> VoltList = mesDataAccessObj.
+	        int taeller = 0;
+            BPMesDataGUI_DTO GUIDTOobj = new BPMesDataGUI_DTO();
 
-            double total = 0;
-            foreach(double s in VoltList)
+            List<double> VoltList = new List<double>() { 12.5, 17.3, 33.5, 55.5 };
+
+			/*foreach (double rawData in GUIDTOobj.RawDataList)
             {
-                total += s;
-            }
+	            VoltList.Add(rawData);
+            }*/
 
-            Volt = total / VoltList.Count;
-            return VoltList;
+			//double avgVolt = VoltList.Average();
+
+
+			//return VoltList;
+			taeller++;
+			return VoltList[taeller];
         }
 
         public string RegressionCalculator(List<double> y, List<double> x)

@@ -29,9 +29,12 @@ namespace Presentation_Layer_PC
 	public partial class CalibrationWindow : Window
 	{
         public ChartValues<double> YVolt { get; set; }
-        public ChartValues<int> XPressure { get; set; }
+        public ChartValues<double> XPressure { get; set; }
 
-        CalibrationControlPC calibrationObject = new CalibrationControlPC();
+        List<double> xx = new List<double>();
+        List<double> yy = new List<double>();
+
+		CalibrationControlPC calibrationObject = new CalibrationControlPC();
 
         //public CalibrationWindow()
         //{
@@ -42,11 +45,16 @@ namespace Presentation_Layer_PC
         {
             InitializeComponent();
             YVolt = new ChartValues<double>();
-            XPressure = new ChartValues<int>();
+            XPressure = new ChartValues<double>();
 
         }
 
-        private void finishCalibration_button_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+	        enterPressure_textbox.Focus();
+        }
+
+		private void finishCalibration_button_Click(object sender, RoutedEventArgs e)
         {
             MaintenanceWindow maintenanceWindowObj = new MaintenanceWindow();
             this.Close();
@@ -56,30 +64,31 @@ namespace Presentation_Layer_PC
 
         private void registerPressure_button_Click(object sender, RoutedEventArgs e)
         {
-                      List<double> xx = new List<double>();
+	        enterPressure_textbox.Focus();
+	        int taeller = 0;
+	        //List<double> midlVoltList = new List<double>();
+
+	        /*foreach (double volt in calibrationObject.GetVolt())
+	        {
+		        midlVoltList.Add(volt);
+	        }*/
 
 
-                      foreach (string x in enterPressure_textbox.Text)
-                      {
-                         xx.Add(double.Parse(x));
-                      }
+	        xx.Add(Convert.ToDouble(enterPressure_textbox.Text));
+	        XPressure.Add(xx[taeller]);
+	        //yy.Add(calibrationObject.GetVolt());
+	        yy.Add(calibrationObject.GetVolt());
+	        YVolt.Add(yy[taeller]);
 
+	        enterPressure_textbox.Clear();
+	        DataContext = this;
 
-            //          foreach (string x in enterPressure_textbox2.Text.Split(","))
-            //          {
-            //              xx.Add(double.Parse(x));
-            //          }
-            //          MessageBox.Show(RegressionCalculator(yy, xx));
+	        taeller++;
         }
 
         private void makeLinearReg_button_Click(object sender, RoutedEventArgs e)
         {
-            calibrationObject.RegressionCalculator();
+            calibrationObject.RegressionCalculator(yy,xx);
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-    }
+	}
 }
