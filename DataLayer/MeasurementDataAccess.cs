@@ -101,6 +101,10 @@ namespace DataLayer_PC
 			while (true);
 		}
 
+		/// <summary>
+		/// TEST-METODE til at læse en test-fil som er skrevet på det format, som vi modtager fra rpi
+		/// </summary>
+		/// <returns></returns>
 		public BPMesDataGUI_DTO TestReadValues()
 		{
 			//Sætter udpPath til at være den string som udpServeren returnerer. Det er deri at data fra rpi står
@@ -134,13 +138,7 @@ namespace DataLayer_PC
 						rawDataList.Add(Convert.ToDouble(input[i]));
                     }
 
-					/////////Denne metode kan vi slette også bruge den ovenståënde///////////
-					//for (int i = 0; i < 4; i++)
-					//{
-					//	rawDataList.Remove(i);
-					//}
-
-					foreach (string sample in holder)
+                    foreach (string sample in holder)
 					{
 						//string[] input = sample.Split(' ');
 						dtoObjTest = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]), rawDataList);
