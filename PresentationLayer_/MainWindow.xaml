@@ -46,8 +46,8 @@
             </Style>
         </Button.Resources>
         </Button>
-        <Label x:Name="max_label" Content="Max" HorizontalAlignment="Left" Margin="282,32,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402"/>
-        <Label x:Name="min_label" Content="Min" HorizontalAlignment="Left" Margin="282,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402"/>
+        <Label x:Name="max_label" Content="Max" HorizontalAlignment="Left" Margin="282,32,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402" Foreground="White"/>
+        <Label x:Name="min_label" Content="Min" HorizontalAlignment="Left" Margin="282,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402" Foreground="White"/>
         <Label x:Name="systolisk_label" Content="Systolisk" HorizontalAlignment="Left" Margin="340,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402" Width="60" Foreground="White"/>
         <Label x:Name="diastolisk_label" Content="Diastolisk" HorizontalAlignment="Left" Margin="420,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402" Width="60" Foreground="White"/>
         <Label x:Name="middleBT_label" Content="Middel" HorizontalAlignment="Left" Margin="497,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402" Width="60" Foreground="White"/>

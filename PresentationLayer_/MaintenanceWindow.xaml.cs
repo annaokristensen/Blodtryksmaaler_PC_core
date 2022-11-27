@@ -46,7 +46,6 @@ namespace Presentation_Layer_PC
 		{
 			//Når der trykkes på kalibrering, skal CalibrationWindow åbne og MaintenanceWindow lukker
 			CalibrationWindow calibrationWindowObj = new CalibrationWindow();
-			this.Close();
 			calibrationWindowObj.ShowDialog();
 		}
 	}

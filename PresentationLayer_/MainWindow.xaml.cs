@@ -3,6 +3,7 @@ using LogicLayer_PC;
 using Presentation_Layer_PC;
 using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -40,6 +41,9 @@ namespace Presentation_Layer
         public ChartValues<double> Ydiastolic { get; set; }
         public ChartValues<double> Ypulse { get; set; }
 
+        private DateTime startTime;
+        private DateTime stopTime;
+
 
         public MainWindow()
         {
@@ -67,6 +71,9 @@ namespace Presentation_Layer
                 this.Close();
             else
                 this.Show();
+
+            stopAndSave_button.IsEnabled = false;
+            finishOperation_button.IsEnabled = false;
 
             //Sørger for at patientens (det indtastede) cpr-nummer fremstår af cpr-tekstboksen på mainWindow
             cpr_textbox.Text = cprWindowObj.GetEnteredCpr();
@@ -126,6 +133,8 @@ namespace Presentation_Layer
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
             dispatcherTimer.Start();
+            stopAndSave_button.IsEnabled = true;
+            startTime = DateTime.Now;
         }
         
         /// <summary>
@@ -143,17 +152,28 @@ namespace Presentation_Layer
             }
             else
             {
-                middleBTValue_textbox.Foreground = Brushes.Black;
+                middleBTValue_textbox.Foreground = Brushes.White;
+                middleBTValue_textbox.FontWeight = FontWeights.Normal;
             }
         }
 
         private void stopAndSave_button_Click(object sender, RoutedEventArgs e)
         {
-            //Når der trykkes "Stop og gem" så skal dispatcherTimer stoppe, så graferne og tallene stopper med at blive opdateret
-            dispatcherTimer.Stop();
-            //TODO: StartTime og StopTime står nu til DateTime.Now, men dem skal vi senere have fra rpi ligesom sys, dia osv.
-            //Når der trykkes "Stop og gem" skal SaveMeasurement kaldes. Vi giver den dtoGUIlisten, cpr-nummeret og listen af alarm-tidspunkter med som parameter
-            stopAndSaveObj.SaveMeasurement(dtoGUI_list, cpr_textbox.Text, DateTime.Now, DateTime.Now, alarmTriggeredTimes);
+	        try
+            {
+	            //Når der trykkes "Stop og gem" så skal dispatcherTimer stoppe, så graferne og tallene stopper med at blive opdateret
+	            dispatcherTimer.Stop();
+	            finishOperation_button.IsEnabled = true;
+	            stopTime = DateTime.Now;
+				//Når der trykkes "Stop og gem" skal SaveMeasurement kaldes. Vi giver den dtoGUIlisten, cpr-nummeret og listen af alarm-tidspunkter med som parameter
+				stopAndSaveObj.SaveMeasurement(dtoGUI_list, cpr_textbox.Text, startTime, stopTime, alarmTriggeredTimes);
+				MessageBox.Show(this, "Data blev gemt i databasen", "Succes");
+            }
+            catch (Exception exception)
+            {
+	            MessageBox.Show(this,
+		            "Data kunne ikke gemmes i databasen. Prøv venligst igen senere. Detaljer: " + exception.Message, "Fejl");
+            }
         }
 
         // Metoden sørger for at lave x-aksen hvor tidspunktet for målepunktet skal vises

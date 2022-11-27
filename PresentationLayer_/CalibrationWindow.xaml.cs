@@ -54,14 +54,6 @@ namespace Presentation_Layer_PC
 	        enterPressure_textbox.Focus();
         }
 
-		private void finishCalibration_button_Click(object sender, RoutedEventArgs e)
-        {
-            MaintenanceWindow maintenanceWindowObj = new MaintenanceWindow();
-            this.Close();
-            maintenanceWindowObj.ShowDialog();
-            //Kommentar
-        }
-
         private void registerPressure_button_Click(object sender, RoutedEventArgs e)
         {
 	        enterPressure_textbox.Focus();
@@ -90,5 +82,10 @@ namespace Presentation_Layer_PC
         {
             calibrationObject.RegressionCalculator(yy,xx);
         }
-	}
+
+        private void finishCalibration_button_Click_1(object sender, RoutedEventArgs e)
+        {
+	        this.Close();
+		}
+    }
 }
