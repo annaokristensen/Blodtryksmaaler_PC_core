@@ -23,7 +23,6 @@ namespace LogicLayer_PC
         {
 	        int taeller = 0;
             BPMesDataGUI_DTO GUIDTOobj = new BPMesDataGUI_DTO();
-
             List<double> VoltList = new List<double>() { 12.5, 17.3, 33.5, 55.5 };
 
 			/*foreach (double rawData in GUIDTOobj.RawDataList)
@@ -32,7 +31,6 @@ namespace LogicLayer_PC
             }*/
 
 			//double avgVolt = VoltList.Average();
-
 
 			//return VoltList;
 			taeller++;

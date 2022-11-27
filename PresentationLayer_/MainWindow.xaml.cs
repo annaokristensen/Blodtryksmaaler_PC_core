@@ -40,7 +40,6 @@ namespace Presentation_Layer
         public  ChartValues<double> Ysystolic { get; set; }
         public ChartValues<double> Ydiastolic { get; set; }
         public ChartValues<double> Ypulse { get; set; }
-
         private DateTime startTime;
         private DateTime stopTime;
 
@@ -53,7 +52,6 @@ namespace Presentation_Layer
             mesControlObj = new MeasurementControlPC();
             stopAndSaveObj = new StopAndSave();
             alarmTriggeredTimes = new List<DateTime>();
-
             Ymiddel = new ChartValues<double>();
             XdateTime = new ChartValues<string>();
             Ysystolic = new ChartValues<double>();
@@ -78,7 +76,7 @@ namespace Presentation_Layer
             //Sørger for at patientens (det indtastede) cpr-nummer fremstår af cpr-tekstboksen på mainWindow
             cpr_textbox.Text = cprWindowObj.GetEnteredCpr();
 
-			dispatcherTimer.Tick += DispatcherTimer_Tick;
+            dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 250); //Intervallet for hvor ofte data skifter på GUI'en
 					
             //De to variable bruges nede i saveChanges_button_click. De sættes her i starten til de default værdier der står i textboxene.
@@ -115,7 +113,6 @@ namespace Presentation_Layer
 	                Ypulse.Remove(dtoGUI_list[taeller - removeFactor].Pulse);
 	                //XdateTime.Remove(dtoGUI_list[taeller - removeFactor].CurrentSecond);
                 }
-
                 Alarm();
                 //tælleren tæller 1 op for hver gang koden er kørt i gennnem, så vi hele tiden får de næste punkter i rækken
 				taeller++;

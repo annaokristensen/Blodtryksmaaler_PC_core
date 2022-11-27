@@ -15,7 +15,6 @@ namespace LogicLayer_PC
 	{
 		private SaveMeasurement saveMeasurementObj;
 		private MeasurementDataAccess mesDataAccess;
-
 		public StopAndSave()
 		{
 			saveMeasurementObj = new SaveMeasurement();

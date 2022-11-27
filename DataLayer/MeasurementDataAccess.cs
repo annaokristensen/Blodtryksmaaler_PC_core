@@ -70,7 +70,6 @@ namespace DataLayer_PC
 						string[] input = sample.Split(' ');
 						dtoObj = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]), rawDataList);
 					}
-
 					return dtoObj;
 				}
 			}
@@ -108,7 +107,6 @@ namespace DataLayer_PC
 		public BPMesDataGUI_DTO TestReadValues()
 		{
 			//Sætter udpPath til at være den string som udpServeren returnerer. Det er deri at data fra rpi står
-			
 			do
 			{
 				while (!shallStop)
@@ -120,10 +118,9 @@ namespace DataLayer_PC
 					/////////Noget RPi kan skrive, hvis vi laver det om, så vi får data på flere linjer. /////////////
 					//string[] test = new string[] { "10", "12", "13" };
 
-     //               File.WriteAllLines(testPath2,test);
+                    //File.WriteAllLines(testPath2,test);
 
-
-					/////////////Ny metode som skal bruges hvis dataen kommer i flere linjer.///////
+                    /////////////Ny metode som skal bruges hvis dataen kommer i flere linjer.///////
 					foreach (string sample in holder)
 					{
 						//string[] input = sample.Split(' ');

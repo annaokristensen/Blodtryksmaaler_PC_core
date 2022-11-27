@@ -22,7 +22,6 @@ namespace Presentation_Layer_PC
 		public string Cpr { get; set; }
 		CPRControl cprControl = new CPRControl();
 
-		
 		public CPR_Window()
 		{
 			InitializeComponent();
@@ -34,7 +33,6 @@ namespace Presentation_Layer_PC
 
 			//Sørger for at cursoren starter i tekstfeltet til cpr-nummeret
 			enterCPR_textbox.Focus();
-
 			//Sørger for at fejlmeddelsen ikke vises når vinduet loades
 			errorMessage_label.Visibility = Visibility.Hidden;
 

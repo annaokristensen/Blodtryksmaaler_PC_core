@@ -12,7 +12,6 @@ namespace LogicLayer_PC
         private MeasurementDataAccess mesDataAccessObj;
         public double Zeropoint { get; private set; }
         
-
         public ZeropointControlPC()
         {
             mesDataAccessObj = new MeasurementDataAccess();

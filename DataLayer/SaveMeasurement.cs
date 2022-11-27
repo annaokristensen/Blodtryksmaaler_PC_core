@@ -15,6 +15,7 @@ namespace DataLayer_PC
 
         public SaveMeasurement()
         {
+			//JULIE:
 			conn = new SqlConnection(@"Data Source=LAPTOP-JKBR8I3G\SQLEXPRESS;Initial Catalog=BloodPressureData_DB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
 
@@ -49,7 +50,6 @@ namespace DataLayer_PC
 			                     ", " + "@alarmTimes)";
 
 			command = new SqlCommand(queryString, conn);
-
 			command.Parameters.AddWithValue("@rawdata", bpDB_DTO.RawData.ToArray().SelectMany(value => BitConverter.GetBytes(value)).ToArray());
 			command.Parameters.AddWithValue("@sysValues", bpDB_DTO.SystoliskValues.ToArray().SelectMany(value => BitConverter.GetBytes(value)).ToArray());
 			command.Parameters.AddWithValue("@diaValues", bpDB_DTO.DiastoliskValues.ToArray().SelectMany(value => BitConverter.GetBytes(value)).ToArray());

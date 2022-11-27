@@ -12,8 +12,6 @@ namespace DTO_PC
 		public double SystoliskValue { get; set; }
 		public double DiastoliskValue { get; set; }
 		public double MiddelValue { get; set; }
-		//public string CurrentSecond { get; set; }
-
 		public List<double> RawDataList { get; set; }
 
 		//Contructoren bruges til til at 'holde' de beregnede værdier - dem får vi samme antl af med samme interval
@@ -34,9 +32,6 @@ namespace DTO_PC
 			SystoliskValue = systoliskValue;
 			DiastoliskValue = diastoliskValue;
 		}
-
-
-
 
 		public BPMesDataGUI_DTO()
 		{

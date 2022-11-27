@@ -16,11 +16,8 @@ namespace DataLayer_PC
 
         public void StartListener()   //Lytter efter porten på PC
         {
-
-            UdpClient listener = new UdpClient(listenPort);
+	        UdpClient listener = new UdpClient(listenPort);
             IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, listenPort);    //læser porten fra IPadressen
-
-            
 
             try
             {
