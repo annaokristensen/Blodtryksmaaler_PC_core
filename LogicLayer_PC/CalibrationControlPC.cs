@@ -19,22 +19,33 @@ namespace LogicLayer_PC
             Volt = 0;
         }
 
-        public double GetVolt()
+        /// <summary>
+        /// METODEN som skal returnere den gennemsnitlige spændingsværdi der er modtager fra udp for det pågældende tryk
+        /// </summary>
+        /// <returns></returns>
+        public double GetVoltFromUDP()
         {
-	        int taeller = 0;
-            BPMesDataGUI_DTO GUIDTOobj = new BPMesDataGUI_DTO();
-            List<double> VoltList = new List<double>() { 12.5, 17.3, 33.5, 55.5 };
+	        BPMesDataGUI_DTO GUIDTOobj = new BPMesDataGUI_DTO();
+	        List<double> VoltDataFromUDPList = new List<double>();
 
-			/*foreach (double rawData in GUIDTOobj.RawDataList)
-            {
-	            VoltList.Add(rawData);
-            }*/
+	        foreach (double rawData in GUIDTOobj.RawDataList)
+	        {
+		        VoltDataFromUDPList.Add(rawData);
+	        }
 
-			//double avgVolt = VoltList.Average();
+	        double avgVolt = VoltDataFromUDPList.Average();
 
-			//return VoltList;
-			taeller++;
-			return VoltList[taeller];
+	        return avgVolt;
+        }
+
+        /// <summary>
+        /// TEST-METODE som bare returnerer nogle værdier til kalibrering
+        /// </summary>
+        /// <returns></returns>
+		public List<double> GetVoltTest()
+        {
+	        List<double> VoltListTest = new List<double>() { 12.5, 17.3, 33.5, 55.5, 70.2};
+	        return VoltListTest;
         }
 
         public string RegressionCalculator(List<double> y, List<double> x)

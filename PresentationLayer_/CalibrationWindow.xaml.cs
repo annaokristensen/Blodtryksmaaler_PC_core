@@ -34,6 +34,8 @@ namespace Presentation_Layer_PC
         List<double> xx = new List<double>();
         List<double> yy = new List<double>();
 
+        int taeller = 0;
+
 		CalibrationControlPC calibrationObject = new CalibrationControlPC();
 
         //public CalibrationWindow()
@@ -57,25 +59,30 @@ namespace Presentation_Layer_PC
         private void registerPressure_button_Click(object sender, RoutedEventArgs e)
         {
 	        enterPressure_textbox.Focus();
-	        int taeller = 0;
-	        //List<double> midlVoltList = new List<double>();
 
-	        /*foreach (double volt in calibrationObject.GetVolt())
+            //Koden henter data fra en test-metode, men det kan nemt genbruges til det rigtige data
+	        List<double> midlVoltList = new List<double>();
+	        foreach (double volt in calibrationObject.GetVoltTest())
 	        {
 		        midlVoltList.Add(volt);
-	        }*/
+	        }
 
+	        try
+	        {
+		        xx.Add(Convert.ToDouble(enterPressure_textbox.Text));
+		        XPressure.Add(xx[taeller]);
+		        yy.Add(midlVoltList[taeller]);
+		        YVolt.Add(yy[taeller]);
 
-	        xx.Add(Convert.ToDouble(enterPressure_textbox.Text));
-	        XPressure.Add(xx[taeller]);
-	        //yy.Add(calibrationObject.GetVolt());
-	        yy.Add(calibrationObject.GetVolt());
-	        YVolt.Add(yy[taeller]);
+		        enterPressure_textbox.Clear();
+		        DataContext = this;
+		        taeller++;
+			}
+	        catch (Exception exception)
+	        {
+		        MessageBox.Show(this, exception.Message, "Fejl");
+	        }
 
-	        enterPressure_textbox.Clear();
-	        DataContext = this;
-
-	        taeller++;
         }
 
         private void makeLinearReg_button_Click(object sender, RoutedEventArgs e)
