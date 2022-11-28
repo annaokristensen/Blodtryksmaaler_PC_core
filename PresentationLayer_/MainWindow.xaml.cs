@@ -87,6 +87,7 @@ namespace Presentation_Layer
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
             dtoGUI_list = mesControlObj.GetAllValues();
+            //TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
             const int graphPointLimit = 8; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
             const int removeFactor = 9; //Faktoren der sørger for de ældste punkter bliver fjernet. Skal vist være 1 større end graphPointLimit
 
@@ -111,7 +112,6 @@ namespace Presentation_Layer
 	                Ysystolic.Remove(dtoGUI_list[taeller - removeFactor].SystoliskValue);
 	                Ydiastolic.Remove(dtoGUI_list[taeller - removeFactor].DiastoliskValue);
 	                Ypulse.Remove(dtoGUI_list[taeller - removeFactor].Pulse);
-	                //XdateTime.Remove(dtoGUI_list[taeller - removeFactor].CurrentSecond);
                 }
                 Alarm();
                 //tælleren tæller 1 op for hver gang koden er kørt i gennnem, så vi hele tiden får de næste punkter i rækken
@@ -174,6 +174,7 @@ namespace Presentation_Layer
         }
 
         // Metoden sørger for at lave x-aksen hvor tidspunktet for målepunktet skal vises
+		//TODO: Skal denne metode slettes?
         public void ShowSecondOnXAxis()
         {
 	        List<string> dateTime = mesControlObj.GetDateTime();

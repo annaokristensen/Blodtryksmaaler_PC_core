@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <Label x:Name="enterCPR_label" Content="Indtast patientens CPR-nummer" HorizontalAlignment="Left" Margin="153,127,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.053,-0.037" Width="182" Grid.Column="1" Foreground="White"/>
         <TextBox x:Name="enterCPR_textbox" HorizontalAlignment="Left" Margin="184,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" GotFocus="enterCPR_textbox_GotFocus"/>
-        <Button x:Name="register_button" Content="Godkend" BorderThickness="3" HorizontalAlignment="Left" Margin="184,192,0,0" VerticalAlignment="Top" Width="120" Height="50" RenderTransformOrigin="0.533,0.701" Click="register_button_Click" Grid.Column="1" IsDefault="True">
+        <Button x:Name="register_button" Content="Registrér" BorderThickness="3" HorizontalAlignment="Left" Margin="184,192,0,0" VerticalAlignment="Top" Width="120" Height="50" RenderTransformOrigin="0.533,0.701" Click="register_button_Click" Grid.Column="1" IsDefault="True">
         <Button.Resources>
             <Style TargetType="{x:Type Border}">
                 <Setter Property="CornerRadius" Value="6"></Setter>
