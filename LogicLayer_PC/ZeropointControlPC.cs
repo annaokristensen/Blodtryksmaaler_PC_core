@@ -13,7 +13,6 @@ namespace LogicLayer_PC
         private MeasurementDataAccess mesDataAccessObj;
         public double Zeropoint { get; private set; }
         
-
         public ZeropointControlPC()
         {
             mesDataAccessObj = new MeasurementDataAccess();
@@ -21,20 +20,15 @@ namespace LogicLayer_PC
         }
         public void GetZeropoint()
         {
-            BPMesDataGUI_DTO list = mesDataAccessObj.Read();
-            List<double> doubles = new List<double>();
-            foreach (BPMesDataGUI_DTO data in list)
-            {
-                doubles.Add(data.RawData);
-            }
+            //List<double> list = mesDataAccessObj.;
 
-            double total = 0;
-            foreach(double s in doubles)
-            {
-                total += s;
-            }
+            //double total = 0;
+            //foreach(double s in list)
+            //{
+            //    total += s;
+            //}
 
-            Zeropoint = total / list.Count;
+            //Zeropoint = total / list.Count;
         }
     }
 }

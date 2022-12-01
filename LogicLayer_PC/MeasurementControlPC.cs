@@ -32,7 +32,7 @@ namespace LogicLayer_PC
             // TODO FIX return dto_List;
             return 0.0;
         }
-
+        //Test metode skal slettes
         public void TestThread()
         {
             int cnt = 10;
@@ -56,12 +56,12 @@ namespace LogicLayer_PC
 
         public List<string> GetDateTime()
         {
-	        List<string> dateTime_List = new List<string>();
-	        foreach (var item in mesDataAccessObj.ReadSampleTest())
-	        {
-		        dateTime_List.Add(item.CurrentSecond);
-	        }
-	        return dateTime_List;
+            List<string> dateTime_List = new List<string>();
+            //foreach (var item in mesDataAccessObj.ReadSampleTest())
+            //{
+            //    dateTime_List.Add(item.CurrentSecond);
+            //}
+            return dateTime_List;
         }
     }
 }

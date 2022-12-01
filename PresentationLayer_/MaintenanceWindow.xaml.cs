@@ -24,9 +24,29 @@ namespace Presentation_Layer_PC
 			InitializeComponent();
 		}
 
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+
+		}
+
 		private void opretforbindelse_button_Click(object sender, System.Windows.RoutedEventArgs e)
 		{
 
+		}
+
+		private void moveOnToCpr_button_Click(object sender, RoutedEventArgs e)
+		{
+			//Når der trykkes på Videre til cpr og nulpunktjustering er udført, skal CprWindow åbne og MaintenanceWindow lukke
+			// if (nulpunktjustering er udført)
+			this.DialogResult = true;
+			this.Close();
+		}
+
+		private void calibration_button_Click(object sender, RoutedEventArgs e)
+		{
+			//Når der trykkes på kalibrering, skal CalibrationWindow åbne og MaintenanceWindow lukker
+			CalibrationWindow calibrationWindowObj = new CalibrationWindow();
+			calibrationWindowObj.ShowDialog();
 		}
 	}
 }

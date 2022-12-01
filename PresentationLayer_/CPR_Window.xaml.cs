@@ -22,7 +22,6 @@ namespace Presentation_Layer_PC
 		public string Cpr { get; set; }
 		CPRControl cprControl = new CPRControl();
 
-		
 		public CPR_Window()
 		{
 			InitializeComponent();
@@ -30,10 +29,18 @@ namespace Presentation_Layer_PC
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			//Sørger for at fejlmeddelsen ikke vises når vinduet loades
-			errorMessage_label.Visibility = Visibility.Hidden;
+			this.Hide();
+
 			//Sørger for at cursoren starter i tekstfeltet til cpr-nummeret
 			enterCPR_textbox.Focus();
+			//Sørger for at fejlmeddelsen ikke vises når vinduet loades
+			errorMessage_label.Visibility = Visibility.Hidden;
+
+			MaintenanceWindow maintenanceWindowObj = new MaintenanceWindow();
+			if (!maintenanceWindowObj.ShowDialog().Value)
+				this.Close();
+			else
+				this.ShowDialog();
 		}
 
 		private void register_button_Click(object sender, RoutedEventArgs e)

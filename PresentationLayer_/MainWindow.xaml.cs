@@ -3,6 +3,7 @@ using LogicLayer_PC;
 using Presentation_Layer_PC;
 using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -10,8 +11,10 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using DataLayer_PC;
 using System.Runtime.ConstrainedExecution;
+using System.Windows.Documents;
 using LiveCharts;
 using LiveCharts.Wpf;
+using LiveCharts.Definitions.Charts;
 
 
 namespace Presentation_Layer
@@ -37,6 +40,8 @@ namespace Presentation_Layer
         public  ChartValues<double> Ysystolic { get; set; }
         public ChartValues<double> Ydiastolic { get; set; }
         public ChartValues<double> Ypulse { get; set; }
+        private DateTime startTime;
+        private DateTime stopTime;
 
 
         public MainWindow()
@@ -47,7 +52,6 @@ namespace Presentation_Layer
             mesControlObj = new MeasurementControlPC();
             stopAndSaveObj = new StopAndSave();
             alarmTriggeredTimes = new List<DateTime>();
-
             Ymiddel = new ChartValues<double>();
             XdateTime = new ChartValues<string>();
             Ysystolic = new ChartValues<double>();
@@ -66,19 +70,24 @@ namespace Presentation_Layer
             else
                 this.Show();
 
+            stopAndSave_button.IsEnabled = false;
+            finishOperation_button.IsEnabled = false;
+
             //Sørger for at patientens (det indtastede) cpr-nummer fremstår af cpr-tekstboksen på mainWindow
             cpr_textbox.Text = cprWindowObj.GetEnteredCpr();
 
-			dispatcherTimer.Tick += DispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 100); //Intervallet for hvor ofte data skifter på GUI'en
+            dispatcherTimer.Tick += DispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 250); //Intervallet for hvor ofte data skifter på GUI'en
 					
             //De to variable bruges nede i saveChanges_button_click. De sættes her i starten til de default værdier der står i textboxene.
 			middelMax = Convert.ToInt32(middleBTMax_textbox.Text);
 			middelMin = Convert.ToInt32(middleBTMin_textbox.Text);
-		}
+
+        }
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
             dtoGUI_list = mesControlObj.GetAllValues();
+            //TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
             const int graphPointLimit = 8; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
             const int removeFactor = 9; //Faktoren der sørger for de ældste punkter bliver fjernet. Skal vist være 1 større end graphPointLimit
 
@@ -103,9 +112,7 @@ namespace Presentation_Layer
 	                Ysystolic.Remove(dtoGUI_list[taeller - removeFactor].SystoliskValue);
 	                Ydiastolic.Remove(dtoGUI_list[taeller - removeFactor].DiastoliskValue);
 	                Ypulse.Remove(dtoGUI_list[taeller - removeFactor].Pulse);
-	                XdateTime.Remove(dtoGUI_list[taeller - removeFactor].CurrentSecond);
                 }
-
                 Alarm();
                 //tælleren tæller 1 op for hver gang koden er kørt i gennnem, så vi hele tiden får de næste punkter i rækken
 				taeller++;
@@ -123,6 +130,8 @@ namespace Presentation_Layer
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
             dispatcherTimer.Start();
+            stopAndSave_button.IsEnabled = true;
+            startTime = DateTime.Now;
         }
         
         /// <summary>
@@ -134,25 +143,38 @@ namespace Presentation_Layer
                 Convert.ToInt32(middleBTValue_textbox.Text) < middelMin)
             {
                 middleBTValue_textbox.Foreground = Brushes.Red;
+                middleBTValue_textbox.FontWeight = FontWeights.Bold;
                 //For hver gang alarmen går i gang skal der gemmes et tidsstempel i en liste, så den liste af 'alarmtriggers' kan blive gemt i databasen
                 alarmTriggeredTimes.Add(DateTime.Now);
             }
             else
             {
-                middleBTValue_textbox.Foreground = Brushes.Black;
+                middleBTValue_textbox.Foreground = Brushes.White;
+                middleBTValue_textbox.FontWeight = FontWeights.Normal;
             }
         }
 
         private void stopAndSave_button_Click(object sender, RoutedEventArgs e)
         {
-            //Når der trykkes "Stop og gem" så skal dispatcherTimer stoppe, så graferne og tallene stopper med at blive opdateret
-            dispatcherTimer.Stop();
-            //TODO: StartTime og StopTime står nu til DateTime.Now, men dem skal vi senere have fra rpi ligesom sys, dia osv.
-            //Når der trykkes "Stop og gem" skal SaveMeasurement kaldes. Vi giver den dtoGUIlisten, cpr-nummeret og listen af alarm-tidspunkter med som parameter
-            stopAndSaveObj.SaveMeasurement(dtoGUI_list, cpr_textbox.Text, DateTime.Now, DateTime.Now, alarmTriggeredTimes);
+	        try
+            {
+	            //Når der trykkes "Stop og gem" så skal dispatcherTimer stoppe, så graferne og tallene stopper med at blive opdateret
+	            dispatcherTimer.Stop();
+	            finishOperation_button.IsEnabled = true;
+	            stopTime = DateTime.Now;
+				//Når der trykkes "Stop og gem" skal SaveMeasurement kaldes. Vi giver den dtoGUIlisten, cpr-nummeret og listen af alarm-tidspunkter med som parameter
+				stopAndSaveObj.SaveMeasurement(dtoGUI_list, cpr_textbox.Text, startTime, stopTime, alarmTriggeredTimes);
+				MessageBox.Show(this, "Data blev gemt i databasen", "Succes");
+            }
+            catch (Exception exception)
+            {
+	            MessageBox.Show(this,
+		            "Data kunne ikke gemmes i databasen. Prøv venligst igen senere. Detaljer: " + exception.Message, "Fejl");
+            }
         }
 
         // Metoden sørger for at lave x-aksen hvor tidspunktet for målepunktet skal vises
+		//TODO: Skal denne metode slettes?
         public void ShowSecondOnXAxis()
         {
 	        List<string> dateTime = mesControlObj.GetDateTime();
@@ -160,7 +182,7 @@ namespace Presentation_Layer
 	        {
 		        XdateTime.Add(item);
 	        }
-	        DataContext = this;
+	        DataContext = this; 
         }
     }
 }

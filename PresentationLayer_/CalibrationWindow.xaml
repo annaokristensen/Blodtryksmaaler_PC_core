@@ -1,19 +1,30 @@
 ﻿<Window x:Class="Presentation_Layer_PC.CalibrationWindow"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation_Layer_PC"
         mc:Ignorable="d"
-        Title="CalibrationWindow" Height="400" Width="600">
-    <Grid>
-        <Label x:Name="enterPressure_label" Content="Indtast tryk (mmHg)" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="enterPressure_textbox" HorizontalAlignment="Left" Margin="140,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="registerPressure_button" Content="Registrér tryk" HorizontalAlignment="Left" Margin="300,18,0,0" VerticalAlignment="Top" Height="50" Width="130"/>
-        <Label x:Name="succesOrErrorMessage_label" Content="Indsæt eventuel succes eller fejlmeddelse her" HorizontalAlignment="Left" Margin="19,336,0,0" VerticalAlignment="Top" FontStyle="Italic"/>
-        <Button x:Name="finishCalibration_button" Content="Afslut kalibrering" HorizontalAlignment="Left" Margin="451,324,0,0" VerticalAlignment="Top" Height="50" Width="130"/>
-        <Button x:Name="acceptCalibration_button" Content="Godkend og gem" HorizontalAlignment="Left" Margin="300,324,0,0" VerticalAlignment="Top" Width="130" Height="50"/>
-        <Button x:Name="makeLinearReg_button" Content="Lineær regression" HorizontalAlignment="Left" Margin="451,82,0,0" VerticalAlignment="Top" Height="50" Width="130"/>
+        Title="CalibrationWindow" Height="450" Width="600" Loaded="Window_Loaded">
+    <Grid Background="Black">
+        <lvc:CartesianChart Name="CalibrationChart" LegendLocation="Left" Margin="30,90,180,115">
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries Name="Calibration"  Stroke="Red" Title="Calibration" Values="{Binding YVolt}">
+                </lvc:LineSeries>
+            </lvc:CartesianChart.Series> 
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="mmHg" Labels="{Binding XPressure}"></lvc:Axis>
+            </lvc:CartesianChart.AxisX>
 
+        </lvc:CartesianChart>
+        <Label x:Name="enterPressure_label" Content="Indtast tryk (mmHg)" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top" Background="Black" Foreground="White"/>
+        <TextBox x:Name="enterPressure_textbox" HorizontalAlignment="Left" Margin="140,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+        <Button x:Name="registerPressure_button" Content="Registrér tryk" HorizontalAlignment="Left" Margin="300,18,0,0" VerticalAlignment="Top" Height="50" Width="130" Click="registerPressure_button_Click" IsDefault="True" />
+        <Label x:Name="succesOrErrorMessage_label" Content="Indsæt eventuel succes eller fejlmeddelse her" HorizontalAlignment="Left" Margin="19,336,0,0" VerticalAlignment="Top" FontStyle="Italic"/>
+        <Button x:Name="finishCalibration_button" Content="Afslut kalibrering" HorizontalAlignment="Left" Margin="451,324,0,0" VerticalAlignment="Top" Height="50" Width="130" Click="finishCalibration_button_Click_1"/>
+        <Button x:Name="acceptCalibration_button" Content="Godkend og gem" HorizontalAlignment="Left" Margin="300,324,0,0" VerticalAlignment="Top" Width="130" Height="50"/>
+        <Button x:Name="makeLinearReg_button" Content="Lineær regression" HorizontalAlignment="Left" Margin="451,82,0,0" VerticalAlignment="Top" Height="50" Width="130" Click="makeLinearReg_button_Click"/>
     </Grid>
 </Window>
