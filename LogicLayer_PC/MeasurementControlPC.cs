@@ -12,8 +12,8 @@ namespace LogicLayer_PC
 	{
 		private MeasurementDataAccess measurementDataAccessObj;
 		private BPCalculator bpCalcObj;
-		private BPMesDataGUI_DTO rawDataDTO;
-		private BPMesDataGUI_DTO calcValuesDTO;
+		private BPMesDataGUI_DTO BPDTO;
+		//private BPMesDataGUI_DTO calcValuesDTO;
 		private List<double> rawDataListMC = new List<double>();
 
 
@@ -23,22 +23,15 @@ namespace LogicLayer_PC
 			bpCalcObj = new BPCalculator();
 		}
 
-		public List<double> GetRawData()
+		public BPMesDataGUI_DTO GetBPValues()
 		{
-			rawDataDTO = measurementDataAccessObj.ReadRawData();
+			BPDTO = measurementDataAccessObj.ReadRawData();
+			bpCalcObj.saveValues(BPDTO);
 
-			foreach (double rawData in rawDataDTO.RawDataList)
-			{
-				rawDataListMC.Add(rawData);
-			}
 
-			return rawDataListMC;
+			return BPDTO;
 		}
-
-		public List<BPMesDataGUI_DTO> GetCalculatedValues()
-		{
-
-		}
+		
 
 	}
 }

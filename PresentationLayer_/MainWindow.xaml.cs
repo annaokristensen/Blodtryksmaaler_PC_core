@@ -86,21 +86,30 @@ namespace Presentation_Layer
         }
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
-            dtoGUI_list = testMesControlObj.GetAllValues();
-            rawDataListGUI = mesControlPC.GetRawData();
+            //TIL TEST-METODEN:
+            //dtoGUI_list = testMesControlObj.GetAllValues();
+
+            //TIL UDP:
+            dtoGUI_list[taeller] = mesControlPC.GetBPValues();
+            rawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
+
+
             //TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
             const int graphPointLimit = 8; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
             const int removeFactor = 9; //Faktoren der sørger for de ældste punkter bliver fjernet. Skal vist være 1 større end graphPointLimit
 
             if (taeller < dtoGUI_list.Count)
             {
-                //Kode der får grafen vist:
-	            //ShowSecondOnXAxis();
-                //YRawData.Add(dtoGUI_list[taeller].SystoliskValue);
-                YRawData.Add(rawDataListGUI[taeller]);
+                //TEST/SLETTES:
+                //ShowSecondOnXAxis();
+                //YRawData.Add(dtoGUI_list[taeller].MiddelValue);
 
+                foreach (double rawData in rawDataListGUI)
+                {
+	                YRawData.Add(rawData);
+                }
 
-                //Kode der får værdierne vist i textboxene:
+                //TEXTBOXENES VÆRDIER:
 				middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
                 pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
                 sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
@@ -111,7 +120,7 @@ namespace Presentation_Layer
 	                YRawData.Remove(dtoGUI_list[taeller - removeFactor].SystoliskValue);
                 }
                 Alarm();
-                //tælleren tæller 1 op for hver gang koden er kørt i gennnem, så vi hele tiden får de næste punkter i rækken
+
 				taeller++;
             }
         }
