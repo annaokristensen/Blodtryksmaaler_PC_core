@@ -1,11 +1,10 @@
-﻿using LogicLayer_RPi;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicLayer_RPi
+namespace LogicLayer_PC
 {
     public class BPCalculator 
     {
