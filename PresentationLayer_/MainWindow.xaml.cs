@@ -24,7 +24,7 @@ namespace Presentation_Layer
     /// </summary>
     public partial class MainWindow : Window
     {
-	    private MeasurementControlPC mesControlObj;
+	    private TestMeasurementControlPC testMesControlObj;
         private StopAndSave stopAndSaveObj;
         private System.Windows.Threading.DispatcherTimer dispatcherTimer;
         int taeller = 0;
@@ -32,31 +32,31 @@ namespace Presentation_Layer
         private int middelMin = 0 ;
         public string cpr { get; set; }
         private List<BPMesDataGUI_DTO> dtoGUI_list;
+
         private List<DateTime> alarmTriggeredTimes;
 
         //Tilknyt data til livecharts graf
-		public ChartValues<double> Ymiddel { get; set; }
-        public ChartValues<string> XdateTime { get; set; }
-        public  ChartValues<double> Ysystolic { get; set; }
-        public ChartValues<double> Ydiastolic { get; set; }
-        public ChartValues<double> Ypulse { get; set; }
+        //public ChartValues<string> XdateTime { get; set; }
+        public  ChartValues<double> YRawData { get; set; }
+
         private DateTime startTime;
         private DateTime stopTime;
 
+        private List<double> rawDataListGUI = new List<double>();
+        private MeasurementControlPC mesControlPC;
 
-        public MainWindow()
+
+		public MainWindow()
         {
             InitializeComponent();
-            mesControlObj = new MeasurementControlPC();
+            testMesControlObj = new TestMeasurementControlPC();
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            mesControlObj = new MeasurementControlPC();
+            testMesControlObj = new TestMeasurementControlPC();
             stopAndSaveObj = new StopAndSave();
             alarmTriggeredTimes = new List<DateTime>();
-            Ymiddel = new ChartValues<double>();
-            XdateTime = new ChartValues<string>();
-            Ysystolic = new ChartValues<double>();
-            Ydiastolic = new ChartValues<double>();
-            Ypulse = new ChartValues<double>();
+            //XdateTime = new ChartValues<string>();
+            YRawData = new ChartValues<double>();
+            mesControlPC = new MeasurementControlPC();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -86,19 +86,19 @@ namespace Presentation_Layer
         }
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
-            dtoGUI_list = mesControlObj.GetAllValues();
+            dtoGUI_list = testMesControlObj.GetAllValues();
+            rawDataListGUI = mesControlPC.GetRawData();
             //TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
             const int graphPointLimit = 8; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
             const int removeFactor = 9; //Faktoren der sørger for de ældste punkter bliver fjernet. Skal vist være 1 større end graphPointLimit
 
             if (taeller < dtoGUI_list.Count)
             {
-                //Kode der får graferne vist:
-	            ShowSecondOnXAxis();
-	            Ymiddel.Add(dtoGUI_list[taeller].MiddelValue);
-	            Ysystolic.Add(dtoGUI_list[taeller].SystoliskValue);
-	            Ydiastolic.Add(dtoGUI_list[taeller].DiastoliskValue);
-	            Ypulse.Add(dtoGUI_list[taeller].Pulse);
+                //Kode der får grafen vist:
+	            //ShowSecondOnXAxis();
+                //YRawData.Add(dtoGUI_list[taeller].SystoliskValue);
+                YRawData.Add(rawDataListGUI[taeller]);
+
 
                 //Kode der får værdierne vist i textboxene:
 				middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
@@ -108,10 +108,7 @@ namespace Presentation_Layer
                 //Kode der sørger for at de ældste punkter på grafen bliver fjernet, når antal punkter har nået sin maks-grænse:
                 if (taeller > graphPointLimit)
                 {
-	                Ymiddel.Remove(dtoGUI_list[taeller - removeFactor].MiddelValue);
-	                Ysystolic.Remove(dtoGUI_list[taeller - removeFactor].SystoliskValue);
-	                Ydiastolic.Remove(dtoGUI_list[taeller - removeFactor].DiastoliskValue);
-	                Ypulse.Remove(dtoGUI_list[taeller - removeFactor].Pulse);
+	                YRawData.Remove(dtoGUI_list[taeller - removeFactor].SystoliskValue);
                 }
                 Alarm();
                 //tælleren tæller 1 op for hver gang koden er kørt i gennnem, så vi hele tiden får de næste punkter i rækken
@@ -175,15 +172,15 @@ namespace Presentation_Layer
 
         // Metoden sørger for at lave x-aksen hvor tidspunktet for målepunktet skal vises
 		//TODO: Skal denne metode slettes?
-        public void ShowSecondOnXAxis()
+        /*public void ShowSecondOnXAxis()
         {
-	        List<string> dateTime = mesControlObj.GetDateTime();
+	        List<string> dateTime = testMesControlObj.GetDateTime();
 	        foreach (var item in dateTime)
 	        {
 		        XdateTime.Add(item);
 	        }
 	        DataContext = this; 
-        }
+        }*/
     }
 }
 

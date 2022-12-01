@@ -10,7 +10,7 @@ namespace ConsoleApp1
         {
             Console.WriteLine("Hello, World!");
 
-            MeasurementControlPC test1 = new MeasurementControlPC();
+            TestMeasurementControlPC test1 = new TestMeasurementControlPC();
             test1.GetSamplesList();
 
 

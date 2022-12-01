@@ -18,7 +18,7 @@ namespace testConsole
         {
             //Test til at udskrive tekstfilen
             Console.WriteLine("Hello, World!");
-            MeasurementControlPC test1 = new MeasurementControlPC();
+            TestMeasurementControlPC test1 = new TestMeasurementControlPC();
             UDPServer server = new UDPServer();
             test1.GetSamplesList();
 

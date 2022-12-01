@@ -1,67 +1,37 @@
-﻿using DataLayer_PC;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataLayer_PC;
 using DTO_PC;
 
 namespace LogicLayer_PC
 {
-    /// <summary>
-    /// Sørger for at målingen startes og vises på præsentationslaget
-    /// </summary>
-    public class MeasurementControlPC
-    {
-        private MeasurementDataAccess mesDataAccessObj;
-        private BPMesDataGUI_DTO DTOObject;
+	public class MeasurementControlPC
+	{
+		private MeasurementDataAccess measurementDataAccessObj;
+		private BPMesDataGUI_DTO rawDataDTO;
+		private List<double> rawDataListMC = new List<double>();
 
-        public MeasurementControlPC()
-        {
 
-	        mesDataAccessObj = new MeasurementDataAccess();
-            DTOObject = new BPMesDataGUI_DTO();
-            
-        }
-        public void GetSamplesList()
-        {
-            foreach (var item in mesDataAccessObj.ReadSampleTest())
-            {
-                Console.WriteLine(item.Pulse + " " + item.SystoliskValue + " " + item.DiastoliskValue + " " + item.MiddelValue);
-            }
-        }
-
-        public double GetMiddelValueTest()
-        {
-	        List<BPMesDataGUI_DTO> dto_List = mesDataAccessObj.ReadSampleTest();
-            // TODO FIX return dto_List;
-            return 0.0;
-        }
-        //Test metode skal slettes
-        public void TestThread()
-        {
-            int cnt = 10;
-            while(cnt > 0)
-            {
-                Console.WriteLine("test");
-                cnt--;
-            }
- 
-        }
-
-        /// <summary>
-        /// Metoden kaldes fra mainWindow. Tager fat i ReadSample (på datalaget) og putter de værdier vi får derfra ind i en liste af dto_DB
-        /// </summary>
-        /// <returns></returns>
-        public List<BPMesDataGUI_DTO> GetAllValues()
-        {
-	        List<BPMesDataGUI_DTO> dto_List = mesDataAccessObj.ReadSampleTest();
-			return dto_List;
+		public MeasurementControlPC()
+		{
+			measurementDataAccessObj = new MeasurementDataAccess();
+			rawDataDTO = new BPMesDataGUI_DTO();
 		}
 
-        public List<string> GetDateTime()
-        {
-            List<string> dateTime_List = new List<string>();
-            //foreach (var item in mesDataAccessObj.ReadSampleTest())
-            //{
-            //    dateTime_List.Add(item.CurrentSecond);
-            //}
-            return dateTime_List;
-        }
-    }
+		public List<double> GetRawData()
+		{
+			rawDataDTO = measurementDataAccessObj.ReadRawData();
+
+			foreach (double rawData in rawDataDTO.RawDataList)
+			{
+				rawDataListMC.Add(rawData);
+			}
+
+			return rawDataListMC;
+		}
+
+	}
 }
