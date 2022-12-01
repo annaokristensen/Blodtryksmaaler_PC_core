@@ -11,14 +11,16 @@ namespace LogicLayer_PC
 	public class MeasurementControlPC
 	{
 		private MeasurementDataAccess measurementDataAccessObj;
+		private BPCalculator bpCalcObj;
 		private BPMesDataGUI_DTO rawDataDTO;
+		private BPMesDataGUI_DTO calcValuesDTO;
 		private List<double> rawDataListMC = new List<double>();
 
 
 		public MeasurementControlPC()
 		{
 			measurementDataAccessObj = new MeasurementDataAccess();
-			rawDataDTO = new BPMesDataGUI_DTO();
+			bpCalcObj = new BPCalculator();
 		}
 
 		public List<double> GetRawData()
@@ -31,6 +33,11 @@ namespace LogicLayer_PC
 			}
 
 			return rawDataListMC;
+		}
+
+		public List<BPMesDataGUI_DTO> GetCalculatedValues()
+		{
+
 		}
 
 	}
