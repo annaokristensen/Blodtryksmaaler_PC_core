@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTO_PC;
 
 namespace LogicLayer_PC
 {
@@ -18,33 +19,33 @@ namespace LogicLayer_PC
         private int counter = 0;
         private bool starter = false;
 
-        public double[] getValues(List<double> measurement)
+        public void saveValues(BPMesDataGUI_DTO dto)
         {
             if (starter == false)
             {
                 if (counter == 0)
                 {
-                    mesLists[0] = measurement;
+                    mesLists[0] = dto.RawDataList;
                     counter++;
                 }
                 else if (counter == 1)
                 {
-                    mesLists[1] = measurement;
+                    mesLists[1] = dto.RawDataList;
                     counter++;
                 }
                 else if (counter == 2)
                 {
-                    mesLists[2] = measurement;
+                    mesLists[2] = dto.RawDataList;
                     counter++;
                 }
                 else if (counter == 3)
                 {
-                    mesLists[3] = measurement;
+                    mesLists[3] = dto.RawDataList;
                     counter++;
                 }
                 else if (counter == 4)
                 {
-                    mesLists[4] = measurement;
+                    mesLists[4] = dto.RawDataList;
                     counter = 0;
                     starter = true;
                 }
@@ -85,12 +86,11 @@ namespace LogicLayer_PC
 
             double[] values = new double[3];
 
-            values[0] = systole;
-            values[1] = diastole;
-            values[2] = middel;
-            values[3] = Convert.ToDouble(puls);
-
-            return values;
+            dto.SystoliskValue = systole;
+            dto.DiastoliskValue = diastole;
+            dto.MiddelValue = middel;
+            dto.Pulse = Convert.ToDouble(puls);
+            
         }
         private void calcAverage(List<double> measurement)
         {
