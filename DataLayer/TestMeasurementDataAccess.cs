@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections.Concurrent;
+using System.Resources;
 
 namespace DataLayer_PC
 {
@@ -20,31 +21,35 @@ namespace DataLayer_PC
 		/// TESTMETODE TIL FILEN testmedtal.txt
 		/// </summary>
 		/// <returns></returns>
-		public List<BPMesDataGUI_DTO> ReadSampleTest()
-		{
-			do
-			{
-				while (!shallStop) //Skal kører så længe shallstop er true (skal ændres til start/stop knap på GUI)
-				{
-					List<BPMesDataGUI_DTO> samplesList = new List<BPMesDataGUI_DTO>();
-					List<string> holder = File.ReadAllLines(TestPath).ToList();
-					foreach (string sample in holder)
-					{
-						string[] input = sample.Split(' ');
-						BPMesDataGUI_DTO s = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3])); //gemmer intput 1, 2, 3.. i DTO
-						samplesList.Add(s);
-					}
-					return samplesList;
-				}
-			}
-			while (true);
-		}
+		//public List<BPMesDataGUI_DTO> ReadSampleTest()
+		//{
+		//	do
+		//	{
+		//		while (!shallStop) //Skal kører så længe shallstop er true (skal ændres til start/stop knap på GUI)
+		//		{
+		//			List<BPMesDataGUI_DTO> samplesList = new List<BPMesDataGUI_DTO>();
+		//			List<string> holder = File.ReadAllLines(TestPath).ToList();
+
+  //                  string[] input = holder[0].Split(' ');
+              
+		//			foreach (string sample in holder)
+		//			{
+		//				//string[] input = sample.Split(' ');
+		//				BPMesDataGUI_DTO s = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3])); //gemmer intput 1, 2, 3.. i DTO
+						
+		//				samplesList.Add(s);
+		//			}
+		//			return samplesList;
+		//		}
+		//	}
+		//	while (true);
+		//}
 
 		/// <summary>
 		/// TEST-METODE til at læse en test-fil som er skrevet på det format, som vi modtager fra rpi
 		/// </summary>
 		/// <returns></returns>
-		public BPMesDataGUI_DTO TestReadValues()
+		public BPMesDataGUI_DTO ReadSampleTest()
 		{
 			//Sætter udpPath til at være den string som udpServeren returnerer. Det er deri at data fra rpi står
 			do
@@ -53,7 +58,7 @@ namespace DataLayer_PC
 				{
 					BPMesDataGUI_DTO dtoObjTest = null;
 					List<double> rawDataList = new List<double>();
-					List<string> holder = File.ReadAllLines(testPath2).ToList();
+					List<string> holder = File.ReadAllLines(TestPath).ToList();
 
 					/////////Noget RPi kan skrive, hvis vi laver det om, så vi får data på flere linjer. /////////////
 					//string[] test = new string[] { "10", "12", "13" };
@@ -78,7 +83,7 @@ namespace DataLayer_PC
 					foreach (string sample in holder)
 					{
 						//string[] input = sample.Split(' ');
-						dtoObjTest = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]));
+						dtoObjTest = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]),rawDataList);
 					}
 
 					return dtoObjTest;

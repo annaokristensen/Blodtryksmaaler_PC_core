@@ -18,19 +18,20 @@ namespace LogicLayer_PC
             DTOObject = new BPMesDataGUI_DTO();
             
         }
-        public void GetSamplesList()
+        /*public void GetSamplesList()
         {
+            
             foreach (var item in testMesDataAccessObj.ReadSampleTest())
             {
-                Console.WriteLine(item.Pulse + " " + item.SystoliskValue + " " + item.DiastoliskValue + " " + item.MiddelValue);
+                Console.WriteLine(testMesDataAccessObj.ReadSampleTest().Pulse + " " + item.SystoliskValue + " " + item.DiastoliskValue + " " + item.MiddelValue);
             }
-        }
+        }*/
 
-        public double GetMiddelValueTest()
+        public BPMesDataGUI_DTO GetValuesTest()
         {
-	        List<BPMesDataGUI_DTO> dto_List = testMesDataAccessObj.ReadSampleTest();
-            // TODO FIX return dto_List;
-            return 0.0;
+            BPMesDataGUI_DTO dtoObj = testMesDataAccessObj.ReadSampleTest();
+
+            return dtoObj;
         }
         //Test metode skal slettes
         public void TestThread()
@@ -48,11 +49,11 @@ namespace LogicLayer_PC
         /// Metoden kaldes fra mainWindow. Tager fat i ReadSample (på datalaget) og putter de værdier vi får derfra ind i en liste af dto_DB
         /// </summary>
         /// <returns></returns>
-        public List<BPMesDataGUI_DTO> GetAllValues()
+        /*public List<BPMesDataGUI_DTO> GetAllValues()
         {
 	        List<BPMesDataGUI_DTO> dto_List = testMesDataAccessObj.ReadSampleTest();
 			return dto_List;
-		}
+		}*/
 
         public List<string> GetDateTime()
         {

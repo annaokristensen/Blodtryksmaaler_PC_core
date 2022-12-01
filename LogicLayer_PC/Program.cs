@@ -11,7 +11,7 @@ namespace ConsoleApp1
             Console.WriteLine("Hello, World!");
 
             TestMeasurementControlPC test1 = new TestMeasurementControlPC();
-            test1.GetSamplesList();
+            //test1.GetSamplesList();
 
 
             

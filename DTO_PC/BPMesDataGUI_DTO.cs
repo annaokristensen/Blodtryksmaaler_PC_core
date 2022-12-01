@@ -21,10 +21,17 @@ namespace DTO_PC
 		{
 			RawDataList = rawDataList;
 		}
-
 		public BPMesDataGUI_DTO()
 		{
 			
+		}
+		public BPMesDataGUI_DTO(double pulse, double systolicValue, double diastolicValue, double middelValue, List<double>rawDataList)
+		{
+			Pulse = pulse;
+			SystoliskValue = systolicValue;
+			DiastoliskValue = diastolicValue;
+			MiddelValue = middelValue;
+			RawDataList = rawDataList;
 		}
 	}
 }
