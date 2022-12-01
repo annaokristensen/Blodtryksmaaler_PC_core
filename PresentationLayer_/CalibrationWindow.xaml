@@ -12,7 +12,7 @@
             <lvc:CartesianChart.Series>
                 <lvc:LineSeries Name="Calibration" Stroke="Transparent" Title="Tryk" Values="{Binding YVolt}" Fill="Transparent" >
                 </lvc:LineSeries>
-            </lvc:CartesianChart.Series> 
+            </lvc:CartesianChart.Series>
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="mmHg" Labels="{Binding XPressure}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
@@ -22,12 +22,12 @@
         <TextBox x:Name="enterPressure_textbox" HorizontalAlignment="Left" Margin="140,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
         <Button x:Name="registerPressure_button" Content="Registrér tryk" HorizontalAlignment="Left" Margin="300,18,0,0" VerticalAlignment="Top" Height="50" Width="130" Click="registerPressure_button_Click" IsDefault="True" BorderThickness="3">
-        <Button.Resources>
-            <Style TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="6"></Setter>
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6"></Setter>
 
-            </Style>
-        </Button.Resources>
+                </Style>
+            </Button.Resources>
         </Button>
         <Label x:Name="succesOrErrorMessage_label" Content="Indsæt eventuel succes eller fejlmeddelse her" HorizontalAlignment="Left" Margin="19,336,0,0" VerticalAlignment="Top" FontStyle="Italic"/>
         <Button x:Name="finishCalibration_button" Content="Afslut kalibrering" HorizontalAlignment="Left" Margin="451,324,0,0" VerticalAlignment="Top" Height="50" Width="130" Click="finishCalibration_button_Click_1" BorderThickness="3">
@@ -54,6 +54,6 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Label x:Name="LabelKalibrering" Content="" HorizontalAlignment="Left" Margin="488,0,0,0" VerticalAlignment="Center"/>
+        <Label x:Name="LabelKalibrering" Content="" Foreground="White" HorizontalAlignment="Left" Margin="439,0,0,0" VerticalAlignment="Center" Width="151"/>
     </Grid>
 </Window>
