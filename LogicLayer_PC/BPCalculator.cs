@@ -97,6 +97,7 @@ namespace LogicLayer_PC
             double totalBP = measurement.Sum();
             int bpDataPoints = measurement.Count();
             double averageBP = totalBP / bpDataPoints;
+            
 
             getSysBP(bpDataPoints, averageBP);
             getDiaBP(bpDataPoints, averageBP);
@@ -110,13 +111,26 @@ namespace LogicLayer_PC
             double highLimit = averageBP*1.03;
             double highPeakTotal = 0;
             int highPeakCounter = 0;
+            
 
             for (int i=0;i<bpDataPoints; i++)
             {
-                if(measurement[i]>highLimit&&measurement[i]>measurement[i-1]&&measurement[i]>measurement[i+1])
+                int plusDiff = 1;
+                int minusDiff =1;
+                if (measurement[i] == measurement[i + plusDiff])
+                {
+                    plusDiff++;
+                }
+                else if (measurement[i] == measurement[i - minusDiff])
+                {
+                    minusDiff++;
+                }
+               else if (measurement[i]>highLimit&&measurement[i]>measurement[i-minusDiff]&&measurement[i]>measurement[i+plusDiff])
                 {
                     highPeakTotal += measurement[i];
                     highPeakCounter++;
+
+                    
                 }
             }
 
