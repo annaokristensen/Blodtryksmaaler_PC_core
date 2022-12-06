@@ -119,56 +119,75 @@ namespace LogicLayer_PC
         
         private void getSysBP(int bpDataPoints, double averageBP)
         {
-            double highLimit = averageBP*1.03;
+            double lowLimit = averageBP * 0.97;
+            double highLimit = averageBP * 1.03;
+
+            double lowPeakTotal = 0;
+            int lowPeakCounter = 0;
+            double diastoleLoop = lowLimit;
+
             double highPeakTotal = 0;
             int highPeakCounter = 0;
-            
+            double systoleLoop = highLimit;
+
+            bool setSys = false;
+            bool setDia = false;
 
             for (int i=0;i<bpDataPoints; i++)
             {
-                int plusDiff = 1;
-                int minusDiff =1;
-                if (measurement[i] == measurement[i + plusDiff])
+                if (measurement[i] > highLimit)
                 {
-                    plusDiff++;
+                    if (measurement[i] > systoleLoop)
+                    {
+                        systoleLoop = measurement[i];
+                    }
+                    setSys = true;
                 }
-                else if (measurement[i] == measurement[i - minusDiff])
-                {
-                    minusDiff++;
-                }
-               else if (measurement[i]>highLimit&&measurement[i]>measurement[i-minusDiff]&&measurement[i]>measurement[i+plusDiff])
-                {
-                    highPeakTotal += measurement[i];
-                    highPeakCounter++;
 
-                    
+                if (measurement[i] > lowLimit && measurement[i] < highLimit && setSys == true)
+                {
+                    highPeakTotal += systoleLoop;
+                    highPeakCounter++;
+                    diastoleLoop = highLimit;
+                    setSys = false;
                 }
             }
-
             double sys = highPeakTotal / highPeakCounter;
             systole = sys;
-            puls = highPeakCounter;
-            
+            puls = highPeakCounter*12;
+           
         }
         private void getDiaBP(int bpDataPoints, double averageBP)
         {
             double lowLimit = averageBP * 0.97;
+            double highLimit = averageBP * 1.03;
+
             double lowPeakTotal = 0;
             int lowPeakCounter = 0;
-           
+            double diastoleLoop = lowLimit;
+
+            bool setDia = false;
 
             for (int i = 0; i < bpDataPoints; i++)
-            {
-                if (measurement[i] < lowLimit && measurement[i] < measurement[i - 1] && measurement[i] < measurement[i + 1])
+            {               
+                if (measurement[i] < lowLimit)
                 {
-                    lowPeakTotal += measurement[i];
+                    if (measurement[i] < diastoleLoop)
+                    {
+                        diastoleLoop = measurement[i];
+                    }
+                    setDia = true;
+                }
+                if (measurement[i] > lowLimit && measurement[i] < highLimit && setDia == true)
+                {
+                    lowPeakTotal += diastoleLoop;
                     lowPeakCounter++;
+                    diastoleLoop = lowLimit;
+                    setDia = false;
                 }
             }
-
             double dia = lowPeakTotal / lowPeakCounter;
             diastole = dia;
-            
         }
     }
 }
