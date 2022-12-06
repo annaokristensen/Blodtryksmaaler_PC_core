@@ -11,6 +11,7 @@ namespace LogicLayer_PC
     public class CalibrationControlPC
     {
         private IMeasurementDataAccess mesDataAccessObj;
+        public List<BPMesDataGUI_DTO> GUISTOlist;
         public double Volt { get; set; }
 
         public CalibrationControlPC()
@@ -25,12 +26,12 @@ namespace LogicLayer_PC
         public double GetVoltFromUDP()
         {
             IMeasurementControlPC MesControl = new MeasurementControlPC(mesDataAccessObj);
-            //BPMesDataGUI_DTO GUIDTOobj = MesControl.GetValues(); //GAMMEL 
-           
-            //NY
+            GUISTOlist = MesControl.ReadValues();
+         //  BPMesDataGUI_DTO GUIDTOobj = MesControl.GetValues(); //GAMMEL 
+            
             BPMesDataGUI_DTO GUIDTOobj;
-            MesControl.GetValues(out GUIDTOobj);
-            //
+            //MesControl.GetValues(out GUIDTOobj);
+            GUIDTOobj = GUISTOlist[GUISTOlist.Count];
 
             List<double> VoltDataFromUDPList = GUIDTOobj.RawDataList;
 

@@ -102,13 +102,14 @@ namespace Presentation_Layer
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
 			//TIL TEST:
-			dtoGUI_list = mesControlPC.ReadValues();
+			//dtoGUI_list = mesControlPC.ReadValues();
 
-            rawDataCounter = dtoGUI_list[counter].RawDataList.Count;
-            //	BPMesDataGUI_DTO bpGUIdto = mesControlPC.ReadValues();
+           // rawDataCounter = dtoGUI_list[counter].RawDataList.Count;
+
+           // BPMesDataGUI_DTO bpGUIdto = mesControlPC.ReadValues();
             //mesControlPC.ReadValues();
 
-            //testRawDataListGUI.AddRange(dtoGUI_list[rawDataCounter].RawDataList);
+            testRawDataListGUI.AddRange(dtoGUI_list[rawDataCounter].RawDataList);
 
             foreach (double rawData in dtoGUI_list[counter].RawDataList)
             {
