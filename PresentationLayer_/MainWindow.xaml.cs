@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
 using System.IO.Compression;
+using System.Media;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -16,6 +17,7 @@ using System.Windows.Documents;
 using LiveCharts;
 using LiveCharts.Wpf;
 using LiveCharts.Definitions.Charts;
+using System.Numerics;
 
 
 namespace Presentation_Layer
@@ -31,6 +33,8 @@ namespace Presentation_Layer
         int taeller = 0;
         private int middelMax = 0;
         private int middelMin = 0 ;
+        SoundPlayer player = new SoundPlayer();
+        string file = "Cardiac alarm.wav";
         public string cpr { get; set; }
         private List<BPMesDataGUI_DTO> dtoGUI_list;
         private List<BPMesDataGUI_DTO> testDtoGUI_list;
@@ -170,6 +174,26 @@ namespace Presentation_Layer
                 middleBTValue_textbox.FontWeight = FontWeights.Bold;
                 //For hver gang alarmen går i gang skal der gemmes et tidsstempel i en liste, så den liste af 'alarmtriggers' kan blive gemt i databasen
                 alarmTriggeredTimes.Add(DateTime.Now);
+                //var sri = Application.GetResourceStream(new Uri("Cardiac alarm.wav"));
+                //if ((sri != null))
+                //{   player.Load();
+                //    player.Play();
+                //}
+                //player.
+                string file = "Cardiac alarm.wav";
+
+                //get the current assembly
+                var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+                //load the embedded resource as a stream
+                var stream = assembly.GetManifestResourceStream(string.Format("{0}.Resources.{1}", assembly.GetName().Name, file));
+
+                //load the stream into the player
+                var player = new System.Media.SoundPlayer(stream);
+
+                //play the sound
+                player.Play();
+
             }
             else
             {
