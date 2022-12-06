@@ -120,7 +120,7 @@ namespace LogicLayer_PC
         private void getSysBP(int bpDataPoints, double averageBP)
         {
             double lowLimit = averageBP * 0.97;
-            double highLimit = averageBP * 1.03;
+            double highLimit = averageBP * 1.05;
                       
             double highPeakTotal = 0;
             int highPeakCounter = 0;
@@ -156,7 +156,7 @@ namespace LogicLayer_PC
         private void getDiaBP(int bpDataPoints, double averageBP)
         {
             double lowLimit = averageBP * 0.97;
-            double highLimit = averageBP * 1.03;
+            double highLimit = averageBP * 1.05;
 
             double lowPeakTotal = 0;
             int lowPeakCounter = 0;
