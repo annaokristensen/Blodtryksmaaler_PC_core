@@ -5,9 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation_Layer_PC"
         mc:Ignorable="d"
-        Title="MaintenanceWindow" Height="400" Width="500" Loaded="Window_Loaded">
+        Title="MaintenanceWindow" Height="400" Width="700" Loaded="Window_Loaded">
     <Grid Background="Black">
-        <Button x:Name="calibration_button" Content="Kalibrering" BorderThickness="3" HorizontalAlignment="Center" Margin="0,134,0,0" VerticalAlignment="Top" Height="50" Width="130" Click="calibration_button_Click">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="78*"/>
+            <RowDefinition Height="93"/>
+            <RowDefinition Height="91*"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="52*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="228*"/>
+            <ColumnDefinition Width="241*"/>
+            <ColumnDefinition Width="231*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="calibration_button" Content="Kalibrering" BorderThickness="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="70" Width="220" Click="calibration_button_Click" Grid.Column="1" Grid.Row="1" FontSize="18">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="6"></Setter>
@@ -15,7 +27,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="zeroPointAdjustment_button" Content="Nulpunktsjustér" BorderThickness="3" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" Height="50" Width="130">
+        <Button x:Name="zeroPointAdjustment_button" Content="Nulpunktsjustér" BorderThickness="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="70" Width="220" Click="zeroPointAdjustment_button_Click" Grid.Column="1" Grid.Row="2" FontSize="18">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="6"></Setter>
@@ -23,7 +35,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name ="opretforbindelse_button" Content="Opret forbindelse" BorderThickness="3" HorizontalAlignment="Left" Margin="355,53,0,0" VerticalAlignment="Top" Click="opretforbindelse_button_Click" Height="31" Width="111">
+        <Button x:Name ="opretforbindelse_button" Content="Opret forbindelse" BorderThickness="3" HorizontalAlignment="Left" Margin="22,0,0,0" VerticalAlignment="Center" Click="opretforbindelse_button_Click" Height="30" Width="177" Grid.Column="2" FontSize="14">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="6"></Setter>
@@ -31,7 +43,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="moveOnToCpr_button" Content="Videre til cpr" BorderThickness="3" HorizontalAlignment="Left" Margin="336,321,0,0" VerticalAlignment="Top" Height="35" Width="130" Click="moveOnToCpr_button_Click">
+        <Button x:Name="moveOnToCpr_button" Content="Videre til cpr" BorderThickness="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="168" Click="moveOnToCpr_button_Click" Grid.Column="2" Grid.Row="3" FontSize="16">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="6"/>
@@ -39,6 +51,7 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <Label x:Name="zeroPointNotDone_errorMessage" Content="Nulpunktsjustering er ikke udført" HorizontalAlignment="Left" Margin="0,8,0,0" VerticalAlignment="Top" Width="221" Foreground="White" FontStyle="Italic" Grid.Column="2" Height="34" Grid.Row="4" FontSize="14"/>
 
     </Grid>
 </Window>
