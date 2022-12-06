@@ -33,8 +33,9 @@ namespace Presentation_Layer
         private int middelMin = 0 ;
         public string cpr { get; set; }
         private List<BPMesDataGUI_DTO> dtoGUI_list;
+        private List<BPMesDataGUI_DTO> testDtoGUI_list;
 
-        private List<DateTime> alarmTriggeredTimes;
+		private List<DateTime> alarmTriggeredTimes;
 
         //Tilknyt data til livecharts graf
         //public ChartValues<string> XdateTime { get; set; }
@@ -44,7 +45,8 @@ namespace Presentation_Layer
         private DateTime stopTime;
 
         private List<double> rawDataListGUI = new List<double>();
-        private MeasurementControlPC mesControlPC;
+        private List<double> testRawDataListGUI = new List<double>();
+		private MeasurementControlPC mesControlPC;
         private bool dataIsSaved = false;
 
 
@@ -89,38 +91,51 @@ namespace Presentation_Layer
         }
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
-            //TIL TEST-METODEN:
-            //dtoGUI_list = testMesControlObj.GetAllValues();
+            //TIL TEST:
+            testDtoGUI_list[taeller] = testMesControlObj.GetValuesTest();
+            testRawDataListGUI.AddRange(testDtoGUI_list[taeller].RawDataList);
 
-            //TIL UDP:
-            dtoGUI_list[taeller] = mesControlPC.GetBPValues();
-            rawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
+			//TIL UDP:
+			//dtoGUI_list[taeller] = mesControlPC.GetBPValues();
+			//rawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
 
 
-            //TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
-            const int graphPointLimit = 8; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
+			//TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
+			const int graphPointLimit = 8; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
             const int removeFactor = 9; //Faktoren der sørger for de ældste punkter bliver fjernet. Skal vist være 1 større end graphPointLimit
 
             if (taeller < dtoGUI_list.Count)
             {
-                //TEST/SLETTES:
-                //ShowSecondOnXAxis();
-                //YRawData.Add(dtoGUI_list[taeller].MiddelValue);
+				//TIL TEST:
+				foreach (double rawTestData in testRawDataListGUI)
+				{
+					YRawData.Add(rawTestData);
+				}
 
-                foreach (double rawData in rawDataListGUI)
+				//TIL UDP:
+				/*foreach (double rawData in rawDataListGUI)
                 {
 	                YRawData.Add(rawData);
-                }
+                }*/
 
-                //TEXTBOXENES VÆRDIER:
-				middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
-                pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
-                sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
+				//TEXTBOXENES VÆRDIER TIL TEST:
+				middleBTValue_textbox.Text = Convert.ToString(testDtoGUI_list[taeller].MiddelValue);
+				pulseValue_textbox.Text = Convert.ToString(testDtoGUI_list[taeller].Pulse);
+				sysDiaValue_textbox.Text = testDtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
+
+				//TEXTBOXENES VÆRDIER TIL UDP:
+				//middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
+                //pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
+                //sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
 
                 //Kode der sørger for at de ældste punkter på grafen bliver fjernet, når antal punkter har nået sin maks-grænse:
                 if (taeller > graphPointLimit)
                 {
-	                YRawData.Remove(dtoGUI_list[taeller - removeFactor].SystoliskValue);
+                    //TIL TEST:
+                    YRawData.Remove(testDtoGUI_list[taeller - removeFactor].RawDataList);
+	                
+                    //TIL UDP:
+	                //YRawData.Remove(dtoGUI_list[taeller - removeFactor].RawDataList);
                 }
                 Alarm();
 
