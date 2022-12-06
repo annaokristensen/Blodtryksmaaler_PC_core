@@ -199,13 +199,13 @@ namespace Presentation_Layer
 	        else
             {
 	            if (MessageBox.Show("Er du sikker på du vil afslutte?", "Spørgsmål", MessageBoxButton.YesNo,
-		                MessageBoxImage.Warning) == MessageBoxResult.No)
+		                MessageBoxImage.Warning) == MessageBoxResult.Yes)
 	            {
-                    FinishOperationMethod();
-	            }
+					FinishOperationMethod();
+				}
 	            else
 	            {
-		            this.Close();
+		            
 	            }
             }
         }
