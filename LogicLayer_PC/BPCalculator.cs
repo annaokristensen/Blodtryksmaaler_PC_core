@@ -97,10 +97,10 @@ namespace LogicLayer_PC
             //dto.MiddelValue = middel;
             //dto.Pulse = Convert.ToDouble(puls);
 
-            dto.SystoliskValue = 0;
-            dto.DiastoliskValue = 0;
-            dto.MiddelValue = 0;
-            dto.Pulse = Convert.ToDouble(0);
+            dto.SystoliskValue = 10;
+            dto.DiastoliskValue = 20;
+            dto.MiddelValue = 30;
+            dto.Pulse = Convert.ToDouble(40);
 
         }
         private void calcAverage(List<double> measurement)

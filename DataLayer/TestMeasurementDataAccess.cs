@@ -92,7 +92,7 @@ namespace DataLayer_PC
 					//	dtoObjTest = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]),rawDataList);
 					//}
 
-					//return dtoObjTest;
+					return dtoObjTest;
 				}
 			}
 			while (true);

@@ -17,13 +17,13 @@
 
         <lvc:CartesianChart Name="SystolicDiastolicGraph" LegendLocation="Left" Margin="25,20,202,33" Grid.Row="1">
             <lvc:CartesianChart.Series>
-                <lvc:LineSeries Name="Raw" Title="Blodtryk" Values="{Binding Ysystolic}" Fill="Transparent" PointGeometry="{x:Null}" Stroke="Red" Foreground="Red" PointForeground="Red"/>
+                <lvc:LineSeries Name="Raw" Title="Blodtryk" Values="{Binding YRawData}" Fill="Transparent" PointGeometry="{x:Null}" Stroke="Red" Foreground="Red" PointForeground="Red"/>
             </lvc:CartesianChart.Series>
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Foreground="Black">
+                <lvc:Axis Foreground="White">
 
                     <lvc:Axis.Separator>
-                        <lvc:Separator Stroke="Black">
+                        <lvc:Separator Stroke="White">
                         </lvc:Separator>
                     </lvc:Axis.Separator>
                 </lvc:Axis>
@@ -32,7 +32,7 @@
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis>
                     <lvc:Axis.Separator>
-                        <lvc:Separator Stroke="Black">
+                        <lvc:Separator Stroke="White">
                         </lvc:Separator>
                     </lvc:Axis.Separator>
                 </lvc:Axis>

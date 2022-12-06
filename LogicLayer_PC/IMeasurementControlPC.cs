@@ -9,7 +9,7 @@ namespace LogicLayer_PC
 {
     public interface IMeasurementControlPC
     {
-        void ReadValues();
+        BPMesDataGUI_DTO ReadValues();
         void GetValues(out BPMesDataGUI_DTO kim);
     }
 }

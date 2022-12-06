@@ -16,16 +16,21 @@ namespace LogicLayer_PC
 		public BPMesDataGUI_DTO BPDTO { get; set; }
 		//private BPMesDataGUI_DTO calcValuesDTO;
 		public List<double> rawDataListMC = new List<double>();
+		//private BPMesDataGUI_DTO bpGUIDTO;
 
 		public MeasurementControlPC(IMeasurementDataAccess ImeasurementDataAccess)
 		{
 			measurementDataAccessObj = ImeasurementDataAccess;
 			bpCalcObj = new BPCalculator();
 		}
-		public void ReadValues()
+		public BPMesDataGUI_DTO ReadValues()
 		{
-			BPDTO = measurementDataAccessObj.ReadSample();
-			bpCalcObj.saveValues(BPDTO);			
+			BPMesDataGUI_DTO bpGUIObj = measurementDataAccessObj.ReadSample();
+			//BPDTO = measurementDataAccessObj.ReadSample();
+			bpCalcObj.saveValues(measurementDataAccessObj.ReadSample());
+			
+
+			return bpGUIObj;
 		}
 		//public BPMesDataGUI_DTO GetValues()
 		//{
