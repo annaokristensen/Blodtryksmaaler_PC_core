@@ -121,11 +121,7 @@ namespace LogicLayer_PC
         {
             double lowLimit = averageBP * 0.97;
             double highLimit = averageBP * 1.03;
-
-            double lowPeakTotal = 0;
-            int lowPeakCounter = 0;
-            double diastoleLoop = lowLimit;
-
+                      
             double highPeakTotal = 0;
             int highPeakCounter = 0;
             double systoleLoop = highLimit;
@@ -148,7 +144,7 @@ namespace LogicLayer_PC
                 {
                     highPeakTotal += systoleLoop;
                     highPeakCounter++;
-                    diastoleLoop = highLimit;
+                    systoleLoop = highLimit;
                     setSys = false;
                 }
             }
