@@ -24,33 +24,36 @@ namespace testConsole
             BlockingCollection<BPMesDataGUI_DTO> samplesList = new BlockingCollection<BPMesDataGUI_DTO>();
 
             //Test metoder
-            IMeasurementControlPC TestreadSampleControlPC = new TestMeasurementControlPC();
+            IMeasurementDataAccess testMeasurementDataAccess= new TestMeasurementDataAccess();
+            IMeasurementControlPC TestreadSampleControlPC = new MeasurementControlPC(testMeasurementDataAccess);
 
-            //Ikke Test metoder
-            IMeasurementControlPC readSampleControlPC = new MeasurementControlPC();
-            UDPServer server = new UDPServer();
+            ////Ikke Test metoder
+            //IMeasurementDataAccess MeasurementDataAccess = new MeasurementDataAccess();
+            //IMeasurementControlPC readSampleControlPC = new MeasurementControlPC(MeasurementDataAccess);
+            //UDPServer server = new UDPServer();
 
             //Test
             Thread TestReadValues = new Thread(TestreadSampleControlPC.ReadValues);
-            Thread TestGetValues = new Thread(TestreadSampleControlPC.GetValues);
+       //     Thread TestGetValues = new Thread(TestreadSampleControlPC.GetValues);
 
-            //Ikke Test
-            Thread readValues = new Thread(readSampleControlPC.ReadValues);
+            ////Ikke Test
+            //Thread readValues = new Thread(readSampleControlPC.ReadValues);
+            ////Thread GetValues = new Thread(readSampleControlPC.GetValues);
 
-            Thread serverThread = new Thread(server.StartListener);
-            Thread testerServerThread = new Thread(server.testUDPServerThread);
+            //Thread serverThread = new Thread(server.StartListener);
+            //Thread testerServerThread = new Thread(server.testUDPServerThread);
 
 
             TestReadValues.Start();
            // readValues.Start();
-            serverThread.Start();
-            testerServerThread.Start();
+           // serverThread.Start();
+            //testerServerThread.Start();
 
 
             TestReadValues.Join();
             //readValues.Join();
-            serverThread.Join();
-            testerServerThread.Join();
+           // serverThread.Join();
+           // testerServerThread.Join();
 
             Console.ReadKey();
 

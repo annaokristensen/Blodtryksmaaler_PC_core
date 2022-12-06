@@ -56,37 +56,43 @@ namespace DataLayer_PC
 			{
 				while (!shallStop)
 				{
-					BPMesDataGUI_DTO dtoObjTest = null;
+					
 					List<double> rawDataList = new List<double>();
-					List<string> holder = File.ReadAllLines(TestPath).ToList();
+					List<string> holder = File.ReadAllLines(testPath2).ToList();
 
 					/////////Noget RPi kan skrive, hvis vi laver det om, så vi får data på flere linjer. /////////////
 					//string[] test = new string[] { "10", "12", "13" };
 
 					//File.WriteAllLines(testPath2,test);
 
-					/////////////Ny metode som skal bruges hvis dataen kommer i flere linjer.///////
+					///Ny metode som skal bruges hvis dataen kommer i flere linjer.///////
+					
 					foreach (string sample in holder)
 					{
 						//string[] input = sample.Split(' ');
 
 						rawDataList.Add(Convert.ToDouble(sample));
 					}
+					BPMesDataGUI_DTO dtoObjTest = new BPMesDataGUI_DTO(rawDataList);
+
+
+
+					//dtoObjTest.RawDataList.AddRange(rawDataList);
 
 					///////////Ny metode som skal bruges hvis dataen kommer i flere linjer. Split er rykket ud fra forloopet, for at den ikke skal splittes hver gang den kører loopet.
-					string[] input = holder[0].Split(' ');
-					for (int i = 4; i < input.Length; i++)
-					{
-						rawDataList.Add(Convert.ToDouble(input[i]));
-					}
+					//string[] input = holder[0].Split(' ');
+					//for (int i = 4; i < input.Length; i++)
+					//{
+					//	rawDataList.Add(Convert.ToDouble(input[i]));
+					//}
 
-					foreach (string sample in holder)
-					{
-						//string[] input = sample.Split(' ');
-						dtoObjTest = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]),rawDataList);
-					}
+					//foreach (string sample in holder)
+					//{
+					//	//string[] input = sample.Split(' ');
+					//	dtoObjTest = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]),rawDataList);
+					//}
 
-					return dtoObjTest;
+					//return dtoObjTest;
 				}
 			}
 			while (true);

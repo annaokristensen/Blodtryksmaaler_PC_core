@@ -27,7 +27,6 @@ namespace Presentation_Layer
     /// </summary>
     public partial class MainWindow : Window
     {
-	    private TestMeasurementControlPC testMesControlObj;
         private StopAndSave stopAndSaveObj;
         private System.Windows.Threading.DispatcherTimer dispatcherTimer;
         int taeller = 0;
@@ -48,23 +47,29 @@ namespace Presentation_Layer
         private DateTime startTime;
         private DateTime stopTime;
 
-        private List<double> rawDataListGUI = new List<double>();
-        private List<double> testRawDataListGUI = new List<double>();
+        private List<double> rawDataListGUI;
+        private List<double> testRawDataListGUI;
 		private MeasurementControlPC mesControlPC;
         private bool dataIsSaved = false;
+        private IMeasurementDataAccess ImeasurementDataAccess;
 
 
-		public MainWindow()
+        public MainWindow()
         {
             InitializeComponent();
-            testMesControlObj = new TestMeasurementControlPC();
+     
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            testMesControlObj = new TestMeasurementControlPC();
+      
             stopAndSaveObj = new StopAndSave();
             alarmTriggeredTimes = new List<DateTime>();
             //XdateTime = new ChartValues<string>();
             YRawData = new ChartValues<double>();
-            mesControlPC = new MeasurementControlPC();
+            ImeasurementDataAccess = new TestMeasurementDataAccess(); //MeasurementDataAccess(); <- bruges ved UDP
+            mesControlPC = new MeasurementControlPC(ImeasurementDataAccess);
+            //testDtoGUI_list = new List<BPMesDataGUI_DTO>();
+            dtoGUI_list = new List<BPMesDataGUI_DTO>();
+            testRawDataListGUI = new List<double>();
+            rawDataListGUI = new List<double>();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -96,17 +101,19 @@ namespace Presentation_Layer
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
             //TIL TEST:
-            testDtoGUI_list[taeller] = testMesControlObj.GetValuesTest();
-            testRawDataListGUI.AddRange(testDtoGUI_list[taeller].RawDataList);
+            mesControlPC.ReadValues();
+            dtoGUI_list.Add(new BPMesDataGUI_DTO());
+            dtoGUI_list[taeller]=mesControlPC.BPDTO; // GetValues();
+            testRawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
 
-            //TIL UDP:
-            dtoGUI_list[taeller] = mesControlPC.GetBPValues();
-            rawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
+            ////TIL UDP:
+            //dtoGUI_list[taeller] = mesControlPC.GetBPValues();
+            //rawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
 
 
 			//TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
-			const int graphPointLimit = 8; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
-            const int removeFactor = 9; //Faktoren der sørger for de ældste punkter bliver fjernet. Skal vist være 1 større end graphPointLimit
+			const int graphPointLimit = 50; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
+            const int removeFactor = 51; //Faktoren der sørger for de ældste punkter bliver fjernet. Skal vist være 1 større end graphPointLimit
 
             if (taeller < dtoGUI_list.Count)
             {
@@ -123,9 +130,9 @@ namespace Presentation_Layer
                 }*/
 
 				//TEXTBOXENES VÆRDIER TIL TEST:
-				middleBTValue_textbox.Text = Convert.ToString(testDtoGUI_list[taeller].MiddelValue);
-				pulseValue_textbox.Text = Convert.ToString(testDtoGUI_list[taeller].Pulse);
-				sysDiaValue_textbox.Text = testDtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
+				middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
+				pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
+				sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
 
 				//TEXTBOXENES VÆRDIER TIL UDP:
 				//middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
@@ -136,12 +143,12 @@ namespace Presentation_Layer
                 if (taeller > graphPointLimit)
                 {
                     //TIL TEST:
-                    YRawData.Remove(testDtoGUI_list[taeller - removeFactor].RawDataList);
+                    YRawData.Remove(dtoGUI_list[taeller - removeFactor].RawDataList);
 	                
                     //TIL UDP:
 	                //YRawData.Remove(dtoGUI_list[taeller - removeFactor].RawDataList);
                 }
-                Alarm();
+                //Alarm();
 
 				taeller++;
             }
@@ -165,42 +172,42 @@ namespace Presentation_Layer
         /// <summary>
         /// Alarm-metode som bliver kaldt hver gang tallene og grafen på GUI'en er blevet opdateret, så den holder øje med hver eneste opdatering
         /// </summary>
-        private void Alarm()
-        {
-            if (middelMax < Convert.ToInt32(middleBTValue_textbox.Text) ||
-                Convert.ToInt32(middleBTValue_textbox.Text) < middelMin)
-            {
-                middleBTValue_textbox.Foreground = Brushes.Red;
-                middleBTValue_textbox.FontWeight = FontWeights.Bold;
-                //For hver gang alarmen går i gang skal der gemmes et tidsstempel i en liste, så den liste af 'alarmtriggers' kan blive gemt i databasen
-                alarmTriggeredTimes.Add(DateTime.Now);
-                //var sri = Application.GetResourceStream(new Uri("Cardiac alarm.wav"));
-                //if ((sri != null))
-                //{   player.Load();
-                //    player.Play();
-                //}
-                //player.
-                string file = "Cardiac alarm.wav";
+        //private void Alarm()
+        //{
+        //    if (middelMax < Convert.ToInt32(middleBTValue_textbox.Text) ||
+        //        Convert.ToInt32(middleBTValue_textbox.Text) < middelMin)
+        //    {
+        //        middleBTValue_textbox.Foreground = Brushes.Red;
+        //        middleBTValue_textbox.FontWeight = FontWeights.Bold;
+        //        //For hver gang alarmen går i gang skal der gemmes et tidsstempel i en liste, så den liste af 'alarmtriggers' kan blive gemt i databasen
+        //        alarmTriggeredTimes.Add(DateTime.Now);
+        //        //var sri = Application.GetResourceStream(new Uri("Cardiac alarm.wav"));
+        //        //if ((sri != null))
+        //        //{   player.Load();
+        //        //    player.Play();
+        //        //}
+        //        //player.
+        //        string file = "Cardiac alarm.wav";
 
-                //get the current assembly
-                var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+        //        //get the current assembly
+        //        var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
-                //load the embedded resource as a stream
-                var stream = assembly.GetManifestResourceStream(string.Format("{0}.Resources.{1}", assembly.GetName().Name, file));
+        //        //load the embedded resource as a stream
+        //        var stream = assembly.GetManifestResourceStream(string.Format("{0}.Resources.{1}", assembly.GetName().Name, file));
 
-                //load the stream into the player
-                var player = new System.Media.SoundPlayer(stream);
+        //        //load the stream into the player
+        //        var player = new System.Media.SoundPlayer(stream);
 
-                //play the sound
-                player.Play();
+        //        //play the sound
+        //        player.Play();
 
-            }
-            else
-            {
-                middleBTValue_textbox.Foreground = Brushes.White;
-                middleBTValue_textbox.FontWeight = FontWeights.Normal;
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        middleBTValue_textbox.Foreground = Brushes.White;
+        //        middleBTValue_textbox.FontWeight = FontWeights.Normal;
+        //    }
+        //}
 
         private void stopAndSave_button_Click(object sender, RoutedEventArgs e)
         {

@@ -13,9 +13,9 @@ namespace LogicLayer_PC
         private IMeasurementDataAccess mesDataAccessObj;
         public double Volt { get; set; }
 
-        public CalibrationControlPC(IMeasurementDataAccess measurementDataAccess)
+        public CalibrationControlPC()
         {
-            mesDataAccessObj = measurementDataAccess;
+            mesDataAccessObj = new MeasurementDataAccess();
             Volt = 0;
         }
         /// <summary>

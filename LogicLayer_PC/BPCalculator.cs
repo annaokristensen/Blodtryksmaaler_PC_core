@@ -15,82 +15,93 @@ namespace LogicLayer_PC
         public int puls { get; private set; }
         
         private List<double> measurement;
-        private List<double>[] mesLists = new List<double>[4];
+        private List<double>[] mesLists;
         private int counter = 0;
         private bool starter = false;
 
+        public BPCalculator()
+        {
+            measurement = new List<double>();
+            mesLists = new List<double>[4];
+        }
+
         public void saveValues(BPMesDataGUI_DTO dto)
         {
-            if (starter == false)
-            {
-                if (counter == 0)
-                {
-                    mesLists[0] = dto.RawDataList;
-                    counter++;
-                }
-                else if (counter == 1)
-                {
-                    mesLists[1] = dto.RawDataList;
-                    counter++;
-                }
-                else if (counter == 2)
-                {
-                    mesLists[2] = dto.RawDataList;
-                    counter++;
-                }
-                else if (counter == 3)
-                {
-                    mesLists[3] = dto.RawDataList;
-                    counter++;
-                }
-                else if (counter == 4)
-                {
-                    mesLists[4] = dto.RawDataList;
-                    counter = 0;
-                    starter = true;
-                }
-            }
-            else
-            {
-                mesLists[0] = mesLists[1];
-                mesLists[1] = mesLists[2];
-                mesLists[2] = mesLists[3];
-                mesLists[3] = mesLists[4];
-                mesLists[5] = measurement;
-            }
+            //if (starter == false)
+            //{
+            //    if (counter == 0)
+            //    {
+            //        mesLists[0] = dto.RawDataList;
+            //        counter++;
+            //    }
+            //    else if (counter == 1)
+            //    {
+            //        mesLists[1] = dto.RawDataList;
+            //        counter++;
+            //    }
+            //    else if (counter == 2)
+            //    {
+            //        mesLists[2] = dto.RawDataList;
+            //        counter++;
+            //    }
+            //    else if (counter == 3)
+            //    {
+            //        mesLists[3] = dto.RawDataList;
+            //        counter++;
+            //    }
+            //    else if (counter == 4)
+            //    {
+            //        mesLists[4] = dto.RawDataList;
+            //        counter = 0;
+            //        starter = true;
+            //    }
+            //}
+            //else
+            //{
+            //    mesLists[0] = mesLists[1];
+            //    mesLists[1] = mesLists[2];
+            //    mesLists[2] = mesLists[3];
+            //    mesLists[3] = mesLists[4];
+            //    mesLists[5] = measurement;
+            //}
 
-            this.measurement.Clear();
+            //this.measurement.Clear();
             
-            foreach (double value in mesLists[0])
-            {
-                this.measurement.Add(value);
-            }
-            foreach (double value in mesLists[1])
-            {
-                this.measurement.Add(value);
-            }
-            foreach (double value in mesLists[2])
-            {
-                this.measurement.Add(value);
-            }
-            foreach (double value in mesLists[3])
-            {
-                this.measurement.Add(value);
-            }
-            foreach (double value in mesLists[4])
-            {
-                this.measurement.Add(value);
-            }
+            //foreach (double value in mesLists[0])
+            //{
+            //    this.measurement.Add(value);
+            //}
+            ////foreach (double value in mesLists[1])
+            ////{
+            ////    this.measurement.Add(value);
+            ////}
+            ////foreach (double value in mesLists[2])
+            ////{
+            ////    this.measurement.Add(value);
+            ////}
+            ////foreach (double value in mesLists[3])
+            ////{
+            ////    this.measurement.Add(value);
+            ////}
+            ////foreach (double value in mesLists[4])
+            ////{
+            ////    this.measurement.Add(value);
+            ////}
 
-            calcAverage(this.measurement);
+            //calcAverage(this.measurement);
 
-            double[] values = new double[3];
+            //double[] values = new double[3];
 
-            dto.SystoliskValue = systole;
-            dto.DiastoliskValue = diastole;
-            dto.MiddelValue = middel;
-            dto.Pulse = Convert.ToDouble(puls);
-            
+            //dto.SystoliskValue = systole;
+            //dto.DiastoliskValue = diastole;
+            //dto.MiddelValue = middel;
+            //dto.Pulse = Convert.ToDouble(puls);
+
+            dto.SystoliskValue = 0;
+            dto.DiastoliskValue = 0;
+            dto.MiddelValue = 0;
+            dto.Pulse = Convert.ToDouble(0);
+
         }
         private void calcAverage(List<double> measurement)
         {

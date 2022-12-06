@@ -1,20 +1,20 @@
-﻿using DataLayer_PC;
-using LogicLayer_PC;
+﻿//using DataLayer_PC;
+//using LogicLayer_PC;
 
-namespace ConsoleApp1
-{
-    internal class Program
-    {
+//namespace ConsoleApp1
+//{
+//    internal class Program
+//    {
         
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello, World!");
+//        static void Main(string[] args)
+//        {
+//            Console.WriteLine("Hello, World!");
 
-            TestMeasurementControlPC test1 = new TestMeasurementControlPC();
-            //test1.GetSamplesList();
+//            MeasurementControlPC test1 = new MeasurementControlPC();
+//            //test1.GetSamplesList();
 
 
             
-        }
-    }
-}
+//        }
+////    }
+//}

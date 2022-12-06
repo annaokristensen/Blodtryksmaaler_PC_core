@@ -12,10 +12,10 @@ namespace LogicLayer_PC
 	{
 
 		private IMeasurementDataAccess measurementDataAccessObj;
-		private BPCalculator bpCalcObj;
-		private BPMesDataGUI_DTO BPDTO;
+		public BPCalculator bpCalcObj { get; set; }
+		public BPMesDataGUI_DTO BPDTO { get; set; }
 		//private BPMesDataGUI_DTO calcValuesDTO;
-		private List<double> rawDataListMC = new List<double>();
+		public List<double> rawDataListMC = new List<double>();
 
 		public MeasurementControlPC(IMeasurementDataAccess ImeasurementDataAccess)
 		{
