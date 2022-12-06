@@ -32,13 +32,5 @@ namespace LogicLayer_PC
 
 			return bpGUIlist;
 		}
-		//public BPMesDataGUI_DTO GetValues()
-		//{
-  //          return BPDTO;
-  //      }
-        public void GetValues(out BPMesDataGUI_DTO kim) //Tjek op på out 
-        {
-			kim = BPDTO;
-        }
     }
 }

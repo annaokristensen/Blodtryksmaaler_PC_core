@@ -10,7 +10,7 @@ namespace DataLayer_PC
 {
     public class UDPServer
     {
-        public const int listenPort = 12000;   //Portnummer 11000
+        public const int listenPort = 12000; 
         //public float svar;
         public string DataFromRPi;
 
@@ -31,13 +31,6 @@ namespace DataLayer_PC
                         $"{Encoding.ASCII.GetString(bytes, 0, bytes.Length)}"); //tager string og laver den om til Ascii værdi
 
                     DataFromRPi = ($"{Encoding.ASCII.GetString(bytes, 0, bytes.Length)}"); //tager string og laver den om til Ascii værdi
-
-                    //TODO: Skal måske indkommenteres hvis udp ikke virker. 
-                    //listener.Send(bytes, bytes.Length, groupEP); 
-
-
-                    ////byte[] svar = listener.Receive(ref Console.ReadLine());
-                    ////listener.Send(svar, svar.Length, groupEP);
                 }
             }
             catch (SocketException e)
@@ -53,6 +46,7 @@ namespace DataLayer_PC
         {
             return DataFromRPi;
         }
+
         //Test metode
         public void testUDPServerThread()
         {

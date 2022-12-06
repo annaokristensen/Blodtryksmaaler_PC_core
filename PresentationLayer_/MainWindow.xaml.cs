@@ -41,9 +41,6 @@ namespace Presentation_Layer
         private BPMesDataGUI_DTO bpGUIDTOObj;
 
 		private List<DateTime> alarmTriggeredTimes;
-
-        //Tilknyt data til livecharts graf
-        //public ChartValues<string> XdateTime { get; set; }
         public ChartValues<double> YRawData { get; set; }
 
 
@@ -253,14 +250,12 @@ namespace Presentation_Layer
 		            "Data kunne ikke gemmes i databasen. Prøv venligst igen senere. Detaljer: " + exception.Message, "Fejl");
             }
         }
-
         public void FinishOperationMethod()
         {
             this.Close();
 			MaintenanceWindow maintenanceWindowObj = new MaintenanceWindow();
 			maintenanceWindowObj.ShowDialog();
 		}
-
         private void finishOperation_button_Click(object sender, RoutedEventArgs e)
         {
 	        if (dataIsSaved == true)
@@ -280,18 +275,6 @@ namespace Presentation_Layer
 	            }
             }
         }
-
-        // Metoden sørger for at lave x-aksen hvor tidspunktet for målepunktet skal vises
-        //TODO: Skal denne metode slettes?
-        /*public void ShowSecondOnXAxis()
-        {
-	        List<string> dateTime = testMesControlObj.GetDateTime();
-	        foreach (var item in dateTime)
-	        {
-		        XdateTime.Add(item);
-	        }
-	        DataContext = this; 
-        }*/
     }
 }
 
