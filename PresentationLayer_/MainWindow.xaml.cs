@@ -3,6 +3,7 @@ using LogicLayer_PC;
 using Presentation_Layer_PC;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.IO.Compression;
 using System.Windows;
 using System.Windows.Media;
@@ -44,6 +45,7 @@ namespace Presentation_Layer
 
         private List<double> rawDataListGUI = new List<double>();
         private MeasurementControlPC mesControlPC;
+        private bool dataIsSaved = false;
 
 
 		public MainWindow()
@@ -61,6 +63,7 @@ namespace Presentation_Layer
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+	        dataIsSaved = false;
             this.Hide();
             CPR_Window cprWindowObj = new CPR_Window();
 
@@ -170,6 +173,7 @@ namespace Presentation_Layer
 	            stopTime = DateTime.Now;
 				//Når der trykkes "Stop og gem" skal SaveMeasurement kaldes. Vi giver den dtoGUIlisten, cpr-nummeret og listen af alarm-tidspunkter med som parameter
 				stopAndSaveObj.SaveMeasurement(dtoGUI_list, cpr_textbox.Text, startTime, stopTime, alarmTriggeredTimes);
+				dataIsSaved = true;
 				MessageBox.Show(this, "Data blev gemt i databasen", "Succes");
             }
             catch (Exception exception)
@@ -179,8 +183,35 @@ namespace Presentation_Layer
             }
         }
 
+        public void FinishOperationMethod()
+        {
+            this.Close();
+			MaintenanceWindow maintenanceWindowObj = new MaintenanceWindow();
+			maintenanceWindowObj.ShowDialog();
+		}
+
+        private void finishOperation_button_Click(object sender, RoutedEventArgs e)
+        {
+	        if (dataIsSaved == true)
+	        {
+                FinishOperationMethod();
+	        }
+	        else
+            {
+	            if (MessageBox.Show("Er du sikker på du vil afslutte?", "Spørgsmål", MessageBoxButton.YesNo,
+		                MessageBoxImage.Warning) == MessageBoxResult.No)
+	            {
+                    FinishOperationMethod();
+	            }
+	            else
+	            {
+		            this.Close();
+	            }
+            }
+        }
+
         // Metoden sørger for at lave x-aksen hvor tidspunktet for målepunktet skal vises
-		//TODO: Skal denne metode slettes?
+        //TODO: Skal denne metode slettes?
         /*public void ShowSecondOnXAxis()
         {
 	        List<string> dateTime = testMesControlObj.GetDateTime();
