@@ -8,6 +8,7 @@ using LiveCharts.Wpf;
 using System.Net.Sockets;
 using System.Net;
 using System.Text;
+using DataLayer_PC;
 
 namespace testConsole
 {
@@ -18,33 +19,41 @@ namespace testConsole
         {
             //Test til at udskrive tekstfilen
             Console.WriteLine("Hello, World!");
-            MeasurementControlPC test1 = new MeasurementControlPC();
-            UDPServer server = new UDPServer();
-            test1.GetSamplesList();
 
             // Tråde
             BlockingCollection<BPMesDataGUI_DTO> samplesList = new BlockingCollection<BPMesDataGUI_DTO>();
 
+            //Test metoder
+            IMeasurementDataAccess testMeasurementDataAccess= new TestMeasurementDataAccess();
+            IMeasurementControlPC TestreadSampleControlPC = new MeasurementControlPC(testMeasurementDataAccess);
 
-            MeasurementDataAccess test = new MeasurementDataAccess(samplesList);
+            ////Ikke Test metoder
+            //IMeasurementDataAccess MeasurementDataAccess = new MeasurementDataAccess();
+            //IMeasurementControlPC readSampleControlPC = new MeasurementControlPC(MeasurementDataAccess);
+            //UDPServer server = new UDPServer();
+
+            //Test
+            Thread TestReadValues = new Thread(TestreadSampleControlPC.ReadValues);
+       //     Thread TestGetValues = new Thread(TestreadSampleControlPC.GetValues);
+
+            ////Ikke Test
+            //Thread readValues = new Thread(readSampleControlPC.ReadValues);
+            ////Thread GetValues = new Thread(readSampleControlPC.GetValues);
+
+            //Thread serverThread = new Thread(server.StartListener);
+            //Thread testerServerThread = new Thread(server.testUDPServerThread);
 
 
-            Thread testDataObjThread = new Thread(test1.GetSamplesList);
-            Thread testThread = new Thread(test1.TestThread);
-            Thread serverThread = new Thread(server.StartListener);
-            Thread testerServerThread = new Thread(server.testUDPServerThread);
+            TestReadValues.Start();
+           // readValues.Start();
+           // serverThread.Start();
+            //testerServerThread.Start();
 
 
-            testDataObjThread.Start();
-            testThread.Start();
-            serverThread.Start();
-            testerServerThread.Start();
-
-
-            testDataObjThread.Join();
-            testThread.Join();
-            serverThread.Join();
-            testerServerThread.Join();
+            TestReadValues.Join();
+            //readValues.Join();
+           // serverThread.Join();
+           // testerServerThread.Join();
 
             Console.ReadKey();
 

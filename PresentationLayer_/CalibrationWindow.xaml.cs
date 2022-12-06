@@ -83,6 +83,7 @@ namespace Presentation_Layer_PC
 		        MessageBox.Show(this, exception.Message, "Fejl");
 	        }
 
+            LabelKalibrering.Content = calibrationObject.RegressionCalculator(yy, xx);
         }
 
         private void makeLinearReg_button_Click(object sender, RoutedEventArgs e)

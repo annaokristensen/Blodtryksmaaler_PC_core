@@ -3,7 +3,9 @@ using LogicLayer_PC;
 using Presentation_Layer_PC;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.IO.Compression;
+using System.Media;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -15,6 +17,7 @@ using System.Windows.Documents;
 using LiveCharts;
 using LiveCharts.Wpf;
 using LiveCharts.Definitions.Charts;
+using System.Numerics;
 
 
 namespace Presentation_Layer
@@ -24,43 +27,57 @@ namespace Presentation_Layer
     /// </summary>
     public partial class MainWindow : Window
     {
-	    private MeasurementControlPC mesControlObj;
         private StopAndSave stopAndSaveObj;
         private System.Windows.Threading.DispatcherTimer dispatcherTimer;
         int taeller = 0;
         private int middelMax = 0;
         private int middelMin = 0 ;
+        SoundPlayer player = new SoundPlayer();
+        string file = "Cardiac alarm.wav";
         public string cpr { get; set; }
         private List<BPMesDataGUI_DTO> dtoGUI_list;
-        private List<DateTime> alarmTriggeredTimes;
+        private List<BPMesDataGUI_DTO> testDtoGUI_list;
+        private BPMesDataGUI_DTO bpGUIDTOObj;
+
+		private List<DateTime> alarmTriggeredTimes;
 
         //Tilknyt data til livecharts graf
-		public ChartValues<double> Ymiddel { get; set; }
-        public ChartValues<string> XdateTime { get; set; }
-        public  ChartValues<double> Ysystolic { get; set; }
-        public ChartValues<double> Ydiastolic { get; set; }
-        public ChartValues<double> Ypulse { get; set; }
+        //public ChartValues<string> XdateTime { get; set; }
+        public ChartValues<double> YRawData { get; set; }
+
+
         private DateTime startTime;
         private DateTime stopTime;
+
+        private List<double> rawDataListGUI;
+        private List<double> testRawDataListGUI;
+		private MeasurementControlPC mesControlPC;
+        private bool dataIsSaved = false;
+        private IMeasurementDataAccess ImeasurementDataAccess;
 
 
         public MainWindow()
         {
             InitializeComponent();
-            mesControlObj = new MeasurementControlPC();
+     
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            mesControlObj = new MeasurementControlPC();
+      
             stopAndSaveObj = new StopAndSave();
             alarmTriggeredTimes = new List<DateTime>();
-            Ymiddel = new ChartValues<double>();
-            XdateTime = new ChartValues<string>();
-            Ysystolic = new ChartValues<double>();
-            Ydiastolic = new ChartValues<double>();
-            Ypulse = new ChartValues<double>();
-        }
+            //XdateTime = new ChartValues<string>();
+            YRawData = new ChartValues<double>();
+            ImeasurementDataAccess = new TestMeasurementDataAccess(); //MeasurementDataAccess(); <- bruges ved UDP
+            mesControlPC = new MeasurementControlPC(ImeasurementDataAccess);
+            //testDtoGUI_list = new List<BPMesDataGUI_DTO>();
+            dtoGUI_list = new List<BPMesDataGUI_DTO>();
+            testRawDataListGUI = new List<double>();
+            rawDataListGUI = new List<double>();
+            DataContext = this;
+		}
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+	        dataIsSaved = false;
             this.Hide();
             CPR_Window cprWindowObj = new CPR_Window();
 
@@ -77,7 +94,7 @@ namespace Presentation_Layer
             cpr_textbox.Text = cprWindowObj.GetEnteredCpr();
 
             dispatcherTimer.Tick += DispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 250); //Intervallet for hvor ofte data skifter på GUI'en
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1); //Intervallet for hvor ofte data skifter på GUI'en
 					
             //De to variable bruges nede i saveChanges_button_click. De sættes her i starten til de default værdier der står i textboxene.
 			middelMax = Convert.ToInt32(middleBTMax_textbox.Text);
@@ -86,36 +103,70 @@ namespace Presentation_Layer
         }
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
-            dtoGUI_list = mesControlObj.GetAllValues();
-            //TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
-            const int graphPointLimit = 8; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
-            const int removeFactor = 9; //Faktoren der sørger for de ældste punkter bliver fjernet. Skal vist være 1 større end graphPointLimit
+            //TIL TEST:
+            BPMesDataGUI_DTO bpGUIdto = mesControlPC.ReadValues();
+            //mesControlPC.ReadValues();
+            testRawDataListGUI.AddRange(bpGUIdto.RawDataList);
+
+            dtoGUI_list.Add(bpGUIdto);
+
+            
+            //dtoGUI_list.Add(new BPMesDataGUI_DTO());
+            /*dtoGUI_list.Add(bpGUIDTOObj);
+            dtoGUI_list[taeller] = mesControlPC.BPDTO; // GetValues();
+            testRawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
+            testRawDataListGUI.AddRange(bpGUIDTOObj.RawDataList);*/
+
+            ////TIL UDP:
+            //dtoGUI_list[taeller] = mesControlPC.GetBPValues();
+            //rawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
+
+
+			//TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
+			const int graphPointLimit = 5; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
+            const int removeFactor = graphPointLimit + 1; //Faktoren der sørger for de ældste punkter bliver fjernet. Skal vist være 1 større end graphPointLimit
 
             if (taeller < dtoGUI_list.Count)
             {
-                //Kode der får graferne vist:
-	            ShowSecondOnXAxis();
-	            Ymiddel.Add(dtoGUI_list[taeller].MiddelValue);
-	            Ysystolic.Add(dtoGUI_list[taeller].SystoliskValue);
-	            Ydiastolic.Add(dtoGUI_list[taeller].DiastoliskValue);
-	            Ypulse.Add(dtoGUI_list[taeller].Pulse);
+	            //TIL TEST:
+	            foreach (double rawTestData in testRawDataListGUI)
+	            {
+		            YRawData.Add(rawTestData);
+	            }
 
-                //Kode der får værdierne vist i textboxene:
-				middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
-                pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
-                sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
-
-                //Kode der sørger for at de ældste punkter på grafen bliver fjernet, når antal punkter har nået sin maks-grænse:
-                if (taeller > graphPointLimit)
+	            //TIL UDP:
+	            /*foreach (double rawData in rawDataListGUI)
                 {
-	                Ymiddel.Remove(dtoGUI_list[taeller - removeFactor].MiddelValue);
-	                Ysystolic.Remove(dtoGUI_list[taeller - removeFactor].SystoliskValue);
-	                Ydiastolic.Remove(dtoGUI_list[taeller - removeFactor].DiastoliskValue);
-	                Ypulse.Remove(dtoGUI_list[taeller - removeFactor].Pulse);
-                }
-                Alarm();
-                //tælleren tæller 1 op for hver gang koden er kørt i gennnem, så vi hele tiden får de næste punkter i rækken
-				taeller++;
+                    YRawData.Add(rawData);
+                }*/
+
+	            //TEXTBOXENES VÆRDIER TIL TEST:
+	            /*middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
+	            pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
+	            sysDiaValue_textbox.Text =
+		            dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;*/
+
+	            middleBTValue_textbox.Text = Convert.ToString(taeller);
+	            pulseValue_textbox.Text = Convert.ToString(taeller);
+	            sysDiaValue_textbox.Text = Convert.ToString(taeller);
+
+				//TEXTBOXENES VÆRDIER TIL UDP:
+				//middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
+				//pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
+				//sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
+
+				//Kode der sørger for at de ældste punkter på grafen bliver fjernet, når antal punkter har nået sin maks-grænse:
+				if (taeller > graphPointLimit)
+	            {
+		            //TIL TEST:
+		            YRawData.Remove(dtoGUI_list[taeller - removeFactor].RawDataList);
+
+		            //TIL UDP:
+		            //YRawData.Remove(dtoGUI_list[taeller - removeFactor].RawDataList);
+	            }
+	            //Alarm();
+
+	            taeller++;
             }
         }
 
@@ -131,28 +182,49 @@ namespace Presentation_Layer
         {
             dispatcherTimer.Start();
             stopAndSave_button.IsEnabled = true;
+            finishOperation_button.IsEnabled = true;
             startTime = DateTime.Now;
         }
         
         /// <summary>
         /// Alarm-metode som bliver kaldt hver gang tallene og grafen på GUI'en er blevet opdateret, så den holder øje med hver eneste opdatering
         /// </summary>
-        private void Alarm()
-        {
-            if (middelMax < Convert.ToInt32(middleBTValue_textbox.Text) ||
-                Convert.ToInt32(middleBTValue_textbox.Text) < middelMin)
-            {
-                middleBTValue_textbox.Foreground = Brushes.Red;
-                middleBTValue_textbox.FontWeight = FontWeights.Bold;
-                //For hver gang alarmen går i gang skal der gemmes et tidsstempel i en liste, så den liste af 'alarmtriggers' kan blive gemt i databasen
-                alarmTriggeredTimes.Add(DateTime.Now);
-            }
-            else
-            {
-                middleBTValue_textbox.Foreground = Brushes.White;
-                middleBTValue_textbox.FontWeight = FontWeights.Normal;
-            }
-        }
+        //private void Alarm()
+        //{
+        //    if (middelMax < Convert.ToInt32(middleBTValue_textbox.Text) ||
+        //        Convert.ToInt32(middleBTValue_textbox.Text) < middelMin)
+        //    {
+        //        middleBTValue_textbox.Foreground = Brushes.Red;
+        //        middleBTValue_textbox.FontWeight = FontWeights.Bold;
+        //        //For hver gang alarmen går i gang skal der gemmes et tidsstempel i en liste, så den liste af 'alarmtriggers' kan blive gemt i databasen
+        //        alarmTriggeredTimes.Add(DateTime.Now);
+        //        //var sri = Application.GetResourceStream(new Uri("Cardiac alarm.wav"));
+        //        //if ((sri != null))
+        //        //{   player.Load();
+        //        //    player.Play();
+        //        //}
+        //        //player.
+        //        string file = "Cardiac alarm.wav";
+
+        //        //get the current assembly
+        //        var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+        //        //load the embedded resource as a stream
+        //        var stream = assembly.GetManifestResourceStream(string.Format("{0}.Resources.{1}", assembly.GetName().Name, file));
+
+        //        //load the stream into the player
+        //        var player = new System.Media.SoundPlayer(stream);
+
+        //        //play the sound
+        //        player.Play();
+
+        //    }
+        //    else
+        //    {
+        //        middleBTValue_textbox.Foreground = Brushes.White;
+        //        middleBTValue_textbox.FontWeight = FontWeights.Normal;
+        //    }
+        //}
 
         private void stopAndSave_button_Click(object sender, RoutedEventArgs e)
         {
@@ -160,10 +232,10 @@ namespace Presentation_Layer
             {
 	            //Når der trykkes "Stop og gem" så skal dispatcherTimer stoppe, så graferne og tallene stopper med at blive opdateret
 	            dispatcherTimer.Stop();
-	            finishOperation_button.IsEnabled = true;
 	            stopTime = DateTime.Now;
 				//Når der trykkes "Stop og gem" skal SaveMeasurement kaldes. Vi giver den dtoGUIlisten, cpr-nummeret og listen af alarm-tidspunkter med som parameter
 				stopAndSaveObj.SaveMeasurement(dtoGUI_list, cpr_textbox.Text, startTime, stopTime, alarmTriggeredTimes);
+				dataIsSaved = true;
 				MessageBox.Show(this, "Data blev gemt i databasen", "Succes");
             }
             catch (Exception exception)
@@ -173,17 +245,44 @@ namespace Presentation_Layer
             }
         }
 
-        // Metoden sørger for at lave x-aksen hvor tidspunktet for målepunktet skal vises
-		//TODO: Skal denne metode slettes?
-        public void ShowSecondOnXAxis()
+        public void FinishOperationMethod()
         {
-	        List<string> dateTime = mesControlObj.GetDateTime();
+            this.Close();
+			MaintenanceWindow maintenanceWindowObj = new MaintenanceWindow();
+			maintenanceWindowObj.ShowDialog();
+		}
+
+        private void finishOperation_button_Click(object sender, RoutedEventArgs e)
+        {
+	        if (dataIsSaved == true)
+	        {
+                FinishOperationMethod();
+	        }
+	        else
+            {
+	            if (MessageBox.Show("Er du sikker på du vil afslutte?", "Spørgsmål", MessageBoxButton.YesNo,
+		                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+	            {
+					FinishOperationMethod();
+				}
+	            else
+	            {
+		            
+	            }
+            }
+        }
+
+        // Metoden sørger for at lave x-aksen hvor tidspunktet for målepunktet skal vises
+        //TODO: Skal denne metode slettes?
+        /*public void ShowSecondOnXAxis()
+        {
+	        List<string> dateTime = testMesControlObj.GetDateTime();
 	        foreach (var item in dateTime)
 	        {
 		        XdateTime.Add(item);
 	        }
 	        DataContext = this; 
-        }
+        }*/
     }
 }
 

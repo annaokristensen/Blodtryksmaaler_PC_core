@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +19,7 @@ namespace Presentation_Layer_PC
 	/// </summary>
 	public partial class MaintenanceWindow : Window
     {
+		bool isZeroPointAdjDone = false;
         
 		public MaintenanceWindow()
 		{
@@ -26,7 +28,7 @@ namespace Presentation_Layer_PC
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-
+			zeroPointNotDone_errorMessage.Visibility = Visibility.Hidden;
 		}
 
 		private void opretforbindelse_button_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -37,9 +39,16 @@ namespace Presentation_Layer_PC
 		private void moveOnToCpr_button_Click(object sender, RoutedEventArgs e)
 		{
 			//Når der trykkes på Videre til cpr og nulpunktjustering er udført, skal CprWindow åbne og MaintenanceWindow lukke
-			// if (nulpunktjustering er udført)
-			this.DialogResult = true;
-			this.Close();
+			if (isZeroPointAdjDone == true)
+			{
+				this.DialogResult = true;
+				this.Close();
+			}
+			else
+			{
+				zeroPointNotDone_errorMessage.Visibility = Visibility.Visible;
+			}
+
 		}
 
 		private void calibration_button_Click(object sender, RoutedEventArgs e)
@@ -47,6 +56,12 @@ namespace Presentation_Layer_PC
 			//Når der trykkes på kalibrering, skal CalibrationWindow åbne og MaintenanceWindow lukker
 			CalibrationWindow calibrationWindowObj = new CalibrationWindow();
 			calibrationWindowObj.ShowDialog();
+		}
+
+		private void zeroPointAdjustment_button_Click(object sender, RoutedEventArgs e)
+		{
+			isZeroPointAdjDone = true;
+			zeroPointNotDone_errorMessage.Visibility = Visibility.Hidden;
 		}
 	}
 }
