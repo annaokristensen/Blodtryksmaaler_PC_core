@@ -99,9 +99,9 @@ namespace Presentation_Layer
             testDtoGUI_list[taeller] = testMesControlObj.GetValuesTest();
             testRawDataListGUI.AddRange(testDtoGUI_list[taeller].RawDataList);
 
-			//TIL UDP:
-			//dtoGUI_list[taeller] = mesControlPC.GetBPValues();
-			//rawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
+            //TIL UDP:
+            dtoGUI_list[taeller] = mesControlPC.GetBPValues();
+            rawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
 
 
 			//TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
