@@ -50,7 +50,6 @@ namespace Presentation_Layer_PC
 			}
 
 		}
-
 		private void calibration_button_Click(object sender, RoutedEventArgs e)
 		{
 			//Når der trykkes på kalibrering, skal CalibrationWindow åbne og MaintenanceWindow lukker
