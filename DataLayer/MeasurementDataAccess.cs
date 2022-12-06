@@ -14,7 +14,7 @@ namespace DataLayer_PC
 	/// <summary>
 	/// Klassen tilgår databasen og gemmer måledata deri
 	/// </summary>
-	public class MeasurementDataAccess
+	public class MeasurementDataAccess : IMeasurementDataAcces
 	{
 		private readonly BlockingCollection<BPMesDataGUI_DTO> samplesList = new BlockingCollection<BPMesDataGUI_DTO>();
 
@@ -44,7 +44,7 @@ namespace DataLayer_PC
 		/// Læser fra udpPath og gemmer rawData som en List af doubles i DTO-klassen
 		/// </summary>
 		/// <returns>BPMesDataGUI_DTO List af double rawData</returns>
-		public BPMesDataGUI_DTO ReadRawData()
+		public BPMesDataGUI_DTO ReadSample()  //ReadRawData()
 		{
 			//Sætter udpPath til at være den string som udpServeren returnerer. Det er deri at data fra rpi står
 			string udpPath = udpServerObj.GetBroadcast();

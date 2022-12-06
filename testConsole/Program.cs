@@ -8,6 +8,7 @@ using LiveCharts.Wpf;
 using System.Net.Sockets;
 using System.Net;
 using System.Text;
+using DataLayer_PC;
 
 namespace testConsole
 {
@@ -18,19 +19,31 @@ namespace testConsole
         {
             //Test til at udskrive tekstfilen
             Console.WriteLine("Hello, World!");
-            TestMeasurementControlPC test1 = new TestMeasurementControlPC();
-            UDPServer server = new UDPServer();
-            test1.GetSamplesList();
 
             // Tråde
             BlockingCollection<BPMesDataGUI_DTO> samplesList = new BlockingCollection<BPMesDataGUI_DTO>();
 
 
-            MeasurementDataAccess test = new MeasurementDataAccess(samplesList);
+            // TestMeasurementControlPC test1 = new TestMeasurementControlPC();
+            IMeasurementDataAcces readSampleTest = new TestMeasurementDataAccess();
+           // IMeasurementDataAcces readSample = new MeasurementDataAccess();
+
+            TestMeasurementControlPC test1 = new TestMeasurementControlPC();
+
+            UDPServer server = new UDPServer();
+            readSampleTest.ReadSample();
+           // readSample.ReadSample();            
+
+           
+
+            //  MeasurementDataAccess test = new MeasurementDataAccess(samplesList);
+
+            
 
 
-            Thread testDataObjThread = new Thread(test1.GetSamplesList);
+            Thread testDataObjThread = new Thread(readSampleTest.ReadSample);
             Thread testThread = new Thread(test1.TestThread);
+
             Thread serverThread = new Thread(server.StartListener);
             Thread testerServerThread = new Thread(server.testUDPServerThread);
 

@@ -26,7 +26,7 @@ namespace LogicLayer_PC
         public double GetVoltFromUDP()
         {
             TestMeasurementControlPC testMesControl = new TestMeasurementControlPC();
-            BPMesDataGUI_DTO GUIDTOobj = testMesControl.GetValuesTest();
+            BPMesDataGUI_DTO GUIDTOobj = testMesControl.GetValues();
             List<double> VoltDataFromUDPList = GUIDTOobj.RawDataList;
 
 	        foreach (double rawData in GUIDTOobj.RawDataList)

@@ -90,7 +90,7 @@ namespace Presentation_Layer
             //dtoGUI_list = testMesControlObj.GetAllValues();
 
             //TIL UDP:
-            dtoGUI_list[taeller] = mesControlPC.GetBPValues();
+            dtoGUI_list[taeller] = mesControlPC.GetValues();
             rawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
 
 

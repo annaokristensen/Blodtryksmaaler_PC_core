@@ -10,7 +10,7 @@ using System.Resources;
 
 namespace DataLayer_PC
 {
-	public class TestMeasurementDataAccess
+	public class TestMeasurementDataAccess : IMeasurementDataAcces
 	{
 		public string TestPath = @"testmedtal.txt";
 		public string testPath2 = @"udpFormatTestFile.txt";
@@ -49,7 +49,7 @@ namespace DataLayer_PC
 		/// TEST-METODE til at læse en test-fil som er skrevet på det format, som vi modtager fra rpi
 		/// </summary>
 		/// <returns></returns>
-		public BPMesDataGUI_DTO ReadSampleTest()
+		public BPMesDataGUI_DTO ReadSample()
 		{
 			//Sætter udpPath til at være den string som udpServeren returnerer. Det er deri at data fra rpi står
 			do

@@ -6,7 +6,7 @@ namespace LogicLayer_PC
     /// <summary>
     /// Sørger for at målingen startes og vises på præsentationslaget
     /// </summary>
-    public class TestMeasurementControlPC
+    public class TestMeasurementControlPC : IMeasurementControlPC
     {
 	    private TestMeasurementDataAccess testMesDataAccessObj;
         private BPMesDataGUI_DTO DTOObject;
@@ -27,9 +27,9 @@ namespace LogicLayer_PC
             }
         }*/
 
-        public BPMesDataGUI_DTO GetValuesTest()
+        public BPMesDataGUI_DTO GetValues()
         {
-            BPMesDataGUI_DTO dtoObj = testMesDataAccessObj.ReadSampleTest();
+            BPMesDataGUI_DTO dtoObj = testMesDataAccessObj.ReadSample();
 
             return dtoObj;
         }

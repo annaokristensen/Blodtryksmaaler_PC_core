@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer_PC
+namespace LogicLayer_PC
 {
-    public interface IMeasurementDataAcces
+    public interface IMeasurementControlPC
     {
-        BPMesDataGUI_DTO ReadSample();
+        BPMesDataGUI_DTO GetValues();
     }
-
 }
