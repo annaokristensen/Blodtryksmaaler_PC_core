@@ -15,7 +15,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="zeroPointAdjustment_button" Content="Nulpunktsjustér" BorderThickness="3" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" Height="50" Width="130">
+        <Button x:Name="zeroPointAdjustment_button" Content="Nulpunktsjustér" BorderThickness="3" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" Height="50" Width="130" Click="zeroPointAdjustment_button_Click">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="6"></Setter>
@@ -31,7 +31,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="moveOnToCpr_button" Content="Videre til cpr" BorderThickness="3" HorizontalAlignment="Left" Margin="336,321,0,0" VerticalAlignment="Top" Height="35" Width="130" Click="moveOnToCpr_button_Click">
+        <Button x:Name="moveOnToCpr_button" Content="Videre til cpr" BorderThickness="3" HorizontalAlignment="Left" Margin="336,287,0,0" VerticalAlignment="Top" Height="35" Width="130" Click="moveOnToCpr_button_Click">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="6"/>
@@ -39,6 +39,7 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <Label x:Name="zeroPointNotDone_errorMessage" Content="Nulpunktsjustering er ikke udført" HorizontalAlignment="Left" Margin="282,327,0,0" VerticalAlignment="Top" Width="184" Foreground="White" FontStyle="Italic"/>
 
     </Grid>
 </Window>
