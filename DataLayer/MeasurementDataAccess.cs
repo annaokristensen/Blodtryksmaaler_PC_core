@@ -14,7 +14,7 @@ namespace DataLayer_PC
 	/// <summary>
 	/// Klassen tilgår databasen og gemmer måledata deri
 	/// </summary>
-	public class MeasurementDataAccess : IMeasurementDataAcces
+	public class MeasurementDataAccess : IMeasurementDataAccess
 	{
 		private readonly BlockingCollection<BPMesDataGUI_DTO> samplesList = new BlockingCollection<BPMesDataGUI_DTO>();
 

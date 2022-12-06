@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer_PC
 {
-    public interface IMeasurementDataAcces
+    public interface IMeasurementDataAccess
     {
         BPMesDataGUI_DTO ReadSample();
     }

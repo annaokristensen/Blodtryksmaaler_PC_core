@@ -23,39 +23,32 @@ namespace testConsole
             // Tråde
             BlockingCollection<BPMesDataGUI_DTO> samplesList = new BlockingCollection<BPMesDataGUI_DTO>();
 
+            //Test metoder
+            IMeasurementControlPC TestreadSampleControlPC = new TestMeasurementControlPC();
 
-            // TestMeasurementControlPC test1 = new TestMeasurementControlPC();
-            IMeasurementDataAcces readSampleTest = new TestMeasurementDataAccess();
-           // IMeasurementDataAcces readSample = new MeasurementDataAccess();
-
-            TestMeasurementControlPC test1 = new TestMeasurementControlPC();
-
+            //Ikke Test metoder
+            IMeasurementControlPC readSampleControlPC = new MeasurementControlPC();
             UDPServer server = new UDPServer();
-            readSampleTest.ReadSample();
-           // readSample.ReadSample();            
 
-           
+            //Test
+            Thread TestReadValues = new Thread(TestreadSampleControlPC.ReadValues);
+            Thread TestGetValues = new Thread(TestreadSampleControlPC.GetValues);
 
-            //  MeasurementDataAccess test = new MeasurementDataAccess(samplesList);
-
-            
-
-
-            Thread testDataObjThread = new Thread(readSampleTest.ReadSample);
-            Thread testThread = new Thread(test1.TestThread);
+            //Ikke Test
+            Thread readValues = new Thread(readSampleControlPC.ReadValues);
 
             Thread serverThread = new Thread(server.StartListener);
             Thread testerServerThread = new Thread(server.testUDPServerThread);
 
 
-            testDataObjThread.Start();
-            testThread.Start();
+            TestReadValues.Start();
+           // readValues.Start();
             serverThread.Start();
             testerServerThread.Start();
 
 
-            testDataObjThread.Join();
-            testThread.Join();
+            TestReadValues.Join();
+            //readValues.Join();
             serverThread.Join();
             testerServerThread.Join();
 

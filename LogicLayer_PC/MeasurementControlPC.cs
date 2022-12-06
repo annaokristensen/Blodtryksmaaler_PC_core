@@ -10,24 +10,30 @@ namespace LogicLayer_PC
 {
 	public class MeasurementControlPC : IMeasurementControlPC
 	{
-		
-		private MeasurementDataAccess measurementDataAccessObj;
+
+		private IMeasurementDataAccess measurementDataAccessObj;
 		private BPCalculator bpCalcObj;
 		private BPMesDataGUI_DTO BPDTO;
 		//private BPMesDataGUI_DTO calcValuesDTO;
 		private List<double> rawDataListMC = new List<double>();
 
-		public MeasurementControlPC()
+		public MeasurementControlPC(IMeasurementDataAccess ImeasurementDataAccess)
 		{
-			measurementDataAccessObj = new MeasurementDataAccess();
+			measurementDataAccessObj = ImeasurementDataAccess;
 			bpCalcObj = new BPCalculator();
 		}
-		public BPMesDataGUI_DTO GetValues()
+		public void ReadValues()
 		{
 			BPDTO = measurementDataAccessObj.ReadSample();
-			bpCalcObj.saveValues(BPDTO);
-
-			return BPDTO;
+			bpCalcObj.saveValues(BPDTO);			
 		}
-	}
+		//public BPMesDataGUI_DTO GetValues()
+		//{
+  //          return BPDTO;
+  //      }
+        public void GetValues(out BPMesDataGUI_DTO kim) //Tjek op på out 
+        {
+			kim = BPDTO;
+        }
+    }
 }

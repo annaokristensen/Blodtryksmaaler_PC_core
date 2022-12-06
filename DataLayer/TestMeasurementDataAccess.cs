@@ -10,7 +10,7 @@ using System.Resources;
 
 namespace DataLayer_PC
 {
-	public class TestMeasurementDataAccess : IMeasurementDataAcces
+	public class TestMeasurementDataAccess : IMeasurementDataAccess
 	{
 		public string TestPath = @"testmedtal.txt";
 		public string testPath2 = @"udpFormatTestFile.txt";

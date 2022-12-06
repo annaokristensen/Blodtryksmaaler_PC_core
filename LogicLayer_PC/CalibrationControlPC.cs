@@ -10,23 +10,28 @@ namespace LogicLayer_PC
 {
     public class CalibrationControlPC
     {
-        private MeasurementDataAccess mesDataAccessObj;
+        private IMeasurementDataAccess mesDataAccessObj;
         public double Volt { get; set; }
 
-        public CalibrationControlPC()
+        public CalibrationControlPC(IMeasurementDataAccess measurementDataAccess)
         {
-            mesDataAccessObj = new MeasurementDataAccess();
+            mesDataAccessObj = measurementDataAccess;
             Volt = 0;
         }
-
         /// <summary>
         /// METODEN som skal returnere den gennemsnitlige spændingsværdi der er modtager fra udp for det pågældende tryk
         /// </summary>
         /// <returns></returns>
         public double GetVoltFromUDP()
         {
-            TestMeasurementControlPC testMesControl = new TestMeasurementControlPC();
-            BPMesDataGUI_DTO GUIDTOobj = testMesControl.GetValues();
+            IMeasurementControlPC MesControl = new MeasurementControlPC(mesDataAccessObj);
+            //BPMesDataGUI_DTO GUIDTOobj = MesControl.GetValues(); //GAMMEL 
+           
+            //NY
+            BPMesDataGUI_DTO GUIDTOobj;
+            MesControl.GetValues(out GUIDTOobj);
+            //
+
             List<double> VoltDataFromUDPList = GUIDTOobj.RawDataList;
 
 	        foreach (double rawData in GUIDTOobj.RawDataList)
