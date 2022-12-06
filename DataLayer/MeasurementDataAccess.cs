@@ -58,32 +58,14 @@ namespace DataLayer_PC
 
 					foreach (string sample in holder)
 					{
-						//string[] input = sample.Split(' ');
-
 						rawDataList.Add(Convert.ToDouble(sample));
 					}
 
 					dtoObj = new BPMesDataGUI_DTO(rawDataList);
-
-					/*for (int i = 0; i < 4; i++)
-					{
-						rawDataList.Remove(i);
-					}*/
-
-					/*foreach (string sample in holder)
-					{
-						string[] input = sample.Split(' ');
-						//dtoObj = new BPMesDataGUI_DTO(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]), Convert.ToInt32(input[2]), Convert.ToInt32(input[3]), rawDataList);
-						dtoObj = new BPMesDataGUI_DTO(rawDataList)
-					}*/
 					return dtoObj;
 				}
 			}
 			while (true);
 		}
-
-		
-
-
 	}
 }

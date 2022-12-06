@@ -29,7 +29,8 @@ namespace Presentation_Layer
     {
         private StopAndSave stopAndSaveObj;
         private System.Windows.Threading.DispatcherTimer dispatcherTimer;
-        int taeller = 0;
+        int counter = 0;
+        private int rawDataCounter = 0;
         private int middelMax = 0;
         private int middelMin = 0 ;
         SoundPlayer player = new SoundPlayer();
@@ -40,9 +41,6 @@ namespace Presentation_Layer
         private BPMesDataGUI_DTO bpGUIDTOObj;
 
 		private List<DateTime> alarmTriggeredTimes;
-
-        //Tilknyt data til livecharts graf
-        //public ChartValues<string> XdateTime { get; set; }
         public ChartValues<double> YRawData { get; set; }
 
 
@@ -103,14 +101,20 @@ namespace Presentation_Layer
         }
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
-            //TIL TEST:
-            BPMesDataGUI_DTO bpGUIdto = mesControlPC.ReadValues();
+			//TIL TEST:
+			dtoGUI_list = mesControlPC.ReadValues();
+
+            rawDataCounter = dtoGUI_list[counter].RawDataList.Count;
+            //	BPMesDataGUI_DTO bpGUIdto = mesControlPC.ReadValues();
             //mesControlPC.ReadValues();
-            testRawDataListGUI.AddRange(bpGUIdto.RawDataList);
 
-            dtoGUI_list.Add(bpGUIdto);
+            //testRawDataListGUI.AddRange(dtoGUI_list[rawDataCounter].RawDataList);
 
-            
+            foreach (double rawData in dtoGUI_list[counter].RawDataList)
+            {
+	            testRawDataListGUI.Add(rawData);
+            }
+
             //dtoGUI_list.Add(new BPMesDataGUI_DTO());
             /*dtoGUI_list.Add(bpGUIDTOObj);
             dtoGUI_list[taeller] = mesControlPC.BPDTO; // GetValues();
@@ -123,11 +127,12 @@ namespace Presentation_Layer
 
 
 			//TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
-			const int graphPointLimit = 5; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
+			const int graphPointLimit = 3; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
             const int removeFactor = graphPointLimit + 1; //Faktoren der sørger for de ældste punkter bliver fjernet. Skal vist være 1 større end graphPointLimit
 
-            if (taeller < dtoGUI_list.Count)
+            if (counter < dtoGUI_list.Count)
             {
+
 	            //TIL TEST:
 	            foreach (double rawTestData in testRawDataListGUI)
 	            {
@@ -146,9 +151,9 @@ namespace Presentation_Layer
 	            sysDiaValue_textbox.Text =
 		            dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;*/
 
-	            middleBTValue_textbox.Text = Convert.ToString(taeller);
-	            pulseValue_textbox.Text = Convert.ToString(taeller);
-	            sysDiaValue_textbox.Text = Convert.ToString(taeller);
+	            middleBTValue_textbox.Text = Convert.ToString(counter);
+	            pulseValue_textbox.Text = Convert.ToString(counter);
+	            sysDiaValue_textbox.Text = Convert.ToString(counter);
 
 				//TEXTBOXENES VÆRDIER TIL UDP:
 				//middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
@@ -156,17 +161,18 @@ namespace Presentation_Layer
 				//sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
 
 				//Kode der sørger for at de ældste punkter på grafen bliver fjernet, når antal punkter har nået sin maks-grænse:
-				if (taeller > graphPointLimit)
+				if (counter > graphPointLimit)
 	            {
 		            //TIL TEST:
-		            YRawData.Remove(dtoGUI_list[taeller - removeFactor].RawDataList);
+		            //YRawData.Remove(dtoGUI_list[taeller - removeFactor].RawDataList);
+		            YRawData.Remove(testRawDataListGUI[counter - removeFactor]);
 
 		            //TIL UDP:
 		            //YRawData.Remove(dtoGUI_list[taeller - removeFactor].RawDataList);
 	            }
 	            //Alarm();
 
-	            taeller++;
+	            counter++;
             }
         }
 
@@ -244,14 +250,12 @@ namespace Presentation_Layer
 		            "Data kunne ikke gemmes i databasen. Prøv venligst igen senere. Detaljer: " + exception.Message, "Fejl");
             }
         }
-
         public void FinishOperationMethod()
         {
             this.Close();
 			MaintenanceWindow maintenanceWindowObj = new MaintenanceWindow();
 			maintenanceWindowObj.ShowDialog();
 		}
-
         private void finishOperation_button_Click(object sender, RoutedEventArgs e)
         {
 	        if (dataIsSaved == true)
@@ -271,18 +275,6 @@ namespace Presentation_Layer
 	            }
             }
         }
-
-        // Metoden sørger for at lave x-aksen hvor tidspunktet for målepunktet skal vises
-        //TODO: Skal denne metode slettes?
-        /*public void ShowSecondOnXAxis()
-        {
-	        List<string> dateTime = testMesControlObj.GetDateTime();
-	        foreach (var item in dateTime)
-	        {
-		        XdateTime.Add(item);
-	        }
-	        DataContext = this; 
-        }*/
     }
 }
 

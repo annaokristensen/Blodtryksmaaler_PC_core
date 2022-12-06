@@ -38,19 +38,12 @@ namespace Presentation_Layer_PC
 
 		CalibrationControlPC calibrationObject = new CalibrationControlPC();
 
-        //public CalibrationWindow()
-        //{
-        //	InitializeComponent();
-        //}
-
         public CalibrationWindow()
         {
             InitializeComponent();
             YVolt = new ChartValues<double>();
             XPressure = new ChartValues<double>();
-
         }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 	        enterPressure_textbox.Focus();

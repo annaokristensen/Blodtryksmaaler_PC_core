@@ -35,7 +35,6 @@ namespace Presentation_Layer_PC
 		{
 
 		}
-
 		private void moveOnToCpr_button_Click(object sender, RoutedEventArgs e)
 		{
 			//Når der trykkes på Videre til cpr og nulpunktjustering er udført, skal CprWindow åbne og MaintenanceWindow lukke
@@ -48,16 +47,13 @@ namespace Presentation_Layer_PC
 			{
 				zeroPointNotDone_errorMessage.Visibility = Visibility.Visible;
 			}
-
 		}
-
 		private void calibration_button_Click(object sender, RoutedEventArgs e)
 		{
 			//Når der trykkes på kalibrering, skal CalibrationWindow åbne og MaintenanceWindow lukker
 			CalibrationWindow calibrationWindowObj = new CalibrationWindow();
 			calibrationWindowObj.ShowDialog();
 		}
-
 		private void zeroPointAdjustment_button_Click(object sender, RoutedEventArgs e)
 		{
 			isZeroPointAdjDone = true;

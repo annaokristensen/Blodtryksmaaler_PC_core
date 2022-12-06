@@ -23,22 +23,14 @@ namespace LogicLayer_PC
 			measurementDataAccessObj = ImeasurementDataAccess;
 			bpCalcObj = new BPCalculator();
 		}
-		public BPMesDataGUI_DTO ReadValues()
+		public List<BPMesDataGUI_DTO> ReadValues()
 		{
-			BPMesDataGUI_DTO bpGUIObj = measurementDataAccessObj.ReadSample();
+			List<BPMesDataGUI_DTO> bpGUIlist = new List<BPMesDataGUI_DTO>();
+			bpGUIlist.Add(measurementDataAccessObj.ReadSample());
 			//BPDTO = measurementDataAccessObj.ReadSample();
 			bpCalcObj.saveValues(measurementDataAccessObj.ReadSample());
-			
 
-			return bpGUIObj;
+			return bpGUIlist;
 		}
-		//public BPMesDataGUI_DTO GetValues()
-		//{
-  //          return BPDTO;
-  //      }
-        public void GetValues(out BPMesDataGUI_DTO kim) //Tjek op på out 
-        {
-			kim = BPDTO;
-        }
     }
 }
