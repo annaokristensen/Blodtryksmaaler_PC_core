@@ -33,7 +33,7 @@ namespace testConsole
             //UDPServer server = new UDPServer();
 
             //Test
-            Thread TestReadValues = new Thread(TestreadSampleControlPC.ReadValues);
+            //Thread TestReadValues = new Thread(TestreadSampleControlPC.ReadValues());
        //     Thread TestGetValues = new Thread(TestreadSampleControlPC.GetValues);
 
             ////Ikke Test

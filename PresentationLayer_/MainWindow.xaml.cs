@@ -18,7 +18,7 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using LiveCharts.Definitions.Charts;
 using System.Numerics;
-
+using System.Printing;
 
 namespace Presentation_Layer
 {
@@ -29,7 +29,7 @@ namespace Presentation_Layer
     {
         private StopAndSave stopAndSaveObj;
         private System.Windows.Threading.DispatcherTimer dispatcherTimer;
-        int counter = 0;
+        int counter = 1;
         private int rawDataCounter = 0;
         private int middelMax = 0;
         private int middelMin = 0 ;
@@ -49,6 +49,7 @@ namespace Presentation_Layer
 
         private List<double> rawDataListGUI;
         private List<double> testRawDataListGUI;
+        private List<double>[] RawDataArray;
 		private MeasurementControlPC mesControlPC;
         private bool dataIsSaved = false;
         private IMeasurementDataAccess ImeasurementDataAccess;
@@ -70,6 +71,7 @@ namespace Presentation_Layer
             dtoGUI_list = new List<BPMesDataGUI_DTO>();
             testRawDataListGUI = new List<double>();
             rawDataListGUI = new List<double>();
+            RawDataArray = new List<double>[5];
             DataContext = this;
 		}
 
@@ -98,23 +100,87 @@ namespace Presentation_Layer
 			middelMax = Convert.ToInt32(middleBTMax_textbox.Text);
 			middelMin = Convert.ToInt32(middleBTMin_textbox.Text);
 
+            RawDataArray = ZeroStart();
+
         }
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
-			//TIL TEST:
-			//dtoGUI_list = mesControlPC.ReadValues();
+            //TIL TEST:
+            dtoGUI_list = mesControlPC.ReadValues();
 
-           // rawDataCounter = dtoGUI_list[counter].RawDataList.Count;
+            // rawDataCounter = dtoGUI_list[counter].RawDataList.Count;
 
-           // BPMesDataGUI_DTO bpGUIdto = mesControlPC.ReadValues();
+            // BPMesDataGUI_DTO bpGUIdto = mesControlPC.ReadValues();
             //mesControlPC.ReadValues();
 
-            testRawDataListGUI.AddRange(dtoGUI_list[rawDataCounter].RawDataList);
+            RawDataArray[4] = RawDataArray[3];
+            RawDataArray[3] = RawDataArray[2];
+            RawDataArray[2] = RawDataArray[1];
+            RawDataArray[1] = RawDataArray[0];
+            RawDataArray[0] = dtoGUI_list[dtoGUI_list.Count-1].RawDataList;
 
-            foreach (double rawData in dtoGUI_list[counter].RawDataList)
+            YRawData.Clear();
+            
+            for(int i = 0; i < 5; i++)
             {
-	            testRawDataListGUI.Add(rawData);
+                YRawData.AddRange(RawDataArray[i]);
             }
+
+
+
+            //if(counter>=5)
+            //{
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count-1].RawDataList);
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 2].RawDataList);
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 3].RawDataList);
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 4].RawDataList);
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 5].RawDataList);
+            //}
+            //else if(counter==4)
+            //{
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count-1].RawDataList);
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 2].RawDataList);
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 3].RawDataList);
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 4].RawDataList);
+            //}
+            //else if (counter == 3)
+            //{
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count-1].RawDataList);
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 2].RawDataList);
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 3].RawDataList);
+            //}
+            //else if (counter == 2)
+            //{
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count-1].RawDataList);
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 2].RawDataList);
+            //}
+            //else
+            //{
+            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count-1].RawDataList);
+            //}
+
+            //middleBTValue_textbox.Text = Convert.ToString();
+            //pulseValue_textbox.Text = Convert.ToString(counter);
+            //sysDiaValue_textbox.Text = Convert.ToString(counter);
+
+            //TEXTBOXENES VÆRDIER TIL UDP:
+            middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[dtoGUI_list.Count-1].MiddelValue);
+            pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[dtoGUI_list.Count -1].Pulse);
+            sysDiaValue_textbox.Text = dtoGUI_list[dtoGUI_list.Count -1].SystoliskValue + " / " + dtoGUI_list[dtoGUI_list.Count -1].DiastoliskValue;
+
+
+
+
+            //Alarm();
+
+            counter++;
+
+            //testRawDataListGUI.AddRange(dtoGUI_list. RawDataList); //tilføjer det der ligger i dto til en lokal rawdatalist 
+
+            //foreach (double rawData in dtoGUI_list[counter].RawDataList)
+            //{
+            // testRawDataListGUI.Add(rawData);
+            //}
 
             //dtoGUI_list.Add(new BPMesDataGUI_DTO());
             /*dtoGUI_list.Add(bpGUIDTOObj);
@@ -127,54 +193,57 @@ namespace Presentation_Layer
             //rawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
 
 
-			//TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
-			const int graphPointLimit = 3; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
-            const int removeFactor = graphPointLimit + 1; //Faktoren der sørger for de ældste punkter bliver fjernet. Skal vist være 1 større end graphPointLimit
+            ////TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
+            //const int graphPointLimit = 3; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
+            //const int removeFactor = graphPointLimit + 1; //Faktoren der sørger for de ældste punkter bliver fjernet. Skal vist være 1 større end graphPointLimit
 
-            if (counter < dtoGUI_list.Count)
-            {
+            //if (counter < dtoGUI_list.Count)
+            //{
+	           // //TIL TEST:
+	           // ////foreach (double rawTestData in testRawDataListGUI)
+	           // ////{
+		          // //// YRawData.Add(rawTestData);
 
-	            //TIL TEST:
-	            foreach (double rawTestData in testRawDataListGUI)
-	            {
-		            YRawData.Add(rawTestData);
-	            }
+            // ////       //Kode der sørger for at de ældste punkter på grafen bliver fjernet, når antal punkter har nået sin maks-grænse:
+            // ////       if (counter > graphPointLimit)
+            // ////       {
+            // ////           //TIL TEST:
+            // ////           //YRawData.Remove(dtoGUI_list[taeller - removeFactor].RawDataList);
+            // ////           YRawData.Remove(testRawDataListGUI[counter - removeFactor]);
 
-	            //TIL UDP:
-	            /*foreach (double rawData in rawDataListGUI)
-                {
-                    YRawData.Add(rawData);
-                }*/
+            // ////           //TIL UDP:
+            // ////           //YRawData.Remove(dtoGUI_list[taeller - removeFactor].RawDataList);
+            // ////       }
+            // ////   }
 
-	            //TEXTBOXENES VÆRDIER TIL TEST:
-	            /*middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
-	            pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
-	            sysDiaValue_textbox.Text =
-		            dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;*/
+	           // //TIL UDP:
+	           // /*foreach (double rawData in rawDataListGUI)
+            //    {
+            //        YRawData.Add(rawData);
+            //    }*/
 
-	            middleBTValue_textbox.Text = Convert.ToString(counter);
-	            pulseValue_textbox.Text = Convert.ToString(counter);
-	            sysDiaValue_textbox.Text = Convert.ToString(counter);
+	           // //TEXTBOXENES VÆRDIER TIL TEST:
+	           // /*middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
+	           // pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
+	           // sysDiaValue_textbox.Text =
+		          //  dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;*/
 
-				//TEXTBOXENES VÆRDIER TIL UDP:
-				//middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
-				//pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
-				//sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
+	           // middleBTValue_textbox.Text = Convert.ToString(counter);
+	           // pulseValue_textbox.Text = Convert.ToString(counter);
+	           // sysDiaValue_textbox.Text = Convert.ToString(counter);
 
-				//Kode der sørger for at de ældste punkter på grafen bliver fjernet, når antal punkter har nået sin maks-grænse:
-				if (counter > graphPointLimit)
-	            {
-		            //TIL TEST:
-		            //YRawData.Remove(dtoGUI_list[taeller - removeFactor].RawDataList);
-		            YRawData.Remove(testRawDataListGUI[counter - removeFactor]);
+            //    //TEXTBOXENES VÆRDIER TIL UDP:
+            //    //middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
+            //    //pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
+            //    //sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
 
-		            //TIL UDP:
-		            //YRawData.Remove(dtoGUI_list[taeller - removeFactor].RawDataList);
-	            }
-	            //Alarm();
 
-	            counter++;
-            }
+
+
+            //    //Alarm();
+
+            //    counter++;
+            //}
         }
 
 		//Når vi trykker "Gem ændringer" efter at have ændret på grænseværdierne for middelværdi, skal de nye tal gemmes i variablerne middelMax og middelMin
@@ -275,6 +344,25 @@ namespace Presentation_Layer
 		            
 	            }
             }
+        }
+
+        private List<double>[] ZeroStart()
+        {
+            List<double> zerolist = new List<double>();
+            List<double>[] startarray = new List<double>[5];
+
+            for(int i = 0; i < 11; i++)
+            {
+                zerolist.Add(0);
+            }
+
+            for(int i=0;i<5;i++)
+            {
+                startarray[i] = zerolist;
+            }
+
+
+            return startarray;
         }
     }
 }
