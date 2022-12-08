@@ -339,7 +339,7 @@ namespace Presentation_Layer
 	            {
 					FinishOperationMethod();
 				}
-	            else
+	            else //hvis der trykkes nej, skal der ikke ske andet end at messagebox'en lukker (sker automatisk når man trykker)
 	            {
 		            
 	            }
