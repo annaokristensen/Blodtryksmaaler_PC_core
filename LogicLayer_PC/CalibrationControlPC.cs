@@ -11,18 +11,30 @@ namespace LogicLayer_PC
     public class CalibrationControlPC
     {
         private IMeasurementDataAccess mesDataAccessObj;
+        private ICalbrationFileAcess calbrationFileAcess;
         public List<BPMesDataGUI_DTO> GUISTOlist;
+        public double CalibrationValue { get; set; }
         public double Volt { get; set; }
 
         public CalibrationControlPC()
         {
             mesDataAccessObj = new MeasurementDataAccess();
+            calbrationFileAcess = new CalibrationFileAcess();
             Volt = 0;
         }
+
         /// <summary>
         /// METODEN som skal returnere den gennemsnitlige spændingsværdi der er modtager fra udp for det pågældende tryk
         /// </summary>
         /// <returns></returns>
+        //
+        public void SaveCalibrationValue()
+        {
+            double value = CalibrationValue;
+
+            calbrationFileAcess.ReplaceValue(value);
+
+        }
         public double GetVoltFromUDP()
         {
             IMeasurementControlPC MesControl = new MeasurementControlPC(mesDataAccessObj);
@@ -61,6 +73,7 @@ namespace LogicLayer_PC
             var xy = x.Zip(y, (first, second) => (first - x.Average()) * (second - y.Average())).Sum();
             double b1 = xy / squarex;
             double b0 = y.Average() - (x.Average() * b1);
+            CalibrationValue = b1;
             return "Kalibrering= " + b1.ToString();
         }
     }

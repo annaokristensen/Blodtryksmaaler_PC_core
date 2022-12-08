@@ -86,6 +86,7 @@ namespace Presentation_Layer_PC
 
         private void finishCalibration_button_Click_1(object sender, RoutedEventArgs e)
         {
+			calibrationObject.SaveCalibrationValue();
 	        this.Close();
 		}
     }

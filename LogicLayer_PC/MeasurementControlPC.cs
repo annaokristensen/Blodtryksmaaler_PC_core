@@ -12,6 +12,7 @@ namespace LogicLayer_PC
 	{
 
 		private IMeasurementDataAccess measurementDataAccessObj;
+        private ICalbrationFileAcess calbrationFileAcess;
 		public BPCalculator bpCalcObj { get; set; }
 		public BPMesDataGUI_DTO BPDTO { get; set; }
 		//private BPMesDataGUI_DTO calcValuesDTO;
@@ -25,11 +26,22 @@ namespace LogicLayer_PC
 			measurementDataAccessObj = ImeasurementDataAccess;
 			bpCalcObj = new BPCalculator();
             bpGUIlist = new List<BPMesDataGUI_DTO>();
-		}
+            calbrationFileAcess = new CalibrationFileAcess();
+            zeropointControl = new ZeropointControlPC();
+        }
 		public List<BPMesDataGUI_DTO> ReadValues()
-		{
+        {
+			List<double> dataList = new List<double>();
+
+            BPMesDataGUI_DTO dto = measurementDataAccessObj.ReadSample();
+
+            foreach (var value in dto.RawDataList)
+            {
+				dataList.Add((value - zeropointControl.Zeropoint) * calbrationFileAcess.ReadValue());
+            }
+
+            dto.RawDataList = dataList;
 			
-			bpGUIlist.Add(measurementDataAccessObj.ReadSample());
 			//BPDTO = measurementDataAccessObj.ReadSample();
 			bpCalcObj.saveValues(bpGUIlist[bpGUIlist.Count-1]);
 
