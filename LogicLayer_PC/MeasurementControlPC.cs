@@ -27,6 +27,7 @@ namespace LogicLayer_PC
 			bpCalcObj = new BPCalculator();
             bpGUIlist = new List<BPMesDataGUI_DTO>();
             calbrationFileAcess = new CalibrationFileAcess();
+            zeropointControl = new ZeropointControlPC();
         }
 		public List<BPMesDataGUI_DTO> ReadValues()
         {
@@ -36,7 +37,7 @@ namespace LogicLayer_PC
 
             foreach (var value in dto.RawDataList)
             {
-				dataList.Add(value* calbrationFileAcess.ReadValue());
+				dataList.Add((value - zeropointControl.Zeropoint) * calbrationFileAcess.ReadValue());
             }
 
             dto.RawDataList = dataList;
