@@ -1,5 +1,6 @@
 ﻿using DTO_PC;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,8 @@ namespace DataLayer_PC
 {
     public interface IMeasurementDataAccess
     {
-        BPMesDataGUI_DTO ReadSample();
+        void ReadSample();
+        public BPMesDataGUI_DTO TakeFromBC();
     }
 
 }

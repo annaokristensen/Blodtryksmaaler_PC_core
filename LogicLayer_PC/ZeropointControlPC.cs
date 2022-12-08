@@ -20,7 +20,7 @@ namespace LogicLayer_PC
         }
         public void GetZeropoint()
         {
-            List<double> list = mesDataAccessObj.ReadSample().RawDataList;
+            List<double> list = mesDataAccessObj.TakeFromBC().RawDataList;
 
             double total = 0;
             foreach (double s in list)

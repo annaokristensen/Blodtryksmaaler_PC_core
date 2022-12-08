@@ -44,13 +44,13 @@ namespace testConsole
             //Thread testerServerThread = new Thread(server.testUDPServerThread);
 
 
-            TestReadValues.Start();
+            //TestReadValues.Start();
            // readValues.Start();
            // serverThread.Start();
             //testerServerThread.Start();
 
 
-            TestReadValues.Join();
+           // TestReadValues.Join();
             //readValues.Join();
            // serverThread.Join();
            // testerServerThread.Join();

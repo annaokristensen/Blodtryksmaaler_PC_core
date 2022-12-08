@@ -33,7 +33,10 @@ namespace LogicLayer_PC
         {
 			List<double> dataList = new List<double>();
 
-            BPMesDataGUI_DTO dto = measurementDataAccessObj.ReadSample();
+            measurementDataAccessObj.ReadSample(); 
+  
+            BPMesDataGUI_DTO dto = measurementDataAccessObj.TakeFromBC();
+            rawDataListMC = dto.RawDataList;
 
             foreach (var value in dto.RawDataList)
             {
@@ -47,5 +50,23 @@ namespace LogicLayer_PC
 
 			return bpGUIlist;
 		}
+        //public List<BPMesDataGUI_DTO> ReadValues()
+        //{
+        //    List<double> dataList = new List<double>();
+
+        //    BPMesDataGUI_DTO dto = measurementDataAccessObj.ReadSample();
+
+        //    foreach (var value in dto.RawDataList)
+        //    {
+        //        dataList.Add((value - zeropointControl.Zeropoint) * calbrationFileAcess.ReadValue());
+        //    }
+
+        //    dto.RawDataList = dataList;
+
+        //    //BPDTO = measurementDataAccessObj.ReadSample();
+        //    bpCalcObj.saveValues(bpGUIlist[bpGUIlist.Count - 1]);
+
+        //    return bpGUIlist;
+        //}
     }
 }
