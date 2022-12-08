@@ -12,6 +12,7 @@ namespace LogicLayer_PC
 	{
 
 		private IMeasurementDataAccess measurementDataAccessObj;
+        private ICalbrationFileAcess calbrationFileAcess;
 		public BPCalculator bpCalcObj { get; set; }
 		public BPMesDataGUI_DTO BPDTO { get; set; }
 		//private BPMesDataGUI_DTO calcValuesDTO;
@@ -25,7 +26,7 @@ namespace LogicLayer_PC
 			measurementDataAccessObj = ImeasurementDataAccess;
 			bpCalcObj = new BPCalculator();
             bpGUIlist = new List<BPMesDataGUI_DTO>();
-			zer
+			calbrationFileAcess = new CalibrationFileAcess()
         }
 		public List<BPMesDataGUI_DTO> ReadValues()
 		{
