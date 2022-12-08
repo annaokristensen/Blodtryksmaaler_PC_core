@@ -15,12 +15,15 @@ namespace LogicLayer_PC
 	{
 		private SaveMeasurement saveMeasurementObj;
 		private MeasurementDataAccess mesDataAccess;
+
+        private DownSampler downSampler;
 	//	private IMeasurementDataAccess measurementDataAccess;
 		public StopAndSave()
 		{
 			saveMeasurementObj = new SaveMeasurement();
 			mesDataAccess = new MeasurementDataAccess();
-		}
+            downSampler = new DownSampler();
+        }
 		/// <summary>
 		/// Metoden som bliver kaldt, når vi trykker på "Stop og Gem" på GUI'en.
 		/// Tager DTO_DB som parameter, så listen af DTO-objekter vi har kan blive gemt i databasen
@@ -36,10 +39,19 @@ namespace LogicLayer_PC
 			List<double> middelList = new List<double>();
 			
 			//En midlertidig liste af rådata, fordi vi lige nu ikke har noget rådata i tekstfilen.
-			List<double> rawDataFixLater = new List<double>() { 12, 2, 7, 10 };
+			//List<double> rawDataFixLater = new List<double>() { 12, 2, 7, 10 };
+            List<double> fullRawData = new List<double>();
+            List<double> downSampleData = new List<double>();
 
-			//Kører dtoGUI objektet igennem og tilføjer de forskellige værdier til hver sin liste, som de kan blive gemt således i databasen
-			foreach (BPMesDataGUI_DTO dtoGUIobj in bpDTOList)
+            foreach (BPMesDataGUI_DTO dtoGUIobj in bpDTOList)
+            {
+				fullRawData.AddRange(dtoGUIobj.RawDataList);
+            }
+            downSampleData = downSampler.downSampler(fullRawData);
+
+
+            //Kører dtoGUI objektet igennem og tilføjer de forskellige værdier til hver sin liste, som de kan blive gemt således i databasen
+            foreach (BPMesDataGUI_DTO dtoGUIobj in bpDTOList)
 			{
 				pulseList.Add(dtoGUIobj.Pulse);
 				sysList.Add(dtoGUIobj.SystoliskValue);
@@ -49,7 +61,7 @@ namespace LogicLayer_PC
 
 			//Opretter et objekt af database-DTO'en og samler informationerne heri. De første kommer fra listerne som er kreeret ovenover og
 			//alarmTiems kommer ind som parameter når man kalder SaveMeasurement() fra mainWindow
-			BPMesDataDB_DTO bpDB_DTO = new BPMesDataDB_DTO(rawDataFixLater, sysList, diaList, pulseList, middelList,
+			BPMesDataDB_DTO bpDB_DTO = new BPMesDataDB_DTO(downSampleData, sysList, diaList, pulseList, middelList,
 				startTime, stopTime, alarmTimes);
 
 			//Kalder metoden SaveBPMeasurement() som ligger på datalaget. Giver den ovenstående objekt og cpr-nummeret med som parameter
