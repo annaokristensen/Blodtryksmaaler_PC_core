@@ -27,80 +27,39 @@ namespace LogicLayer_PC
 
         public void saveValues(BPMesDataGUI_DTO dto)
         {
-            //if (starter == false)
-            //{
-            //    if (counter == 0)
-            //    {
-            //        mesLists[0] = dto.RawDataList;
-            //        counter++;
-            //    }
-            //    else if (counter == 1)
-            //    {
-            //        mesLists[1] = dto.RawDataList;
-            //        counter++;
-            //    }
-            //    else if (counter == 2)
-            //    {
-            //        mesLists[2] = dto.RawDataList;
-            //        counter++;
-            //    }
-            //    else if (counter == 3)
-            //    {
-            //        mesLists[3] = dto.RawDataList;
-            //        counter++;
-            //    }
-            //    else if (counter == 4)
-            //    {
-            //        mesLists[4] = dto.RawDataList;
-            //        counter = 0;
-            //        starter = true;
-            //    }
-            //}
-            //else
-            //{
-            //    mesLists[0] = mesLists[1];
-            //    mesLists[1] = mesLists[2];
-            //    mesLists[2] = mesLists[3];
-            //    mesLists[3] = mesLists[4];
-            //    mesLists[5] = measurement;
-            //}
 
-            //this.measurement.Clear();
-            
-            //foreach (double value in mesLists[0])
-            //{
-            //    this.measurement.Add(value);
-            //}
-            ////foreach (double value in mesLists[1])
-            ////{
-            ////    this.measurement.Add(value);
-            ////}
-            ////foreach (double value in mesLists[2])
-            ////{
-            ////    this.measurement.Add(value);
-            ////}
-            ////foreach (double value in mesLists[3])
-            ////{
-            ////    this.measurement.Add(value);
-            ////}
-            ////foreach (double value in mesLists[4])
-            ////{
-            ////    this.measurement.Add(value);
-            ////}
+            if (counter < 5)
+            {
+                dto.SystoliskValue = 0;
+                dto.DiastoliskValue = 0;
+                dto.MiddelValue = 0;
+                dto.Pulse = Convert.ToDouble(0);
 
-            //calcAverage(this.measurement);
+             
+                mesLists[counter] = dto.RawDataList;
 
-            //double[] values = new double[3];
+                counter++;
+            }
+            else
+            {
+                mesLists[4] = mesLists[3];
+                mesLists[3] = mesLists[2];
+                mesLists[2] = mesLists[1];
+                mesLists[1] = mesLists[0];
+                mesLists[0] = dto.RawDataList;
 
-            //dto.SystoliskValue = systole;
-            //dto.DiastoliskValue = diastole;
-            //dto.MiddelValue = middel;
-            //dto.Pulse = Convert.ToDouble(puls);
+                for (int i = 0; i < 5; i++)
+                {
+                    measurement.AddRange(mesLists[i]);
+                }
+                calcAverage(measurement);
 
-            dto.SystoliskValue = 10;
-            dto.DiastoliskValue = 20;
-            dto.MiddelValue = 30;
-            dto.Pulse = Convert.ToDouble(40);
+                dto.SystoliskValue = systole;
+                dto.DiastoliskValue = diastole;
+                dto.MiddelValue = middel;
+                dto.Pulse = Convert.ToDouble(puls);
+            }
+
 
         }
         private void calcAverage(List<double> measurement)
