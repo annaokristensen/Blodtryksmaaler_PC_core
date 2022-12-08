@@ -26,12 +26,21 @@ namespace LogicLayer_PC
 			measurementDataAccessObj = ImeasurementDataAccess;
 			bpCalcObj = new BPCalculator();
             bpGUIlist = new List<BPMesDataGUI_DTO>();
-			calbrationFileAcess = new CalibrationFileAcess()
+            calbrationFileAcess = new CalibrationFileAcess();
         }
 		public List<BPMesDataGUI_DTO> ReadValues()
-		{
+        {
+			List<double> dataList = new List<double>();
+
+            BPMesDataGUI_DTO dto = measurementDataAccessObj.ReadSample();
+
+            foreach (var value in dto.RawDataList)
+            {
+				dataList.Add(value* calbrationFileAcess.ReadValue());
+            }
+
+            dto.RawDataList = dataList;
 			
-			bpGUIlist.Add(measurementDataAccessObj.ReadSample());
 			//BPDTO = measurementDataAccessObj.ReadSample();
 			bpCalcObj.saveValues(bpGUIlist[bpGUIlist.Count-1]);
 
