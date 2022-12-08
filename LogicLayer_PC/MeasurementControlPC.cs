@@ -25,8 +25,7 @@ namespace LogicLayer_PC
 			measurementDataAccessObj = ImeasurementDataAccess;
 			bpCalcObj = new BPCalculator();
             bpGUIlist = new List<BPMesDataGUI_DTO>();
-			zer
-        }
+		}
 		public List<BPMesDataGUI_DTO> ReadValues()
 		{
 			

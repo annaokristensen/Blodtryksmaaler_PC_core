@@ -50,6 +50,7 @@ namespace DataLayer_PC
 			                     ", " + "@alarmTimes)";
 
 			command = new SqlCommand(queryString, conn);
+			//Nedenstående kode er kopieret fra nettet. Koden konverterer listerne til Arrays så de kan gemmes i databasen
 			command.Parameters.AddWithValue("@rawdata", bpDB_DTO.RawData.ToArray().SelectMany(value => BitConverter.GetBytes(value)).ToArray());
 			command.Parameters.AddWithValue("@sysValues", bpDB_DTO.SystoliskValues.ToArray().SelectMany(value => BitConverter.GetBytes(value)).ToArray());
 			command.Parameters.AddWithValue("@diaValues", bpDB_DTO.DiastoliskValues.ToArray().SelectMany(value => BitConverter.GetBytes(value)).ToArray());
