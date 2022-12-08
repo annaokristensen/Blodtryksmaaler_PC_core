@@ -20,12 +20,32 @@ namespace testConsole
             //Test til at udskrive tekstfilen
             Console.WriteLine("Hello, World!");
 
-            // Tråde
-            BlockingCollection<BPMesDataGUI_DTO> samplesList = new BlockingCollection<BPMesDataGUI_DTO>();
+            
+            BlockingCollection<Datacontainer> controllers = new BlockingCollection<Datacontainer>();
 
-            //Test metoder
-            IMeasurementDataAccess testMeasurementDataAccess= new TestMeasurementDataAccess();
-            IMeasurementControlPC TestreadSampleControlPC = new MeasurementControlPC(testMeasurementDataAccess);
+            TestMeasurementDataAccess producer = new TestMeasurementDataAccess(controllers);
+            Consumer consumer = new Consumer(controllers);
+
+            Thread producerThread = new Thread(producer.ReadSample);
+            Thread consumerThread = new Thread(consumer.Run);
+
+            producerThread.Start();
+            consumerThread.Start();
+
+            producerThread.Join();
+            consumerThread.Join();
+
+            Console.ReadKey();
+
+
+
+
+            // Tråde
+            //BlockingCollection<BPMesDataGUI_DTO> samplesList = new BlockingCollection<BPMesDataGUI_DTO>();
+
+            ////Test metoder
+            //IMeasurementDataAccess testMeasurementDataAccess= new TestMeasurementDataAccess();
+            //IMeasurementControlPC TestreadSampleControlPC = new MeasurementControlPC(testMeasurementDataAccess);
 
             ////Ikke Test metoder
             //IMeasurementDataAccess MeasurementDataAccess = new MeasurementDataAccess();
@@ -55,14 +75,14 @@ namespace testConsole
            // serverThread.Join();
            // testerServerThread.Join();
 
-            Console.ReadKey();
+            //Console.ReadKey();
 
-            //UDP 
-            s1 = new UDPServer();
-            s1.StartListener();
+            //////UDP 
+            ////s1 = new UDPServer();
+            ////s1.StartListener();
 
-            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            IPAddress broadcst = IPAddress.Parse("172.20.10.2");
+            ////Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            ////IPAddress broadcst = IPAddress.Parse("172.20.10.2");
 
 
 

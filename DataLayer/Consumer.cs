@@ -10,28 +10,29 @@ namespace DataLayer_PC
 {
     public class Consumer
     {
-        private readonly BlockingCollection<double> RawDataBlocking;
+        private readonly BlockingCollection<Datacontainer> RawDataBlocking;
         public BPMesDataGUI_DTO rawDataDTOBC;
 
-        public Consumer()
+        public Consumer(BlockingCollection<Datacontainer> RawDataBlocking) 
         {
-            RawDataBlocking = new BlockingCollection<double>();
+            this.RawDataBlocking = RawDataBlocking;
         }
-        public BPMesDataGUI_DTO TakeFromBC()
+        public void Run() //TakeFromBC
         {
-            while (!RawDataBlocking.IsCompleted) //Tjekker om der er completet i ReadSample
+            while (!RawDataBlocking.IsCompleted)
             {
                 try
                 {
-                    rawDataDTOBC.RawDataList.Add(RawDataBlocking.Take());
-                    return rawDataDTOBC;
+                    var contanier = RawDataBlocking.Take();
+                    double RawData = contanier.GetRawDataList();
+                    System.Console.WriteLine("Raw data: {0}", RawData);
                 }
                 catch (InvalidOperationException)
                 {
-                    return null;
+                    Console.WriteLine("Catch start");
                 }
             }
-            return null;
+            System.Console.WriteLine("No more data excepted");
         }
     }
 }
