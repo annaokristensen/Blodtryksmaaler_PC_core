@@ -16,35 +16,32 @@ namespace DataLayer_PC
 	/// </summary>
 	public class MeasurementDataAccess : IMeasurementDataAccess
 	{
-		private readonly BlockingCollection<BPMesDataGUI_DTO> samplesList = new BlockingCollection<BPMesDataGUI_DTO>();
+		
+        private readonly BlockingCollection<double> RawDataBlocking;
+		public BPMesDataGUI_DTO rawDataDTOBC;
 
-
-		public double Second { get; set; }
+        public double Second { get; set; }
 		public double SampleValue { get; set; }
 		public List<MeasurementDataAccess> LoadedSampleValue;
 		private bool shallStop = false;
 		public UDPServer udpServerObj = new UDPServer();
 
-		public MeasurementDataAccess()
-		{
-			
-		}
 		public MeasurementDataAccess(double second, double sampleValue)
 		{
 			//conn = new SqlConnection(@"INDSÆT CONNECTION STRING TIL MEASUREMENT-DATABASE")
 			Second = second;
 			SampleValue = sampleValue;
 		}
-		public MeasurementDataAccess(BlockingCollection<BPMesDataGUI_DTO> samplesList)
+		public MeasurementDataAccess()
 		{
-			this.samplesList = samplesList;
+			RawDataBlocking = new BlockingCollection<double>();
 		}
 
 		/// <summary>
 		/// Læser fra udpPath og gemmer rawData som en List af doubles i DTO-klassen
 		/// </summary>
 		/// <returns>BPMesDataGUI_DTO List af double rawData</returns>
-		public BPMesDataGUI_DTO ReadSample()  //ReadRawData()
+		public void ReadSample()  //ReadRawData()
 		{
 			//Sætter udpPath til at være den string som udpServeren returnerer. Det er deri at data fra rpi står
 			string udpPath = udpServerObj.GetBroadcast();
@@ -62,10 +59,15 @@ namespace DataLayer_PC
 					}
 
 					dtoObj = new BPMesDataGUI_DTO(rawDataList);
-					return dtoObj;
+					//return dtoObj;
 				}
 			}
 			while (true);
 		}
+        public BPMesDataGUI_DTO TakeFromBC()
+        {
+            rawDataDTOBC.RawDataList.Add(RawDataBlocking.Take());
+            return rawDataDTOBC;
+        }
 	}
 }
