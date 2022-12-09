@@ -13,8 +13,8 @@ namespace DataLayer_PC
 {
 	public class TestMeasurementDataAccess : IMeasurementDataAccess
 	{
-        private readonly BlockingCollection<double> RawDataBlocking;
-        private readonly Datacontainer datacontainer;
+        private readonly BlockingCollection<Datacontainer> RawDataBlocking;
+        //private readonly Datacontainer datacontainer;
         public string TestPath = @"testmedtal.txt";
 		public string testPath2 = @"udpFormatTestFile.txt";
 		private bool shallStop = false;
@@ -23,9 +23,9 @@ namespace DataLayer_PC
         private int countEnd = 200;
         public List<string> holder;
 
-        public TestMeasurementDataAccess()
+        public TestMeasurementDataAccess(BlockingCollection<Datacontainer> RawDataBlocking)
         {
-            RawDataBlocking = new BlockingCollection<double>();
+            this.RawDataBlocking = RawDataBlocking;
             rawDataDTOBC = new BPMesDataGUI_DTO();
             holder = new List<string>();
         }
@@ -42,12 +42,17 @@ namespace DataLayer_PC
                 while(!shallStop)
                 {
                     //List<double> rawDataList = new List<double>();
-                     holder = File.ReadAllLines(testPath2).ToList();
+                    holder = File.ReadAllLines(testPath2).ToList();
+                    List<double> rawdata = new List<double>();
 
                     for (int i = countStart; i < countEnd; i++)
                     {
-                        RawDataBlocking.Add(Convert.ToDouble(holder[i]));
+                        rawdata.Add(Convert.ToDouble(holder[i]));
                     }
+
+                    Datacontainer reading = new Datacontainer();
+                    reading.SetRawData(rawdata);
+                    RawDataBlocking.Add(reading);
                 }
             }
             while (countStart < holder.Count);
@@ -57,14 +62,14 @@ namespace DataLayer_PC
 
         public BPMesDataGUI_DTO TakeFromBC()
         {
-            while(!RawDataBlocking.IsCompleted) //Tjekker om der er completet i ReadSample
+            while (!RawDataBlocking.IsCompleted) //Tjekker om der er completet i ReadSample
             {
                 try
                 {
-                    rawDataDTOBC.RawDataList.Add(RawDataBlocking.Take());
+                    //rawDataDTOBC.RawDataList.Add(RawDataBlocking.Take());
                     return rawDataDTOBC;
                 }
-                catch(InvalidOperationException)
+                catch (InvalidOperationException)
                 {
                     return null;
                 }

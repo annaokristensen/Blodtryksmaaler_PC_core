@@ -17,7 +17,7 @@ namespace DataLayer_PC
 	public class MeasurementDataAccess : IMeasurementDataAccess
 	{
 		
-        private readonly BlockingCollection<double> RawDataBlocking;
+        private readonly BlockingCollection<Datacontainer> _dataQueue;
 		public BPMesDataGUI_DTO rawDataDTOBC;
 
         public double Second { get; set; }
@@ -34,7 +34,7 @@ namespace DataLayer_PC
 		}
 		public MeasurementDataAccess()
 		{
-			RawDataBlocking = new BlockingCollection<double>();
+			_dataQueue = new BlockingCollection<Datacontainer>();
 		}
 
 		/// <summary>
@@ -49,7 +49,7 @@ namespace DataLayer_PC
 			{
 				while (!shallStop)
 				{
-					BPMesDataGUI_DTO dtoObj = null;
+					//BPMesDataGUI_DTO dtoObj = null;
 					List<double> rawDataList = new List<double>();
 					List<string> holder = File.ReadAllLines(udpPath).ToList();
 
@@ -58,16 +58,20 @@ namespace DataLayer_PC
 						rawDataList.Add(Convert.ToDouble(sample));
 					}
 
-					dtoObj = new BPMesDataGUI_DTO(rawDataList);
+                    Datacontainer reading = new Datacontainer();
+					reading.SetRawData(rawDataList);
+					_dataQueue.Add(reading);
+
+					//dtoObj = new BPMesDataGUI_DTO(rawDataList);
 					//return dtoObj;
 				}
 			}
 			while (true);
 		}
-        public BPMesDataGUI_DTO TakeFromBC()
-        {
-            rawDataDTOBC.RawDataList.Add(RawDataBlocking.Take());
-            return rawDataDTOBC;
-        }
+		public BPMesDataGUI_DTO TakeFromBC()
+		{
+			//rawDataDTOBC.RawDataList = _dataQueue.();
+			return rawDataDTOBC;
+		}
 	}
 }

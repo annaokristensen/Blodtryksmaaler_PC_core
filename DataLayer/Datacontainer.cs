@@ -9,20 +9,20 @@ namespace DataLayer_PC
 {
     public class Datacontainer
     {
-        List<BPMesDataGUI_DTO> bpGUIlist;
-        public double rawData;
+        //List<BPMesDataGUI_DTO> bpGUIlist;
+        private List<double> listrawData;
 
-        public Datacontainer()
+        //public Datacontainer()
+        //{
+        //    //bpGUIlist = new List<BPMesDataGUI_DTO>();
+        //}
+        public List<double> GetRawDataList()
         {
-            bpGUIlist = new List<BPMesDataGUI_DTO>();
+            return listrawData;
         }
-        public double GetRawDataList()
+        public void SetRawData(List<double> rawlist)
         {
-            return rawData;
-        }
-        public void SetRawData(double value)
-        {
-            rawData = value;
+            listrawData = rawlist;
         }
     }
 }

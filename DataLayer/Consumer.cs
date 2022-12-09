@@ -24,8 +24,12 @@ namespace DataLayer_PC
                 try
                 {
                     var contanier = RawDataBlocking.Take();
-                    double RawData = contanier.GetRawDataList();
-                    System.Console.WriteLine("Raw data: {0}", RawData);
+                    List<double> RawData = contanier.GetRawDataList();
+                    foreach (double value in RawData)
+                    {
+                        System.Console.WriteLine("Raw data: {0}", value);
+                    }
+                    
                 }
                 catch (InvalidOperationException)
                 {

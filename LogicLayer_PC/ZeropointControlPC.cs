@@ -18,17 +18,17 @@ namespace LogicLayer_PC
             mesDataAccessObj = new MeasurementDataAccess();
             Zeropoint = 0;
         }
-        public void GetZeropoint()
-        {
-            List<double> list = mesDataAccessObj.TakeFromBC().RawDataList;
+        //public void GetZeropoint()
+        //{
+        //    List<double> list = mesDataAccessObj.TakeFromBC().RawDataList;
 
-            double total = 0;
-            foreach (double s in list)
-            {
-                total += s;
-            }
+        //    double total = 0;
+        //    foreach (double s in list)
+        //    {
+        //        total += s;
+        //    }
 
-            Zeropoint = total / list.Count;
-        }
+        //    Zeropoint = total / list.Count;
+        //}
     }
 }

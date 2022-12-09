@@ -11,7 +11,7 @@ namespace DataLayer_PC
     public interface IMeasurementDataAccess
     {
         void ReadSample();
-        public BPMesDataGUI_DTO TakeFromBC();
+        BPMesDataGUI_DTO TakeFromBC();
     }
 
 }
