@@ -19,6 +19,7 @@ using LiveCharts.Wpf;
 using LiveCharts.Definitions.Charts;
 using System.Numerics;
 using System.Printing;
+using System.Threading;
 
 namespace Presentation_Layer
 {
@@ -107,7 +108,7 @@ namespace Presentation_Layer
         {
             //TIL TEST:
             dtoGUI_list = mesControlPC.ReadValues();
-
+            
             // rawDataCounter = dtoGUI_list[counter].RawDataList.Count;
 
             // BPMesDataGUI_DTO bpGUIdto = mesControlPC.ReadValues();
