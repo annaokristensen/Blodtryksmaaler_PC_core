@@ -49,7 +49,6 @@ namespace DataLayer_PC
                     {
                         rawdata.Add(Convert.ToDouble(holder[i]));
                     }
-
                     Datacontainer reading = new Datacontainer();
                     reading.SetRawData(rawdata);
                     RawDataBlocking.Add(reading);
