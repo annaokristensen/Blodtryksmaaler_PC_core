@@ -31,9 +31,7 @@ namespace LogicLayer_PC
         public void SaveCalibrationValue()
         {
             double value = CalibrationValue;
-
             calbrationFileAcess.ReplaceValue(value);
-
         }
         public double GetVoltFromUDP()
         {
@@ -60,11 +58,11 @@ namespace LogicLayer_PC
         /// <summary>
         /// TEST-METODE som bare returnerer nogle værdier til kalibrering
         /// </summary>
-        /// <returns></returns>
-		public List<double> GetVoltTest()
+        /// <returns></returns
+        public List<double> GetVoltTest()
         {
-	        List<double> VoltListTest = new List<double>() { 12.5, 17.3, 33.5, 55.5, 70.2};
-	        return VoltListTest;
+	        List<double> voltListTest = new List<double>() { 12.5, 17.3, 33.5, 55.5, 70.2};
+	        return voltListTest;
         }
 
         public string RegressionCalculator(List<double> y, List<double> x)
