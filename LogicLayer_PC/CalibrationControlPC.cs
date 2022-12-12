@@ -72,6 +72,7 @@ namespace LogicLayer_PC
             double b1 = xy / squarex;
             double b0 = y.Average() - (x.Average() * b1);
             CalibrationValue = b1;
+            b1 = Math.Round(b1, 2);
             return "Kalibrering= " + b1.ToString();
         }
     }

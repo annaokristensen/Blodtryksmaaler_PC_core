@@ -50,6 +50,10 @@ namespace Presentation_Layer
         private List<double>[] RawDataArray;
 		private MeasurementControlPC mesControlPC;
         private bool dataIsSaved = false;
+        private double middelRounded = 0;
+        private double pulseRounded = 0;
+        private double systolicRounded = 0;
+        private double diastolicRounded = 0;
 
 
 
@@ -168,9 +172,18 @@ namespace Presentation_Layer
             //sysDiaValue_textbox.Text = Convert.ToString(counter);
 
             //TEXTBOXENES VÆRDIER TIL UDP:
-            middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[dtoGUI_list.Count-1].MiddelValue);
-            pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[dtoGUI_list.Count -1].Pulse);
-            sysDiaValue_textbox.Text = dtoGUI_list[dtoGUI_list.Count -1].SystoliskValue + " / " + dtoGUI_list[dtoGUI_list.Count -1].DiastoliskValue;
+            middelRounded = dtoGUI_list[dtoGUI_list.Count - 1].MiddelValue;
+            middelRounded = Math.Round(middelRounded, 0);
+            pulseRounded = dtoGUI_list[dtoGUI_list.Count - 1].Pulse;
+            pulseRounded = Math.Round(pulseRounded, 0);
+			systolicRounded = dtoGUI_list[dtoGUI_list.Count - 1].SystoliskValue;
+            systolicRounded = Math.Round(systolicRounded, 0);
+            diastolicRounded = dtoGUI_list[dtoGUI_list.Count - 1].DiastoliskValue;
+            diastolicRounded = Math.Round(diastolicRounded, 0);
+
+			middleBTValue_textbox.Text = Convert.ToString(middelRounded);
+            pulseValue_textbox.Text = Convert.ToString(pulseRounded);
+            sysDiaValue_textbox.Text = systolicRounded + " / " + diastolicRounded;
 
             //Alarm();
 
