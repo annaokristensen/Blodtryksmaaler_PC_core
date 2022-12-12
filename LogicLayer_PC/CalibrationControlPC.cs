@@ -15,8 +15,12 @@ namespace LogicLayer_PC
         public List<BPMesDataGUI_DTO> GUISTOlist;
         public double CalibrationValue { get; set; }
         public double Volt { get; set; }
+        private double b1 = 0;
+        private double b0 = 0;
+        private double b1Rounded = 0;
 
-        public CalibrationControlPC()
+
+		public CalibrationControlPC()
         {
             mesDataAccessObj = new MeasurementDataAccess();
             calbrationFileAcess = new CalibrationFileAcess();
@@ -69,11 +73,11 @@ namespace LogicLayer_PC
         {
             var squarex = x.Sum(e => Math.Pow(e - x.Average(), 2));
             var xy = x.Zip(y, (first, second) => (first - x.Average()) * (second - y.Average())).Sum();
-            double b1 = xy / squarex;
-            double b0 = y.Average() - (x.Average() * b1);
+            b1 = xy / squarex;
+            b0 = y.Average() - (x.Average() * b1);
             CalibrationValue = b1;
-            b1 = Math.Round(b1, 2);
-            return "Kalibrering= " + b1.ToString();
+            b1Rounded = Math.Round(b1, 2);
+            return "Kalibrering= " + b1Rounded.ToString();
         }
     }
 }
