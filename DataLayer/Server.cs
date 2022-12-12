@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer_PC
 {
-    public class UDPServer
+    public class Server
     {
         public const int listenPort = 12000; 
         //public float svar;
@@ -26,11 +26,11 @@ namespace DataLayer_PC
                     Console.WriteLine("Waiting for broadcast"); //venter på at PC sender noget
                     byte[] bytes = listener.Receive(ref groupEP); //Det der modtages lægges ind i bytes
 
-                    Console.WriteLine($"Received broadcast from {groupEP} :"); 
-                    Console.WriteLine(
-                        $"{Encoding.ASCII.GetString(bytes, 0, bytes.Length)}"); //tager string og laver den om til Ascii værdi
+                    Console.WriteLine($"Received broadcast from {groupEP} :");
+                    Console.WriteLine($"{Encoding.ASCII.GetString(bytes, 0, bytes.Length)}");
 
-                    DataFromRPi = ($"{Encoding.ASCII.GetString(bytes, 0, bytes.Length)}"); //tager string og laver den om til Ascii værdi
+                    DataFromRPi =  $"{Encoding.ASCII.GetString(bytes, 0, bytes.Length)}"; //tager string og laver den om til Ascii værdi
+
                 }
             }
             catch (SocketException e)
@@ -47,15 +47,15 @@ namespace DataLayer_PC
             return DataFromRPi;
         }
 
-        //Test metode
-        public void testUDPServerThread()
-        {
-            int count = 5;
-            for(int i = 0; i < count; i++)
-            {
-                Console.WriteLine("Test udp thread");
-            }
-            
-        }
+        ////Test metode
+        //public void testUDPServerThread()
+        //{
+        //    int count = 5;
+        //    for(int i = 0; i < count; i++)
+        //    {
+        //        Console.WriteLine("Test udp thread");
+        //    }
+
+        //}
     }
 }

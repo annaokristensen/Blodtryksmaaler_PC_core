@@ -23,14 +23,14 @@ namespace LogicLayer_PC
 		public List<BPMesDataGUI_DTO> bpGUIlist;
 		private ZeropointControlPC zeropointControl;
         //private BPMesDataGUI_DTO bpGUIDTO;
-        private UDPServer udp;
+        private Server udp;
 
         public MeasurementControlPC(/*IMeasurementDataAccess ImeasurementDataAccess*/ BlockingCollection<Datacontainer> RawDataBlocking)
 		{
-            udp = new UDPServer();
+            udp = new Server();
 
-            measurementDataAccessObj = new TestMeasurementDataAccess(RawDataBlocking);
-            measurementDataAccessObj2 = new MeasurementDataAccess(RawDataBlocking, udp);
+           // measurementDataAccessObj = new TestMeasurementDataAccess(RawDataBlocking);
+            measurementDataAccessObj = new MeasurementDataAccess(RawDataBlocking, udp);
             this.RawDataBlocking = RawDataBlocking;
 
 			bpCalcObj = new BPCalculator();

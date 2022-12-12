@@ -14,27 +14,30 @@ namespace testConsole
 {
     internal class Program
     {
-        public static UDPServer s1;
+        public static Server s1;
         static void Main(string[] args)
         {
-            //Test til at udskrive tekstfilen
-            Console.WriteLine("Hello, World!");
+            ////Test til at udskrive tekstfilen
+            //Console.WriteLine("Hello, World!");
 
             
-            BlockingCollection<Datacontainer> controllers = new BlockingCollection<Datacontainer>();
+            //BlockingCollection<Datacontainer> controllers = new BlockingCollection<Datacontainer>();
 
-            TestMeasurementDataAccess producer = new TestMeasurementDataAccess(controllers);
-            MeasurementControlPC consumer = new MeasurementControlPC(controllers);
+            //TestMeasurementDataAccess producer = new TestMeasurementDataAccess(controllers);
+            //MeasurementControlPC consumer = new MeasurementControlPC(controllers);
+            s1 = new Server();
 
-            Thread producerThread = new Thread(producer.ReadSample);
-            Thread consumerThread = new Thread(consumer.Run);
 
-            producerThread.Start();
-            consumerThread.Start();
+            //Thread producerThread = new Thread(producer.ReadSample);
+            //Thread consumerThread = new Thread(consumer.Run);
+            s1.StartListener();
 
-            Thread.Sleep(1000);
+            //producerThread.Start();
+            ////consumerThread.Start();
 
-            List<BPMesDataGUI_DTO> list = consumer.ReadValues();
+            //Thread.Sleep(1000);
+
+            //List<BPMesDataGUI_DTO> list = consumer.ReadValues();
 
             //foreach (var value in list)
             //{
@@ -44,8 +47,8 @@ namespace testConsole
             //    }
             //}
 
-            producerThread.Join();
-            consumerThread.Join();
+            //producerThread.Join();
+            //consumerThread.Join();
 
 
             Console.ReadKey();

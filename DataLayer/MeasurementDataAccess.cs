@@ -25,7 +25,7 @@ namespace DataLayer_PC
 		public double SampleValue { get; set; }
 		public List<MeasurementDataAccess> LoadedSampleValue;
 		private bool shallStop = false;
-		public UDPServer udpServerObj;
+		public Server udpServerObj;
 
 		public MeasurementDataAccess(double second, double sampleValue)
 		{
@@ -33,7 +33,8 @@ namespace DataLayer_PC
 			Second = second;
 			SampleValue = sampleValue;
 		}
-		public MeasurementDataAccess(BlockingCollection<Datacontainer> RawDataBlocking, UDPServer udpServer)
+		public MeasurementDataAccess() { }
+		public MeasurementDataAccess(BlockingCollection<Datacontainer> RawDataBlocking, Server udpServer)
 		{
 			_dataQueue = RawDataBlocking;
             udpServerObj = udpServer;
