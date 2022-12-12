@@ -110,11 +110,9 @@ namespace Presentation_Layer
 			middelMin = Convert.ToInt32(middleBTMin_textbox.Text);
 
             RawDataArray = ZeroStart();
-
             
-
             //Thread Start
-
+            mesControlPC.StartListenThread();
 
         }
         private void DispatcherTimer_Tick(object? sender, EventArgs e)

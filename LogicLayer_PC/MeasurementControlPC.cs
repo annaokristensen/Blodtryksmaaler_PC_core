@@ -14,6 +14,7 @@ namespace LogicLayer_PC
 	{
         private readonly BlockingCollection<Datacontainer> RawDataBlocking;
         private IMeasurementDataAccess measurementDataAccessObj;
+        private IMeasurementDataAccess measurementDataAccessObj2;
         private ICalbrationFileAcess calbrationFileAcess;
 		public BPCalculator bpCalcObj { get; set; }
 		public BPMesDataGUI_DTO BPDTO { get; set; }
@@ -22,10 +23,14 @@ namespace LogicLayer_PC
 		public List<BPMesDataGUI_DTO> bpGUIlist;
 		private ZeropointControlPC zeropointControl;
         //private BPMesDataGUI_DTO bpGUIDTO;
+        private UDPServer udp;
 
         public MeasurementControlPC(/*IMeasurementDataAccess ImeasurementDataAccess*/ BlockingCollection<Datacontainer> RawDataBlocking)
 		{
+            udp = new UDPServer();
+
             measurementDataAccessObj = new TestMeasurementDataAccess(RawDataBlocking);
+            measurementDataAccessObj2 = new MeasurementDataAccess(RawDataBlocking, udp);
             this.RawDataBlocking = RawDataBlocking;
 
 			bpCalcObj = new BPCalculator();
@@ -41,6 +46,12 @@ namespace LogicLayer_PC
             bpGUIlist = new List<BPMesDataGUI_DTO>();
             calbrationFileAcess = new CalibrationFileAcess();
             zeropointControl = new ZeropointControlPC();
+        }
+        public void StartListenThread()
+        {
+            Thread listenThread = new Thread(udp.StartListener);
+
+            listenThread.Start();
         }
 
         public void StartProducerThread()
