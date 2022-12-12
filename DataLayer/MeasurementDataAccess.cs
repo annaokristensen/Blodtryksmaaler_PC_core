@@ -44,7 +44,7 @@ namespace DataLayer_PC
 		/// Læser fra udpPath og gemmer rawData som en List af doubles i DTO-klassen
 		/// </summary>
 		/// <returns>BPMesDataGUI_DTO List af double rawData</returns>
-		public void ReadSample()  //ReadRawData()
+		public void ReadSample()  
 		{
 			//Sætter udpPath til at være den string som udpServeren returnerer. Det er deri at data fra rpi står
 			string udpPath = udpServerObj.GetBroadcast();
@@ -52,21 +52,24 @@ namespace DataLayer_PC
 			{
 				while (!shallStop)
 				{
-					//BPMesDataGUI_DTO dtoObj = null;
 					List<double> rawDataList = new List<double>();
-					List<string> holder = File.ReadAllLines(udpPath).ToList();
+					List<string> holder = new List<string>();
+					holder.Add(udpPath);
+					
 
 					foreach (string sample in holder)
 					{
-						rawDataList.Add(Convert.ToDouble(sample));
+						if (sample == null) { continue; } //continue = starter forfra i foreach
+						string[] input = sample.Split("\n");
+						foreach (var i in sample)
+						{
+							rawDataList.Add(Convert.ToDouble(i));
+						}
 					}
-
                     Datacontainer reading = new Datacontainer();
 					reading.SetRawData(rawDataList);
 					_dataQueue.Add(reading);
 
-					//dtoObj = new BPMesDataGUI_DTO(rawDataList);
-					//return dtoObj;
 					Thread.Sleep(1000);
 				}
 			}

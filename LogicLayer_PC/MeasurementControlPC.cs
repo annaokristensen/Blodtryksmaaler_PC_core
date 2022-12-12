@@ -47,6 +47,7 @@ namespace LogicLayer_PC
             calbrationFileAcess = new CalibrationFileAcess();
             zeropointControl = new ZeropointControlPC();
         }
+        public MeasurementControlPC() { }
         public void StartListenThread()
         {
             Thread listenThread = new Thread(udp.StartListener);

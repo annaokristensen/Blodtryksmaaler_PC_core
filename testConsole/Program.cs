@@ -20,7 +20,7 @@ namespace testConsole
             ////Test til at udskrive tekstfilen
             //Console.WriteLine("Hello, World!");
 
-            
+
             //BlockingCollection<Datacontainer> controllers = new BlockingCollection<Datacontainer>();
 
             //TestMeasurementDataAccess producer = new TestMeasurementDataAccess(controllers);

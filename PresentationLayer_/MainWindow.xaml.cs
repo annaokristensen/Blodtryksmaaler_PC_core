@@ -29,7 +29,7 @@ namespace Presentation_Layer
     public partial class MainWindow : Window
     {
         private StopAndSave stopAndSaveObj;
-        private BlockingCollection<Datacontainer> controllers;
+        //private BlockingCollection<Datacontainer> controllers;
         private System.Windows.Threading.DispatcherTimer dispatcherTimer;
         int counter = 1;
         private int rawDataCounter = 0;
@@ -58,6 +58,7 @@ namespace Presentation_Layer
         private double pulseRounded = 0;
         private double systolicRounded = 0;
         private double diastolicRounded = 0;
+        private Datacontainer datacontainer;
 
 
 
@@ -70,11 +71,13 @@ namespace Presentation_Layer
             alarmTriggeredTimes = new List<DateTime>();
             //XdateTime = new ChartValues<string>();
             YRawData = new ChartValues<double>();
+            datacontainer = new Datacontainer();
+            
 
-            controllers = new BlockingCollection<Datacontainer>();
+            //controllers = new BlockingCollection<Datacontainer>();
 
             //MeasurementDataAccess(); <- bruges ved UDP 
-            mesControlPC = new MeasurementControlPC(controllers);
+            mesControlPC = new MeasurementControlPC();
 
             //testDtoGUI_list = new List<BPMesDataGUI_DTO>();
             dtoGUI_list = new List<BPMesDataGUI_DTO>();
@@ -101,6 +104,10 @@ namespace Presentation_Layer
 
             //Sørger for at patientens (det indtastede) cpr-nummer fremstår af cpr-tekstboksen på mainWindow
             cpr_textbox.Text = cprWindowObj.GetEnteredCpr();
+            pulseValue_textbox.Text = "0";
+            sysDiaValue_textbox.Text = "0";
+            middleBTValue_textbox.Text = "0";
+
 
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1); //Intervallet for hvor ofte data skifter på GUI'en
@@ -129,7 +136,8 @@ namespace Presentation_Layer
             RawDataArray[3] = RawDataArray[2];
             RawDataArray[2] = RawDataArray[1];
             RawDataArray[1] = RawDataArray[0];
-            RawDataArray[0] = dtoGUI_list[dtoGUI_list.Count-1].RawDataList;
+            RawDataArray[0] = datacontainer.GetRawDataList();
+             //   dtoGUI_list[dtoGUI_list.Count-1].RawDataList;
 
             YRawData.Clear();
             
