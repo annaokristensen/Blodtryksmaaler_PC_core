@@ -59,6 +59,7 @@ namespace Presentation_Layer
         private double systolicRounded = 0;
         private double diastolicRounded = 0;
         private Datacontainer datacontainer;
+        private BlockingCollection<Datacontainer> blocking;
 
 
 
@@ -73,11 +74,11 @@ namespace Presentation_Layer
             YRawData = new ChartValues<double>();
             datacontainer = new Datacontainer();
             
-
+            blocking = new BlockingCollection<Datacontainer>();
             //controllers = new BlockingCollection<Datacontainer>();
 
             //MeasurementDataAccess(); <- bruges ved UDP 
-            mesControlPC = new MeasurementControlPC();
+            mesControlPC = new MeasurementControlPC(blocking);
 
             //testDtoGUI_list = new List<BPMesDataGUI_DTO>();
             dtoGUI_list = new List<BPMesDataGUI_DTO>();
@@ -118,20 +119,13 @@ namespace Presentation_Layer
 
             RawDataArray = ZeroStart();
             
-            //Thread Start
-            mesControlPC.StartListenThread();
 
         }
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
-            //TIL TEST:
             dtoGUI_list = mesControlPC.ReadValues();
-            
-            // rawDataCounter = dtoGUI_list[counter].RawDataList.Count;
 
-            // BPMesDataGUI_DTO bpGUIdto = mesControlPC.ReadValues();
-            //mesControlPC.ReadValues();
-
+            while (dtoGUI_list.Count == 0) if (dtoGUI_list.Count > 0) break;
             RawDataArray[4] = RawDataArray[3];
             RawDataArray[3] = RawDataArray[2];
             RawDataArray[2] = RawDataArray[1];
@@ -145,41 +139,7 @@ namespace Presentation_Layer
                 YRawData.AddRange(RawDataArray[i]);
             }
 
-            //if(counter>=5)
-            //{
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count-1].RawDataList);
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 2].RawDataList);
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 3].RawDataList);
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 4].RawDataList);
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 5].RawDataList);
-            //}
-            //else if(counter==4)
-            //{
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count-1].RawDataList);
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 2].RawDataList);
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 3].RawDataList);
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 4].RawDataList);
-            //}
-            //else if (counter == 3)
-            //{
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count-1].RawDataList);
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 2].RawDataList);
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 3].RawDataList);
-            //}
-            //else if (counter == 2)
-            //{
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count-1].RawDataList);
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count - 2].RawDataList);
-            //}
-            //else
-            //{
-            //    YRawData.AddRange(dtoGUI_list[dtoGUI_list.Count-1].RawDataList);
-            //}
-
-            //middleBTValue_textbox.Text = Convert.ToString();
-            //pulseValue_textbox.Text = Convert.ToString(counter);
-            //sysDiaValue_textbox.Text = Convert.ToString(counter);
-
+           
             //TEXTBOXENES VÆRDIER TIL UDP:
             middelTemp = dtoGUI_list[dtoGUI_list.Count - 1].MiddelValue;
             middelRounded = Math.Round(middelTemp, 0);
@@ -368,7 +328,6 @@ namespace Presentation_Layer
 	            }
             }
         }
-
         private List<double>[] ZeroStart()
         {
             List<double> zerolist = new List<double>();
@@ -378,13 +337,10 @@ namespace Presentation_Layer
             {
                 zerolist.Add(0);
             }
-
             for(int i=0;i<5;i++)
             {
                 startarray[i] = zerolist;
             }
-
-
             return startarray;
         }
     }

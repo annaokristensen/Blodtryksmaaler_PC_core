@@ -9,6 +9,8 @@ using DTO_PC;
 using System.IO;
 using System.Collections.Concurrent;
 using System.Threading;
+using System.Net.Sockets;
+using System.Net;
 
 namespace DataLayer_PC
 {
@@ -17,7 +19,10 @@ namespace DataLayer_PC
 	/// </summary>
 	public class MeasurementDataAccess : IMeasurementDataAccess
 	{
-		
+        public const int listenPort = 12000;
+        //public float svar;
+        public string DataFromRPi;
+
         private readonly BlockingCollection<Datacontainer> _dataQueue;
 		public BPMesDataGUI_DTO rawDataDTOBC;
 
@@ -34,10 +39,10 @@ namespace DataLayer_PC
 			SampleValue = sampleValue;
 		}
 		public MeasurementDataAccess() { }
-		public MeasurementDataAccess(BlockingCollection<Datacontainer> RawDataBlocking, Server udpServer)
+		public MeasurementDataAccess(BlockingCollection<Datacontainer> RawDataBlocking/*, Server udpServer*/)
 		{
 			_dataQueue = RawDataBlocking;
-            udpServerObj = udpServer;
+            //udpServerObj = udpServer;
         }
 
 		/// <summary>
@@ -46,26 +51,39 @@ namespace DataLayer_PC
 		/// <returns>BPMesDataGUI_DTO List af double rawData</returns>
 		public void ReadSample()  
 		{
-			//Sætter udpPath til at være den string som udpServeren returnerer. Det er deri at data fra rpi står
-			string udpPath = udpServerObj.GetBroadcast();
-			do
+            UdpClient listener = new UdpClient(listenPort);
+            //Sætter udpPath til at være den string som udpServeren returnerer. Det er deri at data fra rpi står
+            //string udpPath = udpServerObj.GetBroadcast();
+            do
 			{
 				while (!shallStop)
 				{
-					List<double> rawDataList = new List<double>();
-					List<string> holder = new List<string>();
-					holder.Add(udpPath);
-					
+                    
+                    IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, listenPort);
 
-					foreach (string sample in holder)
+                    byte[] bytes = listener.Receive(ref groupEP); //Det der modtages lægges ind i bytes
+
+                    string tekst = ($"{Encoding.ASCII.GetString(bytes, 0, bytes.Length)}");
+
+
+                    List<double> rawDataList = new List<double>();
+					List<string> holder = new List<string>();
+
+					holder.Add(tekst);
+					string[] hej = tekst.Split(' ');
+					foreach (var item in hej)
 					{
-						if (sample == null) { continue; } //continue = starter forfra i foreach
-						string[] input = sample.Split("\n");
-						foreach (var i in sample)
-						{
-							rawDataList.Add(Convert.ToDouble(i));
-						}
+                        try
+                        {
+                            rawDataList.Add(Convert.ToDouble(item));
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                        
 					}
+					
                     Datacontainer reading = new Datacontainer();
 					reading.SetRawData(rawDataList);
 					_dataQueue.Add(reading);
@@ -77,7 +95,6 @@ namespace DataLayer_PC
 		}
 		public BPMesDataGUI_DTO TakeFromBC()
 		{
-			//rawDataDTOBC.RawDataList = _dataQueue.();
 			return rawDataDTOBC;
 		}
 	}
