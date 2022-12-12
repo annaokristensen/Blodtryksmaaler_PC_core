@@ -25,7 +25,7 @@ namespace DataLayer_PC
 		public double SampleValue { get; set; }
 		public List<MeasurementDataAccess> LoadedSampleValue;
 		private bool shallStop = false;
-		public UDPServer udpServerObj = new UDPServer();
+		public UDPServer udpServerObj;
 
 		public MeasurementDataAccess(double second, double sampleValue)
 		{
@@ -33,12 +33,11 @@ namespace DataLayer_PC
 			Second = second;
 			SampleValue = sampleValue;
 		}
-		public MeasurementDataAccess(BlockingCollection<Datacontainer> RawDataBlocking)
+		public MeasurementDataAccess(BlockingCollection<Datacontainer> RawDataBlocking, UDPServer udpServer)
 		{
 			_dataQueue = RawDataBlocking;
-
-		}
-		public MeasurementDataAccess() { }
+            udpServerObj = udpServer;
+        }
 
 		/// <summary>
 		/// Læser fra udpPath og gemmer rawData som en List af doubles i DTO-klassen
