@@ -27,7 +27,7 @@ namespace LogicLayer_PC
 
         public void saveValues(BPMesDataGUI_DTO dto)
         {
-
+            measurement.Clear();
             if (counter < 5)
             {
                 dto.SystoliskValue = 0;
@@ -61,10 +61,10 @@ namespace LogicLayer_PC
 
 
         }
-        private void calcAverage(List<double> measurement)
+        private void calcAverage(List<double> mesLists)
         {
-            double totalBP = measurement.Sum();
-            int bpDataPoints = measurement.Count();
+            double totalBP = mesLists.Sum();
+            int bpDataPoints = mesLists.Count();
             double averageBP = totalBP / bpDataPoints;
             
 
@@ -77,6 +77,7 @@ namespace LogicLayer_PC
         
         private void getSysBP(int bpDataPoints, double averageBP)
         {
+            
             double lowLimit = averageBP * 0.97;
             double highLimit = averageBP * 1.05;
                       
