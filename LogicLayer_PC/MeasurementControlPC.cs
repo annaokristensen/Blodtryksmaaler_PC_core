@@ -36,7 +36,7 @@ namespace LogicLayer_PC
 
             measurementDataAccessObj.ReadSample(); 
   
-            BPMesDataGUI_DTO dto = measurementDataAccessObj.TakeFromBC();
+            BPMesDataGUI_DTO dto = measurementDataAccessObj.TakeFromBC(); //HVornår lægges der noget ind i DTOen? -Rikke
             rawDataListMC = dto.RawDataList;
 
             foreach (var value in dto.RawDataList)

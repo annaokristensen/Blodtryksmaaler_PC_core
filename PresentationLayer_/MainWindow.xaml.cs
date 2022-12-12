@@ -40,14 +40,10 @@ namespace Presentation_Layer
         private List<BPMesDataGUI_DTO> dtoGUI_list;
         private List<BPMesDataGUI_DTO> testDtoGUI_list;
         private BPMesDataGUI_DTO bpGUIDTOObj;
-
-		private List<DateTime> alarmTriggeredTimes;
+        private List<DateTime> alarmTriggeredTimes;
         public ChartValues<double> YRawData { get; set; }
-
-
         private DateTime startTime;
         private DateTime stopTime;
-
         private List<double> rawDataListGUI;
         private List<double> testRawDataListGUI;
         private List<double>[] RawDataArray;
@@ -61,7 +57,6 @@ namespace Presentation_Layer
             InitializeComponent();
      
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-      
             stopAndSaveObj = new StopAndSave();
             alarmTriggeredTimes = new List<DateTime>();
             //XdateTime = new ChartValues<string>();
@@ -102,7 +97,6 @@ namespace Presentation_Layer
 			middelMin = Convert.ToInt32(middleBTMin_textbox.Text);
 
             RawDataArray = ZeroStart();
-
         }
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
@@ -126,8 +120,6 @@ namespace Presentation_Layer
             {
                 YRawData.AddRange(RawDataArray[i]);
             }
-
-
 
             //if(counter>=5)
             //{
@@ -169,9 +161,6 @@ namespace Presentation_Layer
             pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[dtoGUI_list.Count -1].Pulse);
             sysDiaValue_textbox.Text = dtoGUI_list[dtoGUI_list.Count -1].SystoliskValue + " / " + dtoGUI_list[dtoGUI_list.Count -1].DiastoliskValue;
 
-
-
-
             //Alarm();
 
             counter++;
@@ -192,7 +181,6 @@ namespace Presentation_Layer
             ////TIL UDP:
             //dtoGUI_list[taeller] = mesControlPC.GetBPValues();
             //rawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
-
 
             ////TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
             //const int graphPointLimit = 3; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
@@ -238,11 +226,7 @@ namespace Presentation_Layer
             //    //pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
             //    //sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
 
-
-
-
             //    //Alarm();
-
             //    counter++;
             //}
         }

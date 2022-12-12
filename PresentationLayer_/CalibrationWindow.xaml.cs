@@ -33,10 +33,9 @@ namespace Presentation_Layer_PC
 
         List<double> xx = new List<double>();
         List<double> yy = new List<double>();
+        int counter = 0;
 
-        int taeller = 0;
-
-		CalibrationControlPC calibrationObject = new CalibrationControlPC();
+		CalibrationControlPC calibrationControlObj = new CalibrationControlPC();
 
         public CalibrationWindow()
         {
@@ -55,7 +54,7 @@ namespace Presentation_Layer_PC
 
             //Koden henter data fra en test-metode, men det kan nemt genbruges til det rigtige data
 	        List<double> midlVoltList = new List<double>();
-	        foreach (double volt in calibrationObject.GetVoltTest())
+	        foreach (double volt in calibrationControlObj.GetVoltTest())
 	        {
 		        midlVoltList.Add(volt);
 	        }
@@ -63,30 +62,30 @@ namespace Presentation_Layer_PC
 	        try
 	        {
 		        xx.Add(Convert.ToDouble(enterPressure_textbox.Text));
-		        XPressure.Add(xx[taeller]);
-		        yy.Add(midlVoltList[taeller]);
-		        YVolt.Add(yy[taeller]);
+		        XPressure.Add(xx[counter]);
+		        yy.Add(midlVoltList[counter]);
+		        YVolt.Add(yy[counter]);
 
 		        enterPressure_textbox.Clear();
 		        DataContext = this;
-		        taeller++;
+		        counter++;
 			}
 	        catch (Exception exception)
 	        {
 		        MessageBox.Show(this, exception.Message, "Fejl");
 	        }
 
-            LabelKalibrering.Content = calibrationObject.RegressionCalculator(yy, xx);
+            LabelKalibrering.Content = calibrationControlObj.RegressionCalculator(yy, xx);
         }
 
         private void makeLinearReg_button_Click(object sender, RoutedEventArgs e)
         {
-            calibrationObject.RegressionCalculator(yy,xx);
+            calibrationControlObj.RegressionCalculator(yy,xx);
         }
 
         private void finishCalibration_button_Click_1(object sender, RoutedEventArgs e)
         {
-			calibrationObject.SaveCalibrationValue();
+			calibrationControlObj.SaveCalibrationValue();
 	        this.Close();
 		}
     }
