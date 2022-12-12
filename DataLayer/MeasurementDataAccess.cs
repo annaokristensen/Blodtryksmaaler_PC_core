@@ -33,10 +33,12 @@ namespace DataLayer_PC
 			Second = second;
 			SampleValue = sampleValue;
 		}
-		public MeasurementDataAccess()
+		public MeasurementDataAccess(BlockingCollection<Datacontainer> RawDataBlocking)
 		{
-			_dataQueue = new BlockingCollection<Datacontainer>();
+			_dataQueue = RawDataBlocking;
+
 		}
+		public MeasurementDataAccess() { }
 
 		/// <summary>
 		/// Læser fra udpPath og gemmer rawData som en List af doubles i DTO-klassen

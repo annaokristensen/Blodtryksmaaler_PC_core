@@ -25,7 +25,7 @@ namespace LogicLayer_PC
 
         public MeasurementControlPC(/*IMeasurementDataAccess ImeasurementDataAccess*/ BlockingCollection<Datacontainer> RawDataBlocking)
 		{
-            measurementDataAccessObj = new TestMeasurementDataAccess(RawDataBlocking);
+            measurementDataAccessObj = new MeasurementDataAccess(RawDataBlocking);
             this.RawDataBlocking = RawDataBlocking;
 
 			bpCalcObj = new BPCalculator();
