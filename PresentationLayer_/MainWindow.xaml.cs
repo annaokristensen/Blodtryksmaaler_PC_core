@@ -66,7 +66,7 @@ namespace Presentation_Layer
             alarmTriggeredTimes = new List<DateTime>();
             //XdateTime = new ChartValues<string>();
             YRawData = new ChartValues<double>();
-            ImeasurementDataAccess = new TestMeasurementDataAccess(); //MeasurementDataAccess(); <- bruges ved UDP
+            ImeasurementDataAccess = new TestMeasurementDataAccess(); //MeasurementDataAccess(); <- bruges ved UDP 
             mesControlPC = new MeasurementControlPC(ImeasurementDataAccess);
             //testDtoGUI_list = new List<BPMesDataGUI_DTO>();
             dtoGUI_list = new List<BPMesDataGUI_DTO>();

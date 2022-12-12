@@ -22,7 +22,7 @@ namespace DataLayer_PC
         private int countStart = 0;
         private int countEnd = 200;
         public List<string> holder;
-
+        
         public TestMeasurementDataAccess(BlockingCollection<Datacontainer> RawDataBlocking)
         {
             this.RawDataBlocking = RawDataBlocking;
