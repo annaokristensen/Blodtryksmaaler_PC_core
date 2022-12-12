@@ -22,7 +22,7 @@ namespace LogicLayer_PC
         public BPCalculator()
         {
             measurement = new List<double>();
-            mesLists = new List<double>[4];
+            mesLists = new List<double>[5];
         }
 
         public void saveValues(BPMesDataGUI_DTO dto)
@@ -35,7 +35,6 @@ namespace LogicLayer_PC
                 dto.MiddelValue = 0;
                 dto.Pulse = Convert.ToDouble(0);
 
-             
                 mesLists[counter] = dto.RawDataList;
 
                 counter++;

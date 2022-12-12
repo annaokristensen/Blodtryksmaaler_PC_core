@@ -2,6 +2,7 @@
 using LogicLayer_PC;
 using Presentation_Layer_PC;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
 using System.IO.Compression;
@@ -11,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using DataLayer_PC;
 using System.Runtime.ConstrainedExecution;
 using System.Windows.Documents;
 using LiveCharts;
@@ -29,6 +29,7 @@ namespace Presentation_Layer
     public partial class MainWindow : Window
     {
         private StopAndSave stopAndSaveObj;
+        private BlockingCollection<Datacontainer> controllers;
         private System.Windows.Threading.DispatcherTimer dispatcherTimer;
         int counter = 1;
         private int rawDataCounter = 0;
@@ -49,7 +50,7 @@ namespace Presentation_Layer
         private List<double>[] RawDataArray;
 		private MeasurementControlPC mesControlPC;
         private bool dataIsSaved = false;
-        private IMeasurementDataAccess ImeasurementDataAccess;
+
 
 
         public MainWindow()
@@ -61,8 +62,12 @@ namespace Presentation_Layer
             alarmTriggeredTimes = new List<DateTime>();
             //XdateTime = new ChartValues<string>();
             YRawData = new ChartValues<double>();
-            ImeasurementDataAccess = new TestMeasurementDataAccess(); //MeasurementDataAccess(); <- bruges ved UDP 
-            mesControlPC = new MeasurementControlPC(ImeasurementDataAccess);
+
+            controllers = new BlockingCollection<Datacontainer>();
+
+            //MeasurementDataAccess(); <- bruges ved UDP 
+            mesControlPC = new MeasurementControlPC(controllers);
+
             //testDtoGUI_list = new List<BPMesDataGUI_DTO>();
             dtoGUI_list = new List<BPMesDataGUI_DTO>();
             testRawDataListGUI = new List<double>();
@@ -97,6 +102,12 @@ namespace Presentation_Layer
 			middelMin = Convert.ToInt32(middleBTMin_textbox.Text);
 
             RawDataArray = ZeroStart();
+
+            
+
+            //Thread Start
+
+
         }
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
@@ -241,6 +252,11 @@ namespace Presentation_Layer
         //Når der trykkes på "Start Måling" så går timeren i gang. Den udfører det den er implementeret til med det interval den er sat til at gøre det med
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
+            mesControlPC.StartProducerThread();
+            Thread consumerThread = new Thread(mesControlPC.Run);
+
+            consumerThread.Start();
+
             dispatcherTimer.Start();
             stopAndSave_button.IsEnabled = true;
             finishOperation_button.IsEnabled = true;
@@ -336,7 +352,7 @@ namespace Presentation_Layer
             List<double> zerolist = new List<double>();
             List<double>[] startarray = new List<double>[5];
 
-            for(int i = 0; i < 11; i++)
+            for(int i = 0; i < 200; i++)
             {
                 zerolist.Add(0);
             }

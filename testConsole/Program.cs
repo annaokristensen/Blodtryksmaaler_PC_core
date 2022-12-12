@@ -24,7 +24,7 @@ namespace testConsole
             BlockingCollection<Datacontainer> controllers = new BlockingCollection<Datacontainer>();
 
             TestMeasurementDataAccess producer = new TestMeasurementDataAccess(controllers);
-            Consumer consumer = new Consumer(controllers);
+            MeasurementControlPC consumer = new MeasurementControlPC(controllers);
 
             Thread producerThread = new Thread(producer.ReadSample);
             Thread consumerThread = new Thread(consumer.Run);
@@ -32,8 +32,21 @@ namespace testConsole
             producerThread.Start();
             consumerThread.Start();
 
+            Thread.Sleep(1000);
+
+            List<BPMesDataGUI_DTO> list = consumer.ReadValues();
+
+            //foreach (var value in list)
+            //{
+            //    foreach (double val in value.RawDataList)
+            //    {
+            //        Console.WriteLine(Convert.ToString(val));
+            //    }
+            //}
+
             producerThread.Join();
             consumerThread.Join();
+
 
             Console.ReadKey();
 

@@ -8,6 +8,7 @@ using System.Runtime.InteropServices.ComTypes;
 using DTO_PC;
 using System.IO;
 using System.Collections.Concurrent;
+using System.Threading;
 
 namespace DataLayer_PC
 {
@@ -64,6 +65,7 @@ namespace DataLayer_PC
 
 					//dtoObj = new BPMesDataGUI_DTO(rawDataList);
 					//return dtoObj;
+					Thread.Sleep(1000);
 				}
 			}
 			while (true);

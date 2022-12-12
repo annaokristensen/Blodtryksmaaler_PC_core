@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -11,46 +12,97 @@ namespace LogicLayer_PC
 {
 	public class MeasurementControlPC : IMeasurementControlPC
 	{
-
-		private IMeasurementDataAccess measurementDataAccessObj;
+        private readonly BlockingCollection<Datacontainer> RawDataBlocking;
+        private IMeasurementDataAccess measurementDataAccessObj;
         private ICalbrationFileAcess calbrationFileAcess;
 		public BPCalculator bpCalcObj { get; set; }
 		public BPMesDataGUI_DTO BPDTO { get; set; }
 		//private BPMesDataGUI_DTO calcValuesDTO;
 		public List<double> rawDataListMC = new List<double>();
-		List<BPMesDataGUI_DTO> bpGUIlist;
+		public List<BPMesDataGUI_DTO> bpGUIlist;
 		private ZeropointControlPC zeropointControl;
         //private BPMesDataGUI_DTO bpGUIDTO;
 
-        public MeasurementControlPC(IMeasurementDataAccess ImeasurementDataAccess)
+        public MeasurementControlPC(/*IMeasurementDataAccess ImeasurementDataAccess*/ BlockingCollection<Datacontainer> RawDataBlocking)
 		{
-			measurementDataAccessObj = ImeasurementDataAccess;
+            measurementDataAccessObj = new TestMeasurementDataAccess(RawDataBlocking);
+            this.RawDataBlocking = RawDataBlocking;
+
 			bpCalcObj = new BPCalculator();
             bpGUIlist = new List<BPMesDataGUI_DTO>();
             calbrationFileAcess = new CalibrationFileAcess();
             zeropointControl = new ZeropointControlPC();
         }
-		public List<BPMesDataGUI_DTO> ReadValues()
+        public MeasurementControlPC(IMeasurementDataAccess ImeasurementDataAccess)
         {
-			List<double> dataList = new List<double>();
+            measurementDataAccessObj = ImeasurementDataAccess;
 
-            measurementDataAccessObj.ReadSample(); 
-  
-            BPMesDataGUI_DTO dto = measurementDataAccessObj.TakeFromBC(); //HVornår lægges der noget ind i DTOen? -Rikke
-            rawDataListMC = dto.RawDataList;
+            bpCalcObj = new BPCalculator();
+            bpGUIlist = new List<BPMesDataGUI_DTO>();
+            calbrationFileAcess = new CalibrationFileAcess();
+            zeropointControl = new ZeropointControlPC();
+        }
 
-            foreach (var value in dto.RawDataList)
+        public void StartProducerThread()
+        {
+            Thread producerThread = new Thread(measurementDataAccessObj.ReadSample);
+            
+            producerThread.Start();
+        }
+
+        public List<BPMesDataGUI_DTO> ReadValues()
+        {
+            return bpGUIlist;
+        }
+        public void Run()
+        {
+            while (!RawDataBlocking.IsCompleted)
             {
-				dataList.Add((value - zeropointControl.Zeropoint) * calbrationFileAcess.ReadValue());
+                try
+                {
+                    var contanier = RawDataBlocking.Take();
+                    List<double> RawData = contanier.GetRawDataList();
+                    List<double> dataList = new List<double>();
+
+                    foreach (double value in RawData)
+                    {
+                        var tmp = (value - zeropointControl.Zeropoint) * calbrationFileAcess.ReadValue();
+                        dataList.Add(tmp);
+                        Console.WriteLine(tmp);
+                    }
+
+                    bpGUIlist.Add(new BPMesDataGUI_DTO(dataList));
+                    bpCalcObj.saveValues(bpGUIlist[bpGUIlist.Count - 1]);
+
+                }
+                catch (InvalidOperationException)
+                {
+                    Console.WriteLine("Catch start");
+                }
+
+                Thread.Sleep(1000);
             }
 
-            dto.RawDataList = dataList;
-			
-			//BPDTO = measurementDataAccessObj.ReadSample();
-			bpCalcObj.saveValues(bpGUIlist[bpGUIlist.Count-1]);
 
-			return bpGUIlist;
-		}
+
+
+            //List<double> dataList = new List<double>();
+
+            //        measurementDataAccessObj.ReadSample(); 
+
+            //        BPMesDataGUI_DTO dto = measurementDataAccessObj.TakeFromBC(); //HVornår lægges der noget ind i DTOen? -Rikke
+            //        rawDataListMC = dto.RawDataList;
+
+            //        foreach (var value in dto.RawDataList)
+            //        {
+            //dataList.Add((value - zeropointControl.Zeropoint) * calbrationFileAcess.ReadValue());
+            //        }
+
+            //        dto.RawDataList = dataList;
+
+            //BPDTO = measurementDataAccessObj.ReadSample();
+
+        }
         //public List<BPMesDataGUI_DTO> ReadValues()
         //{
         //    List<double> dataList = new List<double>();

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer_PC
+namespace DTO_PC
 {
     public class Datacontainer
     {
