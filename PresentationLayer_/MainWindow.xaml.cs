@@ -136,8 +136,7 @@ namespace Presentation_Layer
             RawDataArray[3] = RawDataArray[2];
             RawDataArray[2] = RawDataArray[1];
             RawDataArray[1] = RawDataArray[0];
-            RawDataArray[0] = datacontainer.GetRawDataList();
-             //   dtoGUI_list[dtoGUI_list.Count-1].RawDataList;
+            RawDataArray[0] = dtoGUI_list[dtoGUI_list.Count-1].RawDataList;
 
             YRawData.Clear();
             

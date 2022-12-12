@@ -5,12 +5,14 @@ using System.Net.Sockets;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using DTO_PC;
+using System.Collections.Concurrent;
 
 namespace DataLayer_PC
 {
     public class Server
     {
-        public const int listenPort = 12000; 
+        public const int listenPort = 12000;
         //public float svar;
         public string DataFromRPi;
 
