@@ -20,6 +20,7 @@ using LiveCharts.Definitions.Charts;
 using System.Numerics;
 using System.Printing;
 using System.Threading;
+using NetCoreAudio;
 
 namespace Presentation_Layer
 {
@@ -35,8 +36,8 @@ namespace Presentation_Layer
         private int rawDataCounter = 0;
         private int middelMax = 0;
         private int middelMin = 0 ;
-        SoundPlayer player = new SoundPlayer();
-        string file = "Cardiac alarm.wav";
+        //SoundPlayer player = new SoundPlayer();
+        //string file = "Cardiac alarm.wav";
         public string cpr { get; set; }
         private List<BPMesDataGUI_DTO> dtoGUI_list;
         private List<BPMesDataGUI_DTO> testDtoGUI_list;
@@ -60,6 +61,8 @@ namespace Presentation_Layer
         private double diastolicRounded = 0;
         private Datacontainer datacontainer;
         private BlockingCollection<Datacontainer> blocking;
+        //private Player player;
+
 
 
 
@@ -86,6 +89,7 @@ namespace Presentation_Layer
             rawDataListGUI = new List<double>();
             RawDataArray = new List<double>[5];
             DataContext = this;
+            //player = new Player();
 		}
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -138,8 +142,6 @@ namespace Presentation_Layer
             {
                 YRawData.AddRange(RawDataArray[i]);
             }
-
-           
             //TEXTBOXENES VÆRDIER TIL UDP:
             middelTemp = dtoGUI_list[dtoGUI_list.Count - 1].MiddelValue;
             middelRounded = Math.Round(middelTemp, 0);
@@ -154,7 +156,7 @@ namespace Presentation_Layer
             pulseValue_textbox.Text = pulseRounded.ToString();
             sysDiaValue_textbox.Text = systolicRounded + " / " + diastolicRounded;
 
-            //Alarm();
+            Alarm();
 
             counter++;
 
@@ -181,10 +183,10 @@ namespace Presentation_Layer
 
             //if (counter < dtoGUI_list.Count)
             //{
-	           // //TIL TEST:
-	           // ////foreach (double rawTestData in testRawDataListGUI)
-	           // ////{
-		          // //// YRawData.Add(rawTestData);
+            // //TIL TEST:
+            // ////foreach (double rawTestData in testRawDataListGUI)
+            // ////{
+            // //// YRawData.Add(rawTestData);
 
             // ////       //Kode der sørger for at de ældste punkter på grafen bliver fjernet, når antal punkter har nået sin maks-grænse:
             // ////       if (counter > graphPointLimit)
@@ -198,21 +200,21 @@ namespace Presentation_Layer
             // ////       }
             // ////   }
 
-	           // //TIL UDP:
-	           // /*foreach (double rawData in rawDataListGUI)
+            // //TIL UDP:
+            // /*foreach (double rawData in rawDataListGUI)
             //    {
             //        YRawData.Add(rawData);
             //    }*/
 
-	           // //TEXTBOXENES VÆRDIER TIL TEST:
-	           // /*middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
-	           // pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
-	           // sysDiaValue_textbox.Text =
-		          //  dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;*/
+            // //TEXTBOXENES VÆRDIER TIL TEST:
+            // /*middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
+            // pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
+            // sysDiaValue_textbox.Text =
+            //  dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;*/
 
-	           // middleBTValue_textbox.Text = Convert.ToString(counter);
-	           // pulseValue_textbox.Text = Convert.ToString(counter);
-	           // sysDiaValue_textbox.Text = Convert.ToString(counter);
+            //middleBTValue_textbox.Text = Convert.ToString(counter);
+            //pulseValue_textbox.Text = Convert.ToString(counter);
+            //sysDiaValue_textbox.Text = Convert.ToString(counter);
 
             //    //TEXTBOXENES VÆRDIER TIL UDP:
             //    //middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
@@ -224,7 +226,7 @@ namespace Presentation_Layer
             //}
         }
 
-		//Når vi trykker "Gem ændringer" efter at have ændret på grænseværdierne for middelværdi, skal de nye tal gemmes i variablerne middelMax og middelMin
+        //Når vi trykker "Gem ændringer" efter at have ændret på grænseværdierne for middelværdi, skal de nye tal gemmes i variablerne middelMax og middelMin
         private void saveChanges_button_Click(object sender, RoutedEventArgs e)
         {
 	        middelMax = Convert.ToInt32(middleBTMax_textbox.Text);
@@ -244,46 +246,43 @@ namespace Presentation_Layer
             finishOperation_button.IsEnabled = true;
             startTime = DateTime.Now;
         }
-        
+
         /// <summary>
         /// Alarm-metode som bliver kaldt hver gang tallene og grafen på GUI'en er blevet opdateret, så den holder øje med hver eneste opdatering
         /// </summary>
-        //private void Alarm()
-        //{
-        //    if (middelMax < Convert.ToInt32(middleBTValue_textbox.Text) ||
-        //        Convert.ToInt32(middleBTValue_textbox.Text) < middelMin)
-        //    {
-        //        middleBTValue_textbox.Foreground = Brushes.Red;
-        //        middleBTValue_textbox.FontWeight = FontWeights.Bold;
-        //        //For hver gang alarmen går i gang skal der gemmes et tidsstempel i en liste, så den liste af 'alarmtriggers' kan blive gemt i databasen
-        //        alarmTriggeredTimes.Add(DateTime.Now);
-        //        //var sri = Application.GetResourceStream(new Uri("Cardiac alarm.wav"));
-        //        //if ((sri != null))
-        //        //{   player.Load();
-        //        //    player.Play();
-        //        //}
-        //        //player.
-        //        string file = "Cardiac alarm.wav";
+        private void Alarm()
+        {
+            if (middelMax < Convert.ToInt64(middleBTValue_textbox.Text) ||
+                Convert.ToInt64(middleBTValue_textbox.Text) < middelMin)
+            {
+                middleBTValue_textbox.Foreground = Brushes.Red;
+                middleBTValue_textbox.FontWeight = FontWeights.Bold;
+                //For hver gang alarmen går i gang skal der gemmes et tidsstempel i en liste, så den liste af 'alarmtriggers' kan blive gemt i databasen
+                alarmTriggeredTimes.Add(DateTime.Now);
 
-        //        //get the current assembly
-        //        var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                //player.Play("Cardiac alarm.wav");
 
-        //        //load the embedded resource as a stream
-        //        var stream = assembly.GetManifestResourceStream(string.Format("{0}.Resources.{1}", assembly.GetName().Name, file));
+                string file = "Cardiac alarm.wav";
 
-        //        //load the stream into the player
-        //        var player = new System.Media.SoundPlayer(stream);
+                //get the current assembly
+                var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
-        //        //play the sound
-        //        player.Play();
+                //load the embedded resource as a stream
+                var stream = assembly.GetManifestResourceStream(string.Format("{0}.Resources.{1}", assembly.GetName().Name, file));
 
-        //    }
-        //    else
-        //    {
-        //        middleBTValue_textbox.Foreground = Brushes.White;
-        //        middleBTValue_textbox.FontWeight = FontWeights.Normal;
-        //    }
-        //}
+                //load the stream into the player
+                var player = new System.Media.SoundPlayer(stream);
+
+                //play the sound
+                player.Play();
+
+            }
+            else
+            {
+                middleBTValue_textbox.Foreground = Brushes.White;
+                middleBTValue_textbox.FontWeight = FontWeights.Normal;
+            }
+        }
 
         private void stopAndSave_button_Click(object sender, RoutedEventArgs e)
         {

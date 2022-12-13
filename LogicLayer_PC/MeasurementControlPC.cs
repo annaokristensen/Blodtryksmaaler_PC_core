@@ -29,7 +29,7 @@ namespace LogicLayer_PC
 		{
             udp = new Server();
 
-            measurementDataAccessObj = new MeasurementDataAccess(RawDataBlocking);
+            measurementDataAccessObj = new TestMeasurementDataAccess(RawDataBlocking);
             this.RawDataBlocking = RawDataBlocking;
 
 			bpCalcObj = new BPCalculator();
@@ -39,7 +39,6 @@ namespace LogicLayer_PC
         }
         public MeasurementControlPC(IMeasurementDataAccess ImeasurementDataAccess)
         {
-
             bpCalcObj = new BPCalculator();
             bpGUIlist = new List<BPMesDataGUI_DTO>();
             calbrationFileAcess = new CalibrationFileAcess();
@@ -71,7 +70,7 @@ namespace LogicLayer_PC
 
                     foreach (double value in RawData)
                     {
-                        var tmp = (value - zeropointControl.Zeropoint) * calbrationFileAcess.ReadValue();
+                        var tmp = (value - zeropointControl.GetZeropoint()) * calbrationFileAcess.ReadValue();
                         dataList.Add(tmp);
                         Console.WriteLine(tmp);
                     }
@@ -84,11 +83,7 @@ namespace LogicLayer_PC
                 {
                     Console.WriteLine("Catch start");
                 }
-
-                Thread.Sleep(1000);
             }
-
-
         }
 
     }

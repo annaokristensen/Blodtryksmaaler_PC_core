@@ -57,38 +57,33 @@ namespace DataLayer_PC
             do
 			{
 				while (!shallStop)
-				{
-                    
+				{            
                     IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, listenPort);
 
                     byte[] bytes = listener.Receive(ref groupEP); //Det der modtages lægges ind i bytes
 
                     string tekst = ($"{Encoding.ASCII.GetString(bytes, 0, bytes.Length)}");
 
-
                     List<double> rawDataList = new List<double>();
 					List<string> holder = new List<string>();
 
 					holder.Add(tekst);
-					string[] hej = tekst.Split(' ');
-					foreach (var item in hej)
+					string[] input = tekst.Split(' ');
+					foreach (var item in input)
 					{
                         try
                         {
+							Console.WriteLine(item);
                             rawDataList.Add(Convert.ToDouble(item));
                         }
                         catch
                         {
                             continue;
-                        }
-                        
-					}
-					
+                        }                        
+					}					
                     Datacontainer reading = new Datacontainer();
 					reading.SetRawData(rawDataList);
 					_dataQueue.Add(reading);
-
-					Thread.Sleep(1000);
 				}
 			}
 			while (true);

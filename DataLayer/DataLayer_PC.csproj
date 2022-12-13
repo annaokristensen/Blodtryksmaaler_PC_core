@@ -17,7 +17,7 @@
     <None Update="testmedtal.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="udpFormatTestFile.txt">
+    <None Update="PhysionetTestFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

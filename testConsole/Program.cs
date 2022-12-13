@@ -25,12 +25,12 @@ namespace testConsole
 
             //TestMeasurementDataAccess producer = new TestMeasurementDataAccess(controllers);
             //MeasurementControlPC consumer = new MeasurementControlPC(controllers);
-            s1 = new Server();
+            MeasurementDataAccess m1 = new MeasurementDataAccess();
 
 
             //Thread producerThread = new Thread(producer.ReadSample);
             //Thread consumerThread = new Thread(consumer.Run);
-            s1.StartListener();
+            m1.ReadSample();
 
             //producerThread.Start();
             ////consumerThread.Start();

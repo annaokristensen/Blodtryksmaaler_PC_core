@@ -58,8 +58,6 @@ namespace LogicLayer_PC
                 dto.MiddelValue = middel;
                 dto.Pulse = Convert.ToDouble(puls);
             }
-
-
         }
         private void calcAverage(List<double> mesLists)
         {

@@ -16,7 +16,7 @@ namespace DataLayer_PC
         private readonly BlockingCollection<Datacontainer> RawDataBlocking;
         //private readonly Datacontainer datacontainer;
         public string TestPath = @"testmedtal.txt";
-		public string testPath2 = @"udpFormatTestFile.txt";
+		public string testPath2 = @"PhysionetTestFile.txt";
 		private bool shallStop = false;
         BPMesDataGUI_DTO rawDataDTOBC;
         private int countStart = 0;
