@@ -65,7 +65,7 @@ namespace LogicLayer_PC
         /// <returns></returns
         public List<double> GetVoltTest()
         {
-	        List<double> voltListTest = new List<double>() { 12.5, 17.3, 33.5, 55.5, 70.2};
+	        List<double> voltListTest = new List<double>() { 12.5, 25, 37.5, 50, 62.5};
 	        return voltListTest;
         }
 
@@ -82,14 +82,17 @@ namespace LogicLayer_PC
 
         public List<double> GetLinearYValues(double linearSlope, int counter, double offset)
         {
-            double slope = linearSlope;
+	        List<double> linearYValues = new List<double>();
+			double slope = linearSlope;
+            double midlSlope = offset;
             double nextSlope = offset;
+            linearYValues.Add(midlSlope);
 
-            List<double> linearYValues = new List<double>();
-	        for (int i = 0; i < counter; i++)
+            for (int i = 1; i < counter; i++)
 	        {
+		        nextSlope = midlSlope * slope;
 		        linearYValues.Add(nextSlope);
-		        nextSlope += slope;
+                midlSlope = nextSlope;
 	        }
             return linearYValues;
         }
