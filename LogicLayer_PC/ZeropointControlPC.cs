@@ -7,8 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LogicLayer_PC
-{
-    internal class ZeropointControlPC
+{public class ZeropointControlPC
     {
         private MeasurementDataAccess mesDataAccessObj;
         public double Zeropoint { get; private set; }
