@@ -96,30 +96,25 @@ namespace Presentation_Layer_PC
 		{
 			linearSlope = calibrationControlObj.RegressionCalculator(yy, xx);
 			offset = yy[0];
-			ySlopeValues.AddRange(calibrationControlObj.GetLinearYValues(linearSlope, counter, offset));
-			List<double> YSlopePlusOffSet = new List<double>();
-
-
-			for (int i = 0; i < counter; i++)
-			{
-				YSlopePlusOffSet.Add(ySlopeValues[i]);
-			}
-
+			ySlopeValues.AddRange(calibrationControlObj.GetLinearYValues(counter, offset, yy.Last()));
 
 			//Tilføjer punkter til x-aksen og y-aksen
-			for (int i = 0; i < counter; i++)
+			for (int i = 0; i < counter+1; i++)
 			{
 				LinearSlopeX.Add(xSlopeValues[i]);
 			}
+			LinearSlopeX.Add(xx.Last());
 
-
-			foreach (double yVal in YSlopePlusOffSet)
+			foreach (double yVal in ySlopeValues)
 			{
 				LinearSlopeY.Add(yVal);
 			}
 
-			calibrationSlope_textbox.Text = "Kalibrering: " + linearSlope;
+			//LinearSlopeX.Add(xx.Last());
+			//LinearSlopeY.Add(yy.Last() * linearSlope);
 
+			//Udskriver hældningen i tekstboxen
+			calibrationSlope_textbox.Text = "Kalibrering: " + linearSlope;
 		}
 	}
 }

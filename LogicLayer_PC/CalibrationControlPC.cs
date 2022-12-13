@@ -65,7 +65,7 @@ namespace LogicLayer_PC
         /// <returns></returns
         public List<double> GetVoltTest()
         {
-	        List<double> voltListTest = new List<double>() { 12.5, 25, 37.5, 50, 62.5};
+	        List<double> voltListTest = new List<double>() { 20, 25, 30, 35, 40};
 	        return voltListTest;
         }
 
@@ -77,23 +77,43 @@ namespace LogicLayer_PC
             b0 = y.Average() - (x.Average() * b1);
             CalibrationValue = b1;
             b1Rounded = Math.Round(b1, 2);
+            
             return b1Rounded;
         }
 
-        public List<double> GetLinearYValues(double linearSlope, int counter, double offset)
+        public List<double> GetLinearYValues(int counter, double offset, double lastYValue)
         {
 	        List<double> linearYValues = new List<double>();
-			double slope = linearSlope;
+			double slope = b1Rounded;
             double midlSlope = offset;
             double nextSlope = offset;
-            linearYValues.Add(midlSlope);
+            int count1;
+            
 
-            for (int i = 1; i < counter; i++)
+            for (count1 = 0; count1 < counter-1; count1++)
 	        {
-		        nextSlope = midlSlope * slope;
-		        linearYValues.Add(nextSlope);
-                midlSlope = nextSlope;
+                if(count1 < 1)
+	                linearYValues.Add(midlSlope);
+                else
+                {
+					nextSlope = midlSlope * slope;
+					linearYValues.Add(nextSlope);
+					midlSlope = nextSlope;
+				}
 	        }
+
+            for (int i = count1; i < lastYValue; i++)
+            {
+	            if (i < lastYValue - 1)
+	            {
+		            nextSlope = midlSlope * slope;
+		            midlSlope = nextSlope;
+				}
+	            else
+					midlSlope = nextSlope;
+			}
+            linearYValues.Add(nextSlope);
+            
             return linearYValues;
         }
     }
