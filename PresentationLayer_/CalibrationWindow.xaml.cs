@@ -29,11 +29,17 @@ namespace Presentation_Layer_PC
 	public partial class CalibrationWindow : Window
 	{
         public ChartValues<double> YVolt { get; set; }
-        public ChartValues<double> XPressure { get; set; }
+        public ChartValues<double> LinearSlopeY { get; set; }
+        public ChartValues<double> LinearSlopeX { get; set; }
+		public ChartValues<double> XPressure { get; set; }
 
         List<double> xx = new List<double>();
         List<double> yy = new List<double>();
         int counter = 0;
+		List<double> xSlopeValues = new List<double>(){0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+		private List<double> ySlopeValues = new List<double>();
+		private double linearSlope = 0;
+		private double offset = 0;
 
 		CalibrationControlPC calibrationControlObj = new CalibrationControlPC();
 
@@ -41,7 +47,9 @@ namespace Presentation_Layer_PC
         {
             InitializeComponent();
             YVolt = new ChartValues<double>();
-            XPressure = new ChartValues<double>();
+			LinearSlopeY = new ChartValues<double>();
+			LinearSlopeX = new ChartValues<double>();
+			XPressure = new ChartValues<double>();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -68,25 +76,45 @@ namespace Presentation_Layer_PC
 
 		        enterPressure_textbox.Clear();
 		        DataContext = this;
+
 		        counter++;
 			}
 	        catch (Exception exception)
 	        {
 		        MessageBox.Show(this, exception.Message, "Fejl");
 	        }
-
-            LabelKalibrering.Content = calibrationControlObj.RegressionCalculator(yy, xx);
         }
 
-        private void makeLinearReg_button_Click(object sender, RoutedEventArgs e)
-        {
-            calibrationControlObj.RegressionCalculator(yy,xx);
-        }
 
         private void finishCalibration_button_Click_1(object sender, RoutedEventArgs e)
         {
 			calibrationControlObj.SaveCalibrationValue();
 	        this.Close();
 		}
-    }
+
+		private void makeLinearReg_button_Click(object sender, RoutedEventArgs e)
+		{
+			linearSlope = calibrationControlObj.RegressionCalculator(yy, xx);
+			offset = yy[0];
+			ySlopeValues.AddRange(calibrationControlObj.GetLinearYValues(counter, offset, yy.Last()));
+
+			//Tilføjer punkter til x-aksen og y-aksen
+			for (int i = 0; i < counter+1; i++)
+			{
+				LinearSlopeX.Add(xSlopeValues[i]);
+			}
+			LinearSlopeX.Add(xx.Last());
+
+			foreach (double yVal in ySlopeValues)
+			{
+				LinearSlopeY.Add(yVal);
+			}
+
+			//LinearSlopeX.Add(xx.Last());
+			//LinearSlopeY.Add(yy.Last() * linearSlope);
+
+			//Udskriver hældningen i tekstboxen
+			calibrationSlope_textbox.Text = "Kalibrering: " + linearSlope;
+		}
+	}
 }

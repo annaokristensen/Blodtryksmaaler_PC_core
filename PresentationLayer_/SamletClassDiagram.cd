@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
+  <Comment CommentText="Presentation Layer&#xD;&#xA;">
+    <Position X="0.539" Y="0.5" Height="0.364" Width="1.495" />
+  </Comment>
+  <Comment CommentText="Logic Layer&#xD;&#xA;">
+    <Position X="0.5" Y="3.19" Height="0.364" Width="1.495" />
+  </Comment>
+  <Comment CommentText="Data Layer&#xD;&#xA;">
+    <Position X="0.5" Y="5.645" Height="0.364" Width="1.495" />
+  </Comment>
+  <Comment CommentText="DTO">
+    <Position X="17.999" Y="1.846" Height="0.364" Width="1.495" />
+  </Comment>
+  <Class Name="DataLayer_PC.CalibrationFileAcess" Collapsed="true">
+    <Position X="3.5" Y="7" Width="2.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DataLayer_PC.Consumer" Collapsed="true">
+    <Position X="13.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="rawDataDTOBC" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DataLayer_PC.CPRDataAccess" Collapsed="true">
+    <Position X="6.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DataLayer_PC.MeasurementDataAccess" Collapsed="true">
+    <Position X="8" Y="6.75" Width="2" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="DataFromRPi" />
+      <Field Name="rawDataDTOBC" />
+      <Field Name="udpServerObj" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer_PC.SaveMeasurement" Collapsed="true">
+    <Position X="17.25" Y="5.75" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DataLayer_PC.Server" Collapsed="true">
+    <Position X="7.75" Y="9.25" Width="1.25" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="DataFromRPi" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DataLayer_PC.TestMeasurementDataAccess" Collapsed="true">
+    <Position X="10.5" Y="8" Width="2.25" />
+    <AssociationLine Name="TestPath" Type="System.String">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.462" Y="0.508" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="testPath2" Type="System.String">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.138" Y="0.26" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="TestPath" />
+      <Field Name="testPath2" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DTO_PC.BPMesDataDB_DTO" Collapsed="true">
+    <Position X="18" Y="3" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DTO_PC.BPMesDataGUI_DTO" Collapsed="true">
+    <Position X="20.5" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DTO_PC.Datacontainer" Collapsed="true">
+    <Position X="20.25" Y="6" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="LogicLayer_PC.BPCalculator" Collapsed="true">
+    <Position X="9" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="LogicLayer_PC.CalibrationControlPC" Collapsed="true">
+    <Position X="3.75" Y="3.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="LogicLayer_PC.CPRControl" Collapsed="true">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="LogicLayer_PC.DownSampler" Collapsed="true">
+    <Position X="13.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="LogicLayer_PC.MeasurementControlPC" Collapsed="true">
+    <Position X="11" Y="5" Width="2" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="bpCalcObj" />
+      <Property Name="BPDTO" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LogicLayer_PC.StopAndSave" Collapsed="true">
+    <Position X="15.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Presentation_Layer.MainWindow" Collapsed="true">
+    <Position X="13" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AREQAAAEAACqBAAAEgkgAI4AAAQBAIEhBsmEAEQAANA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Presentation_Layer_PC.CalibrationWindow" Collapsed="true">
+    <Position X="4.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QECAACAAAAAAQAAhAAAAAAggAAAAQAEAAIAAIAAAADA=</HashCode>
+      <FileName>CalibrationWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Presentation_Layer_PC.CPR_Window" Collapsed="true">
+    <Position X="6.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAgAAAAEQAAAAAAACACAAAA=</HashCode>
+      <FileName>CPR_Window.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Presentation_Layer_PC.MaintenanceWindow" Collapsed="true">
+    <Position X="2.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAgAAAAAAAAACEAIAAIAAAA=</HashCode>
+      <FileName>MaintenanceWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.String" Collapsed="true">
+    <Position X="18" Y="8.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="DataLayer_PC.ICalbrationFileAcess" Collapsed="true">
+    <Position X="3.5" Y="5.25" Width="1.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DataLayer_PC.IDisposable" Collapsed="true">
+    <Position X="14.5" Y="5.75" Width="1.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DataLayer_PC.IMeasurementDataAccess" Collapsed="true">
+    <Position X="8.75" Y="5.5" Width="2" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="LogicLayer_PC.IMeasurementControlPC" Collapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

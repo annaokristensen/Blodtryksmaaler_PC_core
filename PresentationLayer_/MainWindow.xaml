@@ -58,13 +58,13 @@
         <Label x:Name="diastolisk_label" Content="Diastolisk" HorizontalAlignment="Left" Margin="420,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402" Width="60" Foreground="White" Height="26"/>
         <Label x:Name="middleBT_label" Content="Middel" HorizontalAlignment="Left" Margin="497,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402" Width="60" Foreground="White" Height="26"/>
         <Label x:Name="pulse_label" Content="Puls" HorizontalAlignment="Left" Margin="580,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-2.402" Width="60" Foreground="White" Height="26"/>
-        <TextBox x:Name="sysMax_textbox" HorizontalAlignment="Left" Margin="340,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="120" Background="Black" Foreground="White" Height="18"/>
-        <TextBox x:Name="sysMin_textbox" HorizontalAlignment="Left" Margin="340,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="60" Background="Black" Foreground="White" Height="18"/>
-        <TextBox x:Name="diaMax_textbox" HorizontalAlignment="Left" Margin="420,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="50" Foreground="White" Background="Black" Height="18"/>
-        <TextBox x:Name="diaMin_textbox" HorizontalAlignment="Left" Margin="420,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="20" Background="Black" Foreground="White" Height="18"/>
-        <TextBox x:Name="middleBTMax_textbox" HorizontalAlignment="Left" Margin="497,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="70" Foreground="White" Background="Black" Height="18"/>
-        <TextBox x:Name="middleBTMin_textbox" HorizontalAlignment="Left" Margin="497,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="50" Foreground="White" Background="Black" Height="18"/>
-        <TextBox x:Name="pulseMax_textbox" HorizontalAlignment="Left" Margin="580,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="180" Background="Black" Foreground="White" Height="18"/>
+        <TextBox x:Name="sysMax_textbox" HorizontalAlignment="Left" Margin="340,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="150" Background="Black" Foreground="White" Height="18"/>
+        <TextBox x:Name="sysMin_textbox" HorizontalAlignment="Left" Margin="340,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="70" Background="Black" Foreground="White" Height="18"/>
+        <TextBox x:Name="diaMax_textbox" HorizontalAlignment="Left" Margin="420,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="90" Foreground="White" Background="Black" Height="18"/>
+        <TextBox x:Name="diaMin_textbox" HorizontalAlignment="Left" Margin="420,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="50" Background="Black" Foreground="White" Height="18"/>
+        <TextBox x:Name="middleBTMax_textbox" HorizontalAlignment="Left" Margin="497,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="100" Foreground="White" Background="Black" Height="18"/>
+        <TextBox x:Name="middleBTMin_textbox" HorizontalAlignment="Left" Margin="497,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="55" Foreground="White" Background="Black" Height="18"/>
+        <TextBox x:Name="pulseMax_textbox" HorizontalAlignment="Left" Margin="580,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="100" Background="Black" Foreground="White" Height="18"/>
         <TextBox x:Name="pulseMin_textbox" HorizontalAlignment="Left" Margin="580,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Text="40" Foreground="White" Background="Black" Height="18"/>
         <Button x:Name="stopAndSave_button" Content="Stop og gem måling" BorderThickness="3"   HorizontalAlignment="Left" Margin="822,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="-0.318,0.192" Width="126" Height="50" Click="stopAndSave_button_Click" Grid.Row="3" >
             <Button.Resources>

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="DataLayer_PC.CalibrationFileAcess">
+    <Position X="0.5" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAQAAAEAAAAAAAA=</HashCode>
+      <FileName>CalibrationFileAcess.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer_PC.Consumer">
+    <Position X="0.5" Y="6.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAABAAAAAAAAI=</HashCode>
+      <FileName>Consumer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer_PC.CPRDataAccess">
+    <Position X="5.25" Y="6.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CPRDataAccess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer_PC.MeasurementDataAccess">
+    <Position X="9" Y="0.5" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAIAAAAAgCAAAIAAAAAACAAABAAAAASwAA=</HashCode>
+      <FileName>MeasurementDataAccess.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer_PC.SaveMeasurement">
+    <Position X="3.25" Y="4" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SaveMeasurement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer_PC.Server">
+    <Position X="10.75" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAABAAAAAAAAACAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Server.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer_PC.TestMeasurementDataAccess">
+    <Position X="0.5" Y="0.5" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAACAAAIAgAAAAAABAAAAAAAAAAAABAQAAAQQAE=</HashCode>
+      <FileName>TestMeasurementDataAccess.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="DataLayer_PC.ICalbrationFileAcess">
+    <Position X="8.25" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>ICalbrationFileAcess.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer_PC.IDisposable">
+    <Position X="6.25" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAEAA=</HashCode>
+      <FileName>IDisposable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer_PC.IMeasurementDataAccess">
+    <Position X="6.25" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>IMeasurementDataAccess.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
