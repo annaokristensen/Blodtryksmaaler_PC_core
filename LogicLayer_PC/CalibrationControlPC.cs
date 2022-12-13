@@ -69,7 +69,7 @@ namespace LogicLayer_PC
 	        return voltListTest;
         }
 
-        public string RegressionCalculator(List<double> y, List<double> x)
+        public double RegressionCalculator(List<double> y, List<double> x)
         {
             var squarex = x.Sum(e => Math.Pow(e - x.Average(), 2));
             var xy = x.Zip(y, (first, second) => (first - x.Average()) * (second - y.Average())).Sum();
@@ -77,7 +77,21 @@ namespace LogicLayer_PC
             b0 = y.Average() - (x.Average() * b1);
             CalibrationValue = b1;
             b1Rounded = Math.Round(b1, 2);
-            return "Kalibrering= " + b1Rounded.ToString();
+            return b1Rounded;
+        }
+
+        public List<double> GetLinearYValues(double linearSlope, int counter, double offset)
+        {
+            double slope = linearSlope;
+            double nextSlope = offset;
+
+            List<double> linearYValues = new List<double>();
+	        for (int i = 0; i < counter; i++)
+	        {
+		        linearYValues.Add(nextSlope);
+		        nextSlope += slope;
+	        }
+            return linearYValues;
         }
     }
 }
