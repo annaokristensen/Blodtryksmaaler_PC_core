@@ -39,7 +39,7 @@ namespace Presentation_Layer_PC
 		{
 			//Når der trykkes på Videre til cpr og nulpunktjustering er udført, skal CprWindow åbne og MaintenanceWindow lukke
 			if (isZeroPointAdjDone == true)
-			{
+			{ 
 				this.DialogResult = true;
 				this.Close();
 			}
@@ -57,6 +57,7 @@ namespace Presentation_Layer_PC
 		private void zeroPointAdjustment_button_Click(object sender, RoutedEventArgs e)
 		{
 			isZeroPointAdjDone = true;
+
 			zeroPointNotDone_errorMessage.Visibility = Visibility.Hidden;
 		}
 	}
