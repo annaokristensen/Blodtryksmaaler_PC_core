@@ -222,6 +222,8 @@ namespace Presentation_Layer
 	            consumerThread.Join();
 				//Når der trykkes "Stop og gem" så skal dispatcherTimer stoppe, så graferne og tallene stopper med at blive opdateret
 				dispatcherTimer.Stop();
+				startMeasurement_button.IsEnabled = false;
+				stopAndSave_button.IsEnabled = false;
 	            stopTime = DateTime.Now;
 				//Når der trykkes "Stop og gem" skal SaveMeasurement kaldes. Vi giver den dtoGUIlisten, cpr-nummeret og listen af alarm-tidspunkter med som parameter
 				stopAndSaveObj.SaveMeasurement(dtoGUI_list, cpr_textbox.Text, startTime, stopTime, alarmTriggeredTimes);
