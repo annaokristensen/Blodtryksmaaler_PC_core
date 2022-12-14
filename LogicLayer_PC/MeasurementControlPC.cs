@@ -15,38 +15,21 @@ namespace LogicLayer_PC
         private readonly BlockingCollection<Datacontainer> RawDataBlocking;
         public bool IsCompleted { get; set; } = true;
         private IMeasurementDataAccess measurementDataAccessObj;
-        private IMeasurementDataAccess measurementDataAccessObj2;
         private ICalbrationFileAcess calbrationFileAcess;
 		public BPCalculator bpCalcObj { get; set; }
-		public BPMesDataGUI_DTO BPDTO { get; set; }
-		//private BPMesDataGUI_DTO calcValuesDTO;
-		public List<double> rawDataListMC = new List<double>();
 		public List<BPMesDataGUI_DTO> bpGUIlist;
 		private ZeropointControlPC zeropointControl;
-        public double Zero { get; set; }
-        //private BPMesDataGUI_DTO bpGUIDTO;
-        private Server udp;
 
-        public MeasurementControlPC(BlockingCollection<Datacontainer> RawDataBlocking, ZeropointControlPC zeropoint)
+		public MeasurementControlPC(BlockingCollection<Datacontainer> RawDataBlocking, ZeropointControlPC zeropoint)
 		{
-            udp = new Server();
-
-            measurementDataAccessObj = new TestMeasurementDataAccess(RawDataBlocking);
+			measurementDataAccessObj = new TestMeasurementDataAccess(RawDataBlocking);
             this.RawDataBlocking = RawDataBlocking;
-
-			bpCalcObj = new BPCalculator();
+            bpCalcObj = new BPCalculator();
             bpGUIlist = new List<BPMesDataGUI_DTO>();
             calbrationFileAcess = new CalibrationFileAcess();
             zeropointControl = zeropoint;
         }
-        public MeasurementControlPC(IMeasurementDataAccess ImeasurementDataAccess)
-        {
-            bpCalcObj = new BPCalculator();
-            bpGUIlist = new List<BPMesDataGUI_DTO>();
-            calbrationFileAcess = new CalibrationFileAcess();
-            zeropointControl = new ZeropointControlPC();
-        }
-       
+
         public void StartProducerThread()
         {
             Thread producerThread = new Thread(measurementDataAccessObj.ReadSample);          
@@ -83,8 +66,5 @@ namespace LogicLayer_PC
                 }
             }
         }
-
-      
-
-    }
+	}
 }

@@ -31,17 +31,13 @@ namespace Presentation_Layer
     {
         private StopAndSave stopAndSaveObj;
         private System.Windows.Threading.DispatcherTimer dispatcherTimer;
-        int counter = 1;
         private int middelMax = 0;
         private int middelMin = 0 ;
-        public string cpr { get; set; }
         private List<BPMesDataGUI_DTO> dtoGUI_list;
         private List<DateTime> alarmTriggeredTimes;
         public ChartValues<double> YRawData { get; set; }
         private DateTime startTime;
         private DateTime stopTime;
-        private List<double> rawDataListGUI;
-        private List<double> testRawDataListGUI;
         private List<double>[] RawDataArray;
 		private MeasurementControlPC mesControlPC;
         private bool dataIsSaved = false;
@@ -53,45 +49,30 @@ namespace Presentation_Layer
         private double pulseRounded = 0;
         private double systolicRounded = 0;
         private double diastolicRounded = 0;
-        private Datacontainer datacontainer;
         private BlockingCollection<Datacontainer> blocking;
         private ZeropointControlPC ZeropointController;
-
         private Thread consumerThread;
-		//private Player player;
 
-
-
-
-		public MainWindow()
+        public MainWindow()
         {
             InitializeComponent();
 
-            //////
             ZeropointController = new ZeropointControlPC();
-            //////
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             stopAndSaveObj = new StopAndSave();
             alarmTriggeredTimes = new List<DateTime>();
-            //XdateTime = new ChartValues<string>();
             YRawData = new ChartValues<double>();
-            datacontainer = new Datacontainer();
-            
             blocking = new BlockingCollection<Datacontainer>();
             //controllers = new BlockingCollection<Datacontainer>();
-
             //MeasurementDataAccess(); <- bruges ved UDP 
             mesControlPC = new MeasurementControlPC(blocking, ZeropointController);
 
             //testDtoGUI_list = new List<BPMesDataGUI_DTO>();
             dtoGUI_list = new List<BPMesDataGUI_DTO>();
-            testRawDataListGUI = new List<double>();
-            rawDataListGUI = new List<double>();
             RawDataArray = new List<double>[5];
             DataContext = this;
-	            consumerThread= new Thread(mesControlPC.Run);
-			//player = new Player();
-		}
+	        consumerThread= new Thread(mesControlPC.Run);
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -114,7 +95,6 @@ namespace Presentation_Layer
             sysDiaValue_textbox.Text = "0";
             middleBTValue_textbox.Text = "0";
 
-
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1); //Intervallet for hvor ofte data skifter på GUI'en
 					
@@ -123,8 +103,6 @@ namespace Presentation_Layer
 			middelMin = Convert.ToInt32(middleBTMin_textbox.Text);
 
             RawDataArray = ZeroStart();
-            
-
         }
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
@@ -143,7 +121,7 @@ namespace Presentation_Layer
             {
                 YRawData.AddRange(RawDataArray[i]);
             }
-            //TEXTBOXENES VÆRDIER TIL UDP:
+            //Affrunding af textboxenes værdier:
             middelTemp = dtoGUI_list[dtoGUI_list.Count - 1].MiddelValue;
             middelRounded = Math.Round(middelTemp, 0);
             pulseTemp = dtoGUI_list[dtoGUI_list.Count - 1].Pulse;
@@ -158,10 +136,6 @@ namespace Presentation_Layer
             sysDiaValue_textbox.Text = systolicRounded + " / " + diastolicRounded;
 
             Alarm();
-
-            counter++;
-
-            
         }
 
         //Når vi trykker "Gem ændringer" efter at have ændret på grænseværdierne for middelværdi, skal de nye tal gemmes i variablerne middelMax og middelMin
@@ -175,9 +149,7 @@ namespace Presentation_Layer
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
             mesControlPC.StartProducerThread();
-
             consumerThread.Start();
-
             dispatcherTimer.Start();
             stopAndSave_button.IsEnabled = true;
             finishOperation_button.IsEnabled = true;
@@ -197,15 +169,9 @@ namespace Presentation_Layer
                 //For hver gang alarmen går i gang skal der gemmes et tidsstempel i en liste, så den liste af 'alarmtriggers' kan blive gemt i databasen
                 alarmTriggeredTimes.Add(DateTime.Now);
 
-                //player.Play("Cardiac alarm.wav");
-                string file = "Cardiac alarm.wav";
-
-                //load the .wav into the player
-                SoundPlayer player = new SoundPlayer(file);
-                
-                //play the sound
-                player.Play();
-
+				string file = "Cardiac alarm.wav";
+				SoundPlayer player = new SoundPlayer(file);
+				player.Play();
             }
             else
             {
@@ -215,52 +181,46 @@ namespace Presentation_Layer
         }
         private void stopAndSave_button_Click(object sender, RoutedEventArgs e)
         {
-
 	        try
             {
 	            mesControlPC.IsCompleted = false;
 	            consumerThread.Join();
-				//Når der trykkes "Stop og gem" så skal dispatcherTimer stoppe, så graferne og tallene stopper med at blive opdateret
-				dispatcherTimer.Stop();
+	            dispatcherTimer.Stop();
 				startMeasurement_button.IsEnabled = false;
 				stopAndSave_button.IsEnabled = false;
 	            stopTime = DateTime.Now;
-				//Når der trykkes "Stop og gem" skal SaveMeasurement kaldes. Vi giver den dtoGUIlisten, cpr-nummeret og listen af alarm-tidspunkter med som parameter
-				stopAndSaveObj.SaveMeasurement(dtoGUI_list, cpr_textbox.Text, startTime, stopTime, alarmTriggeredTimes);
+	            stopAndSaveObj.SaveMeasurement(dtoGUI_list, cpr_textbox.Text, startTime, stopTime, alarmTriggeredTimes);
 				dataIsSaved = true;
 				MessageBox.Show(this, "Data blev gemt i databasen", "Succes");
             }
             catch (Exception exception)
             {
 	            MessageBox.Show(this,
-		            "Data kunne ikke gemmes i databasen. Prøv venligst igen senere. Detaljer: " + exception.Message, "Fejl");
+		            "Data kunne ikke gemmes i databasen. Tilkald tekniker. Detaljer: " + exception.Message, "Fejl");
             }
         }
+
         public void FinishOperationMethod()
         {
             this.Close();
-			MaintenanceWindow maintenanceWindowObj = new MaintenanceWindow(ZeropointController);
-			maintenanceWindowObj.ShowDialog();
-		}
+        }
+
         private void finishOperation_button_Click(object sender, RoutedEventArgs e)
         {
-	        if (dataIsSaved == true)
+	        if (dataIsSaved)
 	        {
                 FinishOperationMethod();
 	        }
 	        else
             {
-	            if (MessageBox.Show("Er du sikker på du vil afslutte?", "Spørgsmål", MessageBoxButton.YesNo,
+	            if (MessageBox.Show("Er du sikker på du vil afslutte?", "Vent", MessageBoxButton.YesNo,
 		                MessageBoxImage.Warning) == MessageBoxResult.Yes)
 	            {
 					FinishOperationMethod();
 				}
-	            else //hvis der trykkes nej, skal der ikke ske andet end at messagebox'en lukker (sker automatisk når man trykker)
-	            {
-		            
-	            }
             }
         }
+
         private List<double>[] ZeroStart()
         {
             List<double> zerolist = new List<double>();
@@ -276,7 +236,6 @@ namespace Presentation_Layer
             }
             return startarray;
         }
-
     }
 }
 
