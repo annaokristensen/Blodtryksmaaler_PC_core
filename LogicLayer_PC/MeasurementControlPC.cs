@@ -57,7 +57,7 @@ namespace LogicLayer_PC
                     }
 
                     bpGUIlist.Add(new BPMesDataGUI_DTO(dataList));
-                    bpCalcObj.saveValues(bpGUIlist[bpGUIlist.Count - 1]);
+                    bpCalcObj.SaveValues(bpGUIlist[bpGUIlist.Count - 1]);
 
                 }
                 catch (InvalidOperationException)

@@ -25,7 +25,7 @@ namespace LogicLayer_PC
             mesLists = new List<double>[5];
         }
 
-        public void saveValues(BPMesDataGUI_DTO dto)
+        public void SaveValues(BPMesDataGUI_DTO dto)
         {
             measurement.Clear();
             if (counter < 5)
@@ -51,7 +51,7 @@ namespace LogicLayer_PC
                 {
                     measurement.AddRange(mesLists[i]);
                 }
-                calcAverage(measurement);
+                CalcAverage(measurement);
 
                 dto.SystoliskValue = systole;
                 dto.DiastoliskValue = diastole;
@@ -59,21 +59,21 @@ namespace LogicLayer_PC
                 dto.Pulse = Convert.ToDouble(puls);
             }
         }
-        private void calcAverage(List<double> mesLists)
+        private void CalcAverage(List<double> mesList)
         {
-            double totalBP = mesLists.Sum();
-            int bpDataPoints = mesLists.Count();
+            double totalBP = mesList.Sum();
+            int bpDataPoints = mesList.Count();
             double averageBP = totalBP / bpDataPoints;
             
 
-            getSysBP(bpDataPoints, averageBP);
-            getDiaBP(bpDataPoints, averageBP);
+            GetSysBP(bpDataPoints, averageBP);
+            GetDiaBP(bpDataPoints, averageBP);
 
             middel = (((systole - diastole) * 1 / 3) + diastole);
 
         }
         
-        private void getSysBP(int bpDataPoints, double averageBP)
+        private void GetSysBP(int bpDataPoints, double averageBP)
         {
             
             double lowLimit = averageBP * 0.97;
@@ -110,7 +110,7 @@ namespace LogicLayer_PC
             puls = highPeakCounter*12;
            
         }
-        private void getDiaBP(int bpDataPoints, double averageBP)
+        private void GetDiaBP(int bpDataPoints, double averageBP)
         {
             double lowLimit = averageBP * 0.97;
             double highLimit = averageBP * 1.05;
