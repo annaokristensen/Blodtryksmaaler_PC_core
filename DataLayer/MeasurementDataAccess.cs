@@ -41,7 +41,7 @@ namespace DataLayer_PC
         }
 
 		/// <summary>
-		/// Læser fra udpPath og gemmer rawData som en List af doubles i DTO-klassen
+		/// Læser fra udpPath og gemmer rawData som en List af doubles i rawDataList. Denne liste gemmes i BlockingCollection
 		/// </summary>
 		/// <returns>BPMesDataGUI_DTO List af double rawData</returns>
 		public void ReadSample()  
