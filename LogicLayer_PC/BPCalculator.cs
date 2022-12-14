@@ -59,10 +59,10 @@ namespace LogicLayer_PC
                 dto.Pulse = Convert.ToDouble(puls);
             }
         }
-        private void CalcAverage(List<double> mesLists)
+        private void CalcAverage(List<double> mesList)
         {
-            double totalBP = mesLists.Sum();
-            int bpDataPoints = mesLists.Count();
+            double totalBP = mesList.Sum();
+            int bpDataPoints = mesList.Count();
             double averageBP = totalBP / bpDataPoints;
             
 
