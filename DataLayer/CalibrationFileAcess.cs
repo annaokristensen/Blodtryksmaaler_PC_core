@@ -13,8 +13,13 @@ namespace DataLayer_PC
 
         public double ReadValue()
         {
-            //double value = Convert.ToDouble(File.ReadAllText(CalibrationPath));
-            return 1;
+            FileStream fileStream = new FileStream(CalibrationPath, FileMode.OpenOrCreate, FileAccess.Read);
+            StreamReader reader = new StreamReader(fileStream);
+
+            double value = Convert.ToDouble(reader.ReadLine());
+            fileStream.Close();
+
+            return value;
         }
 
         public void ReplaceValue(double value)
