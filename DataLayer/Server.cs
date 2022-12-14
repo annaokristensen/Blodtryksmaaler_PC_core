@@ -13,7 +13,6 @@ namespace DataLayer_PC
     public class Server
     {
         public const int listenPort = 12000;
-        //public float svar;
         public string DataFromRPi;
 
         public void StartListener()   //Lytter efter porten på PC
@@ -48,16 +47,5 @@ namespace DataLayer_PC
         {
             return DataFromRPi;
         }
-
-        ////Test metode
-        //public void testUDPServerThread()
-        //{
-        //    int count = 5;
-        //    for(int i = 0; i < count; i++)
-        //    {
-        //        Console.WriteLine("Test udp thread");
-        //    }
-
-        //}
     }
 }

@@ -14,9 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="testmedtal.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="PhysionetTestFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
