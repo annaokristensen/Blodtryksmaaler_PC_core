@@ -34,10 +34,6 @@ namespace Presentation_Layer_PC
 			zeroPointNotDone_errorMessage.Visibility = Visibility.Hidden;
 		}
 
-		private void opretforbindelse_button_Click(object sender, System.Windows.RoutedEventArgs e)
-		{
-
-		}
 		private void moveOnToCpr_button_Click(object sender, RoutedEventArgs e)
 		{
 			//Når der trykkes på Videre til cpr og nulpunktjustering er udført, skal CprWindow åbne og MaintenanceWindow lukke

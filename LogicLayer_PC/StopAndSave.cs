@@ -14,15 +14,13 @@ namespace LogicLayer_PC
 	public class StopAndSave
 	{
 		private SaveMeasurement saveMeasurementObj;
-		private MeasurementDataAccess mesDataAccess;
 
-        private DownSampler downSampler;
+		private DownSampler downSampler;
 	//	private IMeasurementDataAccess measurementDataAccess;
 		public StopAndSave()
 		{
 			saveMeasurementObj = new SaveMeasurement();
-			mesDataAccess = new MeasurementDataAccess();
-            downSampler = new DownSampler();
+			downSampler = new DownSampler();
         }
 		/// <summary>
 		/// Metoden som bliver kaldt, når vi trykker på "Stop og Gem" på GUI'en.
@@ -39,8 +37,7 @@ namespace LogicLayer_PC
 			List<double> middelList = new List<double>();
 			
 			//En midlertidig liste af rådata, fordi vi lige nu ikke har noget rådata i tekstfilen.
-			//List<double> rawDataFixLater = new List<double>() { 12, 2, 7, 10 };
-            List<double> fullRawData = new List<double>();
+			List<double> fullRawData = new List<double>();
             List<double> downSampleData = new List<double>();
 
             foreach (BPMesDataGUI_DTO dtoGUIobj in bpDTOList)
