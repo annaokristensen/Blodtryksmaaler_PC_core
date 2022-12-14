@@ -41,6 +41,7 @@ namespace Presentation_Layer
         private List<double>[] RawDataArray;
 		private MeasurementControlPC mesControlPC;
         private bool dataIsSaved = false;
+        private bool measurementIsStarted = false;
         private double middelTemp = 0;
         private double pulseTemp = 0;
         private double systolicTemp = 0;
@@ -87,7 +88,6 @@ namespace Presentation_Layer
                 this.Show();
 
             stopAndSave_button.IsEnabled = false;
-            finishOperation_button.IsEnabled = false;
 
             //Sørger for at patientens (det indtastede) cpr-nummer fremstår af cpr-tekstboksen på mainWindow
             cpr_textbox.Text = cprWindowObj.GetEnteredCpr();
@@ -153,6 +153,7 @@ namespace Presentation_Layer
             dispatcherTimer.Start();
             stopAndSave_button.IsEnabled = true;
             finishOperation_button.IsEnabled = true;
+            measurementIsStarted = true;
             startTime = DateTime.Now;
         }
 
@@ -200,26 +201,29 @@ namespace Presentation_Layer
             }
         }
 
-        public void FinishOperationMethod()
-        {
-            this.Close();
-        }
-
         private void finishOperation_button_Click(object sender, RoutedEventArgs e)
         {
-	        if (dataIsSaved)
+	        if (!measurementIsStarted && !dataIsSaved)
 	        {
-                FinishOperationMethod();
-	        }
-	        else
+		        if (MessageBox.Show("Er du sikker på du vil afslutte? Ingen måling foretaget.", "Vent", MessageBoxButton.YesNo,
+			            MessageBoxImage.Warning) == MessageBoxResult.Yes)
+		        {
+			        this.Close();
+		        }
+			}
+	        else if(measurementIsStarted && !dataIsSaved)
             {
-	            if (MessageBox.Show("Er du sikker på du vil afslutte?", "Vent", MessageBoxButton.YesNo,
+	            if (MessageBox.Show("Er du sikker på du vil afslutte? Målingen er ikke gemt.", "Vent", MessageBoxButton.YesNo,
 		                MessageBoxImage.Warning) == MessageBoxResult.Yes)
 	            {
-					FinishOperationMethod();
-				}
+		            this.Close();
+	            }
             }
-        }
+	        else
+	        {
+		        this.Close();
+	        }
+		}
 
         private List<double>[] ZeroStart()
         {
