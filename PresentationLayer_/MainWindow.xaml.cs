@@ -56,12 +56,14 @@ namespace Presentation_Layer
         private Datacontainer datacontainer;
         private BlockingCollection<Datacontainer> blocking;
         private ZeropointControlPC ZeropointController;
-        //private Player player;
+
+        private Thread consumerThread;
+		//private Player player;
 
 
 
 
-        public MainWindow()
+		public MainWindow()
         {
             InitializeComponent();
 
@@ -87,7 +89,8 @@ namespace Presentation_Layer
             rawDataListGUI = new List<double>();
             RawDataArray = new List<double>[5];
             DataContext = this;
-            //player = new Player();
+	            consumerThread= new Thread(mesControlPC.Run);
+			//player = new Player();
 		}
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -172,7 +175,6 @@ namespace Presentation_Layer
         private void startMeasurement_button_Click(object sender, RoutedEventArgs e)
         {
             mesControlPC.StartProducerThread();
-            Thread consumerThread = new Thread(mesControlPC.Run);
 
             consumerThread.Start();
 
@@ -213,10 +215,13 @@ namespace Presentation_Layer
         }
         private void stopAndSave_button_Click(object sender, RoutedEventArgs e)
         {
+
 	        try
             {
-	            //Når der trykkes "Stop og gem" så skal dispatcherTimer stoppe, så graferne og tallene stopper med at blive opdateret
-	            dispatcherTimer.Stop();
+	            mesControlPC.IsCompleted = false;
+	            consumerThread.Join();
+				//Når der trykkes "Stop og gem" så skal dispatcherTimer stoppe, så graferne og tallene stopper med at blive opdateret
+				dispatcherTimer.Stop();
 	            stopTime = DateTime.Now;
 				//Når der trykkes "Stop og gem" skal SaveMeasurement kaldes. Vi giver den dtoGUIlisten, cpr-nummeret og listen af alarm-tidspunkter med som parameter
 				stopAndSaveObj.SaveMeasurement(dtoGUI_list, cpr_textbox.Text, startTime, stopTime, alarmTriggeredTimes);

@@ -72,41 +72,5 @@ namespace LogicLayer_PC
             
             return b1Rounded;
         }
-
-        public List<double> GetLinearYValues(int counter, double offset, double lastYValue)
-        {
-	        List<double> linearYValues = new List<double>();
-			double slope = b1Rounded;
-            double midlSlope = offset;
-            double nextSlope = offset;
-            int count1;
-            
-
-            for (count1 = 0; count1 < counter-1; count1++)
-	        {
-                if(count1 < 1)
-	                linearYValues.Add(midlSlope);
-                else
-                {
-					nextSlope = midlSlope * slope;
-					linearYValues.Add(nextSlope);
-					midlSlope = nextSlope;
-				}
-	        }
-
-            for (int i = count1; i < lastYValue; i++)
-            {
-	            if (i < lastYValue - 1)
-	            {
-		            nextSlope = midlSlope * slope;
-		            midlSlope = nextSlope;
-				}
-	            else
-					midlSlope = nextSlope;
-			}
-            linearYValues.Add(nextSlope);
-            
-            return linearYValues;
-        }
     }
 }

@@ -22,12 +22,9 @@
             <lvc:CartesianChart.Series>
                 <lvc:LineSeries Name="Calibration" Stroke="Transparent" Title="Volt" Values="{Binding YVolt}" Fill="Transparent" >
                 </lvc:LineSeries>
-                <lvc:LineSeries Name="Slope" Stroke="White" PointGeometrySize="0" Values="{Binding LinearSlopeY}" Fill="Transparent" >
-                </lvc:LineSeries>
             </lvc:CartesianChart.Series>
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="mmHg" Labels="{Binding XPressure}"></lvc:Axis>
-                <lvc:Axis Labels="{Binding LinearSlopeX}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="Volt"></lvc:Axis>

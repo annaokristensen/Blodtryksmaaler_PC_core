@@ -13,6 +13,7 @@ namespace LogicLayer_PC
 	public class MeasurementControlPC : IMeasurementControlPC
 	{
         private readonly BlockingCollection<Datacontainer> RawDataBlocking;
+        public bool IsCompleted { get; set; } = true;
         private IMeasurementDataAccess measurementDataAccessObj;
         private IMeasurementDataAccess measurementDataAccessObj2;
         private ICalbrationFileAcess calbrationFileAcess;
@@ -57,7 +58,7 @@ namespace LogicLayer_PC
         }
         public void Run()
         {
-            while (!RawDataBlocking.IsCompleted)
+            while (IsCompleted == true)
             {
                 try
                 {
