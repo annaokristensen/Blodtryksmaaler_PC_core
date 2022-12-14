@@ -20,12 +20,9 @@ namespace DataLayer_PC
 	public class MeasurementDataAccess : IMeasurementDataAccess
 	{
         public const int listenPort = 12000;
-        //public float svar;
         public string DataFromRPi;
-
         private readonly BlockingCollection<Datacontainer> _dataQueue;
 		public BPMesDataGUI_DTO rawDataDTOBC;
-
         public double Second { get; set; }
 		public double SampleValue { get; set; }
 		public List<MeasurementDataAccess> LoadedSampleValue;
@@ -34,15 +31,13 @@ namespace DataLayer_PC
 
 		public MeasurementDataAccess(double second, double sampleValue)
 		{
-			//conn = new SqlConnection(@"INDSÆT CONNECTION STRING TIL MEASUREMENT-DATABASE")
 			Second = second;
 			SampleValue = sampleValue;
 		}
 		public MeasurementDataAccess() { }
-		public MeasurementDataAccess(BlockingCollection<Datacontainer> RawDataBlocking/*, Server udpServer*/)
+		public MeasurementDataAccess(BlockingCollection<Datacontainer> RawDataBlocking)
 		{
 			_dataQueue = RawDataBlocking;
-            //udpServerObj = udpServer;
         }
 
 		/// <summary>
@@ -52,15 +47,13 @@ namespace DataLayer_PC
 		public void ReadSample()  
 		{
             UdpClient listener = new UdpClient(listenPort);
-            //Sætter udpPath til at være den string som udpServeren returnerer. Det er deri at data fra rpi står
-            //string udpPath = udpServerObj.GetBroadcast();
             do
 			{
 				while (!shallStop)
 				{            
                     IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, listenPort);
 
-                    byte[] bytes = listener.Receive(ref groupEP); //Det der modtages lægges ind i bytes
+                    byte[] bytes = listener.Receive(ref groupEP);
 
                     string tekst = ($"{Encoding.ASCII.GetString(bytes, 0, bytes.Length)}");
 
@@ -88,14 +81,14 @@ namespace DataLayer_PC
 			}
 			while (true);
 		}
-
+		//GetOneSecond bruges til nulpunktjustering og kalibrering. Metoden er ikke i en tråd, så den læser kun en værdi ind.
 		public List<double> GetOneSecond()
 		{
             UdpClient listener = new UdpClient(listenPort);
 
             IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, listenPort);
 
-            byte[] bytes = listener.Receive(ref groupEP); //Det der modtages lægges ind i bytes
+            byte[] bytes = listener.Receive(ref groupEP); 
 
             string tekst = ($"{Encoding.ASCII.GetString(bytes, 0, bytes.Length)}");
 

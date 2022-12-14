@@ -14,8 +14,6 @@ namespace DataLayer_PC
 	public class TestMeasurementDataAccess : IMeasurementDataAccess
 	{
         private readonly BlockingCollection<Datacontainer> RawDataBlocking;
-        //private readonly Datacontainer datacontainer;
-        public string TestPath = @"testmedtal.txt";
 		public string testPath2 = @"PhysionetTestFile.txt";
 		private bool shallStop = false;
         BPMesDataGUI_DTO rawDataDTOBC;
@@ -29,10 +27,7 @@ namespace DataLayer_PC
             rawDataDTOBC = new BPMesDataGUI_DTO();
             holder = new List<string>();
         }
-        public TestMeasurementDataAccess()
-        {
-
-        }
+        public TestMeasurementDataAccess() { }
 
         /// <summary>
         /// TEST-METODE til at læse en test-fil som er skrevet på det format, som vi modtager fra rpi
@@ -45,7 +40,6 @@ namespace DataLayer_PC
             {
                 while(!shallStop)
                 {
-                    //List<double> rawDataList = new List<double>();
                     holder = File.ReadAllLines(testPath2).ToList();
                     List<double> rawdata = new List<double>();
 
@@ -62,56 +56,11 @@ namespace DataLayer_PC
 
             RawDataBlocking.CompleteAdding(); //Når den er færdig med at putte data ind, så completer den. 
         }
-
-        public BPMesDataGUI_DTO TakeFromBC()
-        {
-            while (!RawDataBlocking.IsCompleted) //Tjekker om der er completet i ReadSample
-            {
-                try
-                {
-                    //rawDataDTOBC.RawDataList.Add(RawDataBlocking.Take());
-                    return rawDataDTOBC;
-                }
-                catch (InvalidOperationException)
-                {
-                    return null;
-                }
-            }
-            return null;
-        }
-
         public List<double> GetOneSecond()
         {
             List<double> rawdata = new List<double>();
             rawdata.Add(0);
             return rawdata;
         }
-
-
-
-
-
-        //public BPMesDataGUI_DTO ReadSample()
-        //{
-        //	//Sætter udpPath til at være den string som udpServeren returnerer. Det er deri at data fra rpi står
-        //	do
-        //	{
-        //		while (!shallStop)
-        //		{
-        //			List<double> rawDataList = new List<double>();
-        //			List<string> holder = File.ReadAllLines(testPath2).ToList();
-
-        //			foreach (string sample in holder)
-        //			{
-        //				rawDataList.Add(Convert.ToDouble(sample));
-        //			}
-        //			BPMesDataGUI_DTO dtoObjTest = new BPMesDataGUI_DTO(rawDataList);
-
-        //			return dtoObjTest;
-        //		}
-        //	}
-        //	while (true);
-        //}
-
     }
 }

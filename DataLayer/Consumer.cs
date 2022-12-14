@@ -17,7 +17,7 @@ namespace DataLayer_PC
         {
             this.RawDataBlocking = RawDataBlocking;
         }
-        public void Run() //TakeFromBC
+        public void Run()
         {
             while (!RawDataBlocking.IsCompleted)
             {
@@ -25,11 +25,6 @@ namespace DataLayer_PC
                 {
                     var contanier = RawDataBlocking.Take();
                     List<double> RawData = contanier.GetRawDataList();
-                    foreach (double value in RawData)
-                    {
-                        System.Console.WriteLine("Raw data: {0}", value);
-                    }
-                    
                 }
                 catch (InvalidOperationException)
                 {
