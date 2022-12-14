@@ -121,6 +121,7 @@ namespace Presentation_Layer
             {
                 YRawData.AddRange(RawDataArray[i]);
             }
+
             //Affrunding af textboxenes værdier:
             middelTemp = dtoGUI_list[dtoGUI_list.Count - 1].MiddelValue;
             middelRounded = Math.Round(middelTemp, 0);
