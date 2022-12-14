@@ -12,7 +12,6 @@ namespace LogicLayer_PC
     {
         private IMeasurementDataAccess mesDataAccessObj;
         private ICalbrationFileAcess calbrationFileAcess;
-        public List<BPMesDataGUI_DTO> GUISTOlist;
         public double CalibrationValue { get; set; }
         public double Volt { get; set; }
         private double b1 = 0;

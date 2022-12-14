@@ -15,7 +15,7 @@ namespace LogicLayer_PC
         public ZeropointControlPC()
         {
             mesDataAccessObj = new TestMeasurementDataAccess();
-            Zeropoint = 0;
+            Zeropoint = -1.9;
         }
         public double GetZeropoint()
         {

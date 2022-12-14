@@ -14,13 +14,15 @@ namespace testConsole
 {
     internal class Program
     {
-        public static Server s1;
+        
         private BlockingCollection<Datacontainer> blocking;
         static void Main(string[] args)
         {
             MeasurementDataAccess m1 = new MeasurementDataAccess();
+            MeasurementControlPC m2 = new MeasurementControlPC();
             
-            m1.ReadSample();
+            //m1.ReadSample();
+            m2.Run();
         }
     }
 }

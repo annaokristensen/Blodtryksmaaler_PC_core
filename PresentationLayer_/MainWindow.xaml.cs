@@ -31,8 +31,8 @@ namespace Presentation_Layer
     {
         private StopAndSave stopAndSaveObj;
         private System.Windows.Threading.DispatcherTimer dispatcherTimer;
-        private int middelMax = 0;
-        private int middelMin = 0 ;
+        private double middelMax = 0;
+        private double middelMin = 0 ;
         private List<BPMesDataGUI_DTO> dtoGUI_list;
         private List<DateTime> alarmTriggeredTimes;
         public ChartValues<double> YRawData { get; set; }
@@ -163,8 +163,8 @@ namespace Presentation_Layer
         /// </summary>
         private void Alarm()
         {
-            if (middelMax < Convert.ToInt64(middleBTValue_textbox.Text) ||
-                Convert.ToInt64(middleBTValue_textbox.Text) < middelMin)
+            if (middelMax < Convert.ToDouble(middleBTValue_textbox.Text) ||
+                Convert.ToDouble(middleBTValue_textbox.Text) < middelMin)
             {
                 middleBTValue_textbox.Foreground = Brushes.Red;
                 middleBTValue_textbox.FontWeight = FontWeights.Bold;
@@ -198,7 +198,7 @@ namespace Presentation_Layer
             catch (Exception exception)
             {
 	            MessageBox.Show(this,
-		            "Data kunne ikke gemmes i databasen. Tilkald tekniker. Detaljer: " + exception.Message, "Fejl");
+		            "Data kunne ikke gemmes i databasen. Tilkald tekniker. \r\nDetaljer: " + exception.Message, "Fejl");
             }
         }
 

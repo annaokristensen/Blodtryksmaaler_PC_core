@@ -14,6 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="CalibrationValue.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="PhysionetTestFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

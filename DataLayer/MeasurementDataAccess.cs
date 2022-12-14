@@ -20,14 +20,10 @@ namespace DataLayer_PC
 	public class MeasurementDataAccess : IMeasurementDataAccess
 	{
         public const int listenPort = 12000;
-        public string DataFromRPi;
         private readonly BlockingCollection<Datacontainer> _dataQueue;
-		public BPMesDataGUI_DTO rawDataDTOBC;
         public double Second { get; set; }
 		public double SampleValue { get; set; }
-		public List<MeasurementDataAccess> LoadedSampleValue;
 		private bool shallStop = false;
-		public Server udpServerObj;
 
 		public MeasurementDataAccess(double second, double sampleValue)
 		{
