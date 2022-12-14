@@ -22,10 +22,11 @@ namespace LogicLayer_PC
 		public List<double> rawDataListMC = new List<double>();
 		public List<BPMesDataGUI_DTO> bpGUIlist;
 		private ZeropointControlPC zeropointControl;
+        public double Zero { get; set; }
         //private BPMesDataGUI_DTO bpGUIDTO;
         private Server udp;
 
-        public MeasurementControlPC( BlockingCollection<Datacontainer> RawDataBlocking)
+        public MeasurementControlPC(BlockingCollection<Datacontainer> RawDataBlocking, ZeropointControlPC zeropoint)
 		{
             udp = new Server();
 
@@ -35,7 +36,7 @@ namespace LogicLayer_PC
 			bpCalcObj = new BPCalculator();
             bpGUIlist = new List<BPMesDataGUI_DTO>();
             calbrationFileAcess = new CalibrationFileAcess();
-            zeropointControl = new ZeropointControlPC();
+            zeropointControl = zeropoint;
         }
         public MeasurementControlPC(IMeasurementDataAccess ImeasurementDataAccess)
         {
@@ -44,11 +45,7 @@ namespace LogicLayer_PC
             calbrationFileAcess = new CalibrationFileAcess();
             zeropointControl = new ZeropointControlPC();
         }
-        public void StartListenThread()
-        {
-            Thread listenThread = new Thread(udp.StartListener);
-            listenThread.Start();
-        }
+       
         public void StartProducerThread()
         {
             Thread producerThread = new Thread(measurementDataAccessObj.ReadSample);          
@@ -70,7 +67,7 @@ namespace LogicLayer_PC
 
                     foreach (double value in RawData)
                     {
-                        var tmp = (value - zeropointControl.GetZeropoint()) * calbrationFileAcess.ReadValue();
+                        var tmp = (value - zeropointControl.Zeropoint * calbrationFileAcess.ReadValue());
                         dataList.Add(tmp);
                         Console.WriteLine(tmp);
                     }
@@ -85,6 +82,8 @@ namespace LogicLayer_PC
                 }
             }
         }
+
+      
 
     }
 }

@@ -30,18 +30,12 @@ namespace Presentation_Layer
     public partial class MainWindow : Window
     {
         private StopAndSave stopAndSaveObj;
-        //private BlockingCollection<Datacontainer> controllers;
         private System.Windows.Threading.DispatcherTimer dispatcherTimer;
         int counter = 1;
-        private int rawDataCounter = 0;
         private int middelMax = 0;
         private int middelMin = 0 ;
-        //SoundPlayer player = new SoundPlayer();
-        //string file = "Cardiac alarm.wav";
         public string cpr { get; set; }
         private List<BPMesDataGUI_DTO> dtoGUI_list;
-        private List<BPMesDataGUI_DTO> testDtoGUI_list;
-        private BPMesDataGUI_DTO bpGUIDTOObj;
         private List<DateTime> alarmTriggeredTimes;
         public ChartValues<double> YRawData { get; set; }
         private DateTime startTime;
@@ -61,6 +55,7 @@ namespace Presentation_Layer
         private double diastolicRounded = 0;
         private Datacontainer datacontainer;
         private BlockingCollection<Datacontainer> blocking;
+        private ZeropointControlPC ZeropointController;
         //private Player player;
 
 
@@ -69,7 +64,10 @@ namespace Presentation_Layer
         public MainWindow()
         {
             InitializeComponent();
-     
+
+            //////
+            ZeropointController = new ZeropointControlPC();
+            //////
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             stopAndSaveObj = new StopAndSave();
             alarmTriggeredTimes = new List<DateTime>();
@@ -81,7 +79,7 @@ namespace Presentation_Layer
             //controllers = new BlockingCollection<Datacontainer>();
 
             //MeasurementDataAccess(); <- bruges ved UDP 
-            mesControlPC = new MeasurementControlPC(blocking);
+            mesControlPC = new MeasurementControlPC(blocking, ZeropointController);
 
             //testDtoGUI_list = new List<BPMesDataGUI_DTO>();
             dtoGUI_list = new List<BPMesDataGUI_DTO>();
@@ -160,70 +158,7 @@ namespace Presentation_Layer
 
             counter++;
 
-            //testRawDataListGUI.AddRange(dtoGUI_list. RawDataList); //tilføjer det der ligger i dto til en lokal rawdatalist 
-
-            //foreach (double rawData in dtoGUI_list[counter].RawDataList)
-            //{
-            // testRawDataListGUI.Add(rawData);
-            //}
-
-            //dtoGUI_list.Add(new BPMesDataGUI_DTO());
-            /*dtoGUI_list.Add(bpGUIDTOObj);
-            dtoGUI_list[taeller] = mesControlPC.BPDTO; // GetValues();
-            testRawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
-            testRawDataListGUI.AddRange(bpGUIDTOObj.RawDataList);*/
-
-            ////TIL UDP:
-            //dtoGUI_list[taeller] = mesControlPC.GetBPValues();
-            //rawDataListGUI.AddRange(dtoGUI_list[taeller].RawDataList);
-
-            ////TODO: Disse konstanter skal sættes meget længere op når vi modtager reel data
-            //const int graphPointLimit = 3; //Grænsen for hvor mange punkter der bliver vist på graferne af gangen
-            //const int removeFactor = graphPointLimit + 1; //Faktoren der sørger for de ældste punkter bliver fjernet. Skal vist være 1 større end graphPointLimit
-
-            //if (counter < dtoGUI_list.Count)
-            //{
-            // //TIL TEST:
-            // ////foreach (double rawTestData in testRawDataListGUI)
-            // ////{
-            // //// YRawData.Add(rawTestData);
-
-            // ////       //Kode der sørger for at de ældste punkter på grafen bliver fjernet, når antal punkter har nået sin maks-grænse:
-            // ////       if (counter > graphPointLimit)
-            // ////       {
-            // ////           //TIL TEST:
-            // ////           //YRawData.Remove(dtoGUI_list[taeller - removeFactor].RawDataList);
-            // ////           YRawData.Remove(testRawDataListGUI[counter - removeFactor]);
-
-            // ////           //TIL UDP:
-            // ////           //YRawData.Remove(dtoGUI_list[taeller - removeFactor].RawDataList);
-            // ////       }
-            // ////   }
-
-            // //TIL UDP:
-            // /*foreach (double rawData in rawDataListGUI)
-            //    {
-            //        YRawData.Add(rawData);
-            //    }*/
-
-            // //TEXTBOXENES VÆRDIER TIL TEST:
-            // /*middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
-            // pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
-            // sysDiaValue_textbox.Text =
-            //  dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;*/
-
-            //middleBTValue_textbox.Text = Convert.ToString(counter);
-            //pulseValue_textbox.Text = Convert.ToString(counter);
-            //sysDiaValue_textbox.Text = Convert.ToString(counter);
-
-            //    //TEXTBOXENES VÆRDIER TIL UDP:
-            //    //middleBTValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].MiddelValue);
-            //    //pulseValue_textbox.Text = Convert.ToString(dtoGUI_list[taeller].Pulse);
-            //    //sysDiaValue_textbox.Text = dtoGUI_list[taeller].SystoliskValue + " / " + dtoGUI_list[taeller].DiastoliskValue;
-
-            //    //Alarm();
-            //    counter++;
-            //}
+            
         }
 
         //Når vi trykker "Gem ændringer" efter at have ændret på grænseværdierne for middelværdi, skal de nye tal gemmes i variablerne middelMax og middelMin
@@ -261,18 +196,11 @@ namespace Presentation_Layer
                 alarmTriggeredTimes.Add(DateTime.Now);
 
                 //player.Play("Cardiac alarm.wav");
-
                 string file = "Cardiac alarm.wav";
 
-                //get the current assembly
-                var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-
-                //load the embedded resource as a stream
-                var stream = assembly.GetManifestResourceStream(string.Format("{0}.Resources.{1}", assembly.GetName().Name, file));
-
-                //load the stream into the player
-                var player = new System.Media.SoundPlayer(stream);
-
+                //load the .wav into the player
+                SoundPlayer player = new SoundPlayer(file);
+                
                 //play the sound
                 player.Play();
 
@@ -283,7 +211,6 @@ namespace Presentation_Layer
                 middleBTValue_textbox.FontWeight = FontWeights.Normal;
             }
         }
-
         private void stopAndSave_button_Click(object sender, RoutedEventArgs e)
         {
 	        try
@@ -305,7 +232,7 @@ namespace Presentation_Layer
         public void FinishOperationMethod()
         {
             this.Close();
-			MaintenanceWindow maintenanceWindowObj = new MaintenanceWindow();
+			MaintenanceWindow maintenanceWindowObj = new MaintenanceWindow(ZeropointController);
 			maintenanceWindowObj.ShowDialog();
 		}
         private void finishOperation_button_Click(object sender, RoutedEventArgs e)
@@ -342,6 +269,7 @@ namespace Presentation_Layer
             }
             return startarray;
         }
+
     }
 }
 

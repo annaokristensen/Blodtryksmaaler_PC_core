@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using LogicLayer_PC;
+using Presentation_Layer;
 
 namespace Presentation_Layer_PC
 {
@@ -20,10 +21,12 @@ namespace Presentation_Layer_PC
 	public partial class MaintenanceWindow : Window
     {
 		bool isZeroPointAdjDone = false;
+		ZeropointControlPC zeropoint;
         
-		public MaintenanceWindow()
+		public MaintenanceWindow(ZeropointControlPC zeropoint)
 		{
 			InitializeComponent();
+			this.zeropoint = zeropoint;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -56,6 +59,7 @@ namespace Presentation_Layer_PC
 		}
 		private void zeroPointAdjustment_button_Click(object sender, RoutedEventArgs e)
 		{
+			zeropoint.GetZeropoint();
 			isZeroPointAdjDone = true;
 
 			zeroPointNotDone_errorMessage.Visibility = Visibility.Hidden;

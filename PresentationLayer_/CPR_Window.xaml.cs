@@ -36,7 +36,7 @@ namespace Presentation_Layer_PC
 			//Sørger for at fejlmeddelsen ikke vises når vinduet loades
 			errorMessage_label.Visibility = Visibility.Hidden;
 
-			MaintenanceWindow maintenanceWindowObj = new MaintenanceWindow();
+			MaintenanceWindow maintenanceWindowObj = new MaintenanceWindow(new ZeropointControlPC());
 			if (!maintenanceWindowObj.ShowDialog().Value)
 				this.Close();
 			else

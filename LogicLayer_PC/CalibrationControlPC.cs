@@ -39,17 +39,9 @@ namespace LogicLayer_PC
         }
         public double GetVoltFromUDP()
         {
-            IMeasurementControlPC MesControl = new MeasurementControlPC(mesDataAccessObj);
-            GUISTOlist = MesControl.ReadValues();
-         //  BPMesDataGUI_DTO GUIDTOobj = MesControl.GetValues(); //GAMMEL 
-            
-            BPMesDataGUI_DTO GUIDTOobj;
-            //MesControl.GetValues(out GUIDTOobj);
-            GUIDTOobj = GUISTOlist[GUISTOlist.Count];
+           List<double> VoltDataFromUDPList = new List<double>();
 
-            List<double> VoltDataFromUDPList = GUIDTOobj.RawDataList;
-
-	        foreach (double rawData in GUIDTOobj.RawDataList)
+	        foreach (double rawData in mesDataAccessObj.GetOneSecond())
 	        {
 		        VoltDataFromUDPList.Add(rawData);
 	        }

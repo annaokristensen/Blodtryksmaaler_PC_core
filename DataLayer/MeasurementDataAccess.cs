@@ -88,9 +88,36 @@ namespace DataLayer_PC
 			}
 			while (true);
 		}
-		public BPMesDataGUI_DTO TakeFromBC()
+
+		public List<double> GetOneSecond()
 		{
-			return rawDataDTOBC;
-		}
+            UdpClient listener = new UdpClient(listenPort);
+
+            IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, listenPort);
+
+            byte[] bytes = listener.Receive(ref groupEP); //Det der modtages lægges ind i bytes
+
+            string tekst = ($"{Encoding.ASCII.GetString(bytes, 0, bytes.Length)}");
+
+            List<double> rawDataList = new List<double>();
+            List<string> holder = new List<string>();
+
+            holder.Add(tekst);
+            string[] input = tekst.Split(' ');
+            foreach (var item in input)
+            {
+                try
+                {
+                    rawDataList.Add(Convert.ToDouble(item));
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+
+			return rawDataList;
+        }
+
 	}
 }

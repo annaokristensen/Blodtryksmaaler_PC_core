@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 namespace LogicLayer_PC
 {public class ZeropointControlPC
     {
-        private MeasurementDataAccess mesDataAccessObj;
+        private IMeasurementDataAccess mesDataAccessObj;
         public double Zeropoint { get; private set; }
         
         public ZeropointControlPC()
         {
-            mesDataAccessObj = new MeasurementDataAccess();
+            mesDataAccessObj = new TestMeasurementDataAccess();
             Zeropoint = 0;
         }
         public double GetZeropoint()
         {
-            List<double> list = mesDataAccessObj.TakeFromBC().RawDataList;
+            List<double> list = mesDataAccessObj.GetOneSecond();
             
             double total = 0;
             foreach (double s in list)

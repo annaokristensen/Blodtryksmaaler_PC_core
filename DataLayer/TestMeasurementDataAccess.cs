@@ -29,6 +29,10 @@ namespace DataLayer_PC
             rawDataDTOBC = new BPMesDataGUI_DTO();
             holder = new List<string>();
         }
+        public TestMeasurementDataAccess()
+        {
+
+        }
 
         /// <summary>
         /// TEST-METODE til at læse en test-fil som er skrevet på det format, som vi modtager fra rpi
@@ -74,6 +78,13 @@ namespace DataLayer_PC
                 }
             }
             return null;
+        }
+
+        public List<double> GetOneSecond()
+        {
+            List<double> rawdata = new List<double>();
+            rawdata.Add(0);
+            return rawdata;
         }
 
 
