@@ -17,6 +17,8 @@ namespace DataLayer_PC
 	        readCalibrationValue = readCalibrationValue.Replace('.', ',');
 	        double calibrationValue = Convert.ToDouble(readCalibrationValue);
 	        return calibrationValue;
+
+          
         }
 
         public void ReplaceValue(double value)
