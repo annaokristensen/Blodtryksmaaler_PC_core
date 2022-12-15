@@ -58,16 +58,13 @@ namespace Presentation_Layer_PC
 
             //Koden henter data fra en test-metode, men det kan nemt genbruges til det rigtige data
 	        List<double> midlVoltList = new List<double>();
-	        foreach (double volt in calibrationControlObj.GetVoltTest())
-	        {
-		        midlVoltList.Add(volt);
-	        }
-
+            double voltage = calibrationControlObj.GetVoltFromUDP();
+            
 	        try
 	        {
 		        xx.Add(Convert.ToDouble(enterPressure_textbox.Text));
 		        XPressure.Add(xx[counter]);
-		        yy.Add(midlVoltList[counter]);
+		        yy.Add(voltage);
 		        YVolt.Add(yy[counter]);
 
 		        enterPressure_textbox.Clear();

@@ -30,7 +30,7 @@
 
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis MaxValue="2" MinValue='-2'> 
+                <lvc:Axis MaxValue="200" MinValue='0'> 
                     <lvc:Axis.Separator>
                         <lvc:Separator Stroke="White">
                         </lvc:Separator>
