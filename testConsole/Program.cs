@@ -18,8 +18,10 @@ namespace testConsole
         static void Main(string[] args)
         {
             MeasurementDataAccess m1 = new MeasurementDataAccess();
+            MeasurementControlPC m2 = new MeasurementControlPC();
             
-            m1.ReadSample();
+            //m1.ReadSample();
+            m2.Run();
         }
     }
 }

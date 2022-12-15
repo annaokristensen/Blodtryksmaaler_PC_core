@@ -13,13 +13,12 @@ namespace DataLayer_PC
 
         public double ReadValue()
         {
-            FileStream fileStream = new FileStream(CalibrationPath, FileMode.OpenOrCreate, FileAccess.Read);
-            StreamReader reader = new StreamReader(fileStream);
+	        string readCalibrationValue = File.ReadAllText("CalibrationValue.txt");
+	        readCalibrationValue = readCalibrationValue.Replace('.', ',');
+	        double calibrationValue = Convert.ToDouble(readCalibrationValue);
+	        return calibrationValue;
 
-            double value = Convert.ToDouble(reader.ReadLine());
-            fileStream.Close();
-
-            return value;
+           
         }
 
         public void ReplaceValue(double value)

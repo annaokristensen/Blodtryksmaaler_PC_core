@@ -22,6 +22,7 @@ namespace LogicLayer_PC
 
 		public MeasurementControlPC(BlockingCollection<Datacontainer> RawDataBlocking, ZeropointControlPC zeropoint)
 		{
+            //Herunder slettes "Test" i objektoprettelsen, for at skifte til UDP
 			measurementDataAccessObj = new MeasurementDataAccess(RawDataBlocking);
             this.RawDataBlocking = RawDataBlocking;
             bpCalcObj = new BPCalculator();
@@ -29,8 +30,8 @@ namespace LogicLayer_PC
             calbrationFileAcess = new CalibrationFileAcess();
             zeropointControl = zeropoint;
         }
-
-        public void StartProducerThread()
+        public MeasurementControlPC(){}
+		public void StartProducerThread()
         {
             Thread producerThread = new Thread(measurementDataAccessObj.ReadSample);          
             producerThread.Start();
@@ -45,13 +46,14 @@ namespace LogicLayer_PC
             {
                 try
                 {
-                    var contanier = RawDataBlocking.Take();
+	                double kim = calbrationFileAcess.ReadValue();
+	                var contanier = RawDataBlocking.Take();
                     List<double> RawData = contanier.GetRawDataList();
                     List<double> dataList = new List<double>();
 
                     foreach (double value in RawData)
                     {
-                        var tmp = (value - zeropointControl.Zeropoint * calbrationFileAcess.ReadValue());
+                        var tmp = ((value - zeropointControl.Zeropoint) * kim);
                         dataList.Add(tmp);
                         Console.WriteLine(tmp);
                     }
