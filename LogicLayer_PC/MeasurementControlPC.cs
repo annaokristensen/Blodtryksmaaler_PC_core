@@ -46,14 +46,14 @@ namespace LogicLayer_PC
             {
                 try
                 {
-	                double kim = calbrationFileAcess.ReadValue();
+	                double calibrationValue = calbrationFileAcess.ReadValue();
 	                var contanier = RawDataBlocking.Take();
                     List<double> RawData = contanier.GetRawDataList();
                     List<double> dataList = new List<double>();
 
                     foreach (double value in RawData)
                     {
-                        var tmp = ((value - zeropointControl.Zeropoint) * kim);
+                        var tmp = ((value - zeropointControl.Zeropoint) * calibrationValue);
                         dataList.Add(tmp);
                         Console.WriteLine(tmp);
                     }
