@@ -44,6 +44,7 @@
             </Button.Resources>
         </Button>
         <Label x:Name="zeroPointNotDone_errorMessage" Content="Nulpunktsjustering er ikke udført" HorizontalAlignment="Left" Margin="0,8,0,0" VerticalAlignment="Top" Width="221" Foreground="White" FontStyle="Italic" Grid.Column="2" Height="34" Grid.Row="4" FontSize="14"/>
+        <Label x:Name="NulpunktjusteringComplete" Grid.Column="1" Content="Nulpunktsjustering er udført" HorizontalAlignment="Left" Margin="34,91,0,0" Grid.Row="2" VerticalAlignment="Top" Width="182" Foreground="White" FontSize="14" FontStyle="Italic" Grid.RowSpan="2"/>
 
     </Grid>
 </Window>

@@ -32,7 +32,8 @@ namespace Presentation_Layer_PC
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 			zeroPointNotDone_errorMessage.Visibility = Visibility.Hidden;
-		}
+            NulpunktjusteringComplete.Visibility = Visibility.Hidden;
+        }
 
 		private void moveOnToCpr_button_Click(object sender, RoutedEventArgs e)
 		{
@@ -57,8 +58,8 @@ namespace Presentation_Layer_PC
 		{
 			zeropoint.GetZeropoint();
 			isZeroPointAdjDone = true;
-
-			zeroPointNotDone_errorMessage.Visibility = Visibility.Hidden;
+            NulpunktjusteringComplete.Visibility = Visibility.Visible;
+            zeroPointNotDone_errorMessage.Visibility = Visibility.Hidden;
 		}
 	}
 }
