@@ -13,8 +13,7 @@ using DataLayer_PC;
 namespace testConsole
 {
     internal class Program
-    {
-        public static Server s1;
+    { 
         private BlockingCollection<Datacontainer> blocking;
         static void Main(string[] args)
         {

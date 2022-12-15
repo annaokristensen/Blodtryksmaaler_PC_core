@@ -22,7 +22,7 @@ namespace LogicLayer_PC
 
 		public MeasurementControlPC(BlockingCollection<Datacontainer> RawDataBlocking, ZeropointControlPC zeropoint)
 		{
-			measurementDataAccessObj = new TestMeasurementDataAccess(RawDataBlocking);
+			measurementDataAccessObj = new MeasurementDataAccess(RawDataBlocking);
             this.RawDataBlocking = RawDataBlocking;
             bpCalcObj = new BPCalculator();
             bpGUIlist = new List<BPMesDataGUI_DTO>();

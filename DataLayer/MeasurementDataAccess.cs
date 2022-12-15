@@ -27,7 +27,7 @@ namespace DataLayer_PC
 		public double SampleValue { get; set; }
 		public List<MeasurementDataAccess> LoadedSampleValue;
 		private bool shallStop = false;
-		public Server udpServerObj;
+	
 
 		public MeasurementDataAccess(double second, double sampleValue)
 		{
