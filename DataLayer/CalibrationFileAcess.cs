@@ -18,7 +18,7 @@ namespace DataLayer_PC
 	        double calibrationValue = Convert.ToDouble(readCalibrationValue);
 	        return calibrationValue;
 
-           
+          
         }
 
         public void ReplaceValue(double value)
