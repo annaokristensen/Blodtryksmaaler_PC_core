@@ -21,7 +21,7 @@ namespace Presentation_Layer_PC
 	public partial class MaintenanceWindow : Window
     {
 		bool isZeroPointAdjDone = false;
-		ZeropointControlPC zeropoint;
+		private ZeropointControlPC zeropoint;
         
 		public MaintenanceWindow(ZeropointControlPC zeropoint)
 		{

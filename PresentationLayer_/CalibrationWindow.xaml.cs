@@ -29,7 +29,7 @@ namespace Presentation_Layer_PC
 	public partial class CalibrationWindow : Window
 	{
         public ChartValues<double> YVolt { get; set; }
-        public ChartValues<double> XPressure { get; set; }
+        public List<int> XPressure { get; set; }
 
         List<double> xx = new List<double>();
         List<double> yy = new List<double>();
@@ -45,7 +45,8 @@ namespace Presentation_Layer_PC
         {
             InitializeComponent();
             YVolt = new ChartValues<double>();
-            XPressure = new ChartValues<double>();
+            XPressure = new List<int>();
+            DataContext = this;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -63,14 +64,14 @@ namespace Presentation_Layer_PC
 	        try
 	        {
 		        xx.Add(Convert.ToDouble(enterPressure_textbox.Text));
-		        XPressure.Add(xx[counter]);
+		        XPressure.Add(Convert.ToInt32(xx[counter]));
 		        yy.Add(voltage);
 		        YVolt.Add(yy[counter]);
 
-		        enterPressure_textbox.Clear();
-		        DataContext = this;
+                
+                enterPressure_textbox.Clear();
 
-		        counter++;
+                counter++;
 			}
 	        catch (Exception exception)
 	        {
