@@ -10,7 +10,7 @@ namespace LogicLayer_PC
 {public class ZeropointControlPC
     {
         private IMeasurementDataAccess mesDataAccessObj;
-        public double Zeropoint { get; private set; }
+        public double Zeropoint { get; set; }
         
         public ZeropointControlPC()
         {

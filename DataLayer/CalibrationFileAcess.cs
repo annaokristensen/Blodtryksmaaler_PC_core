@@ -23,14 +23,7 @@ namespace DataLayer_PC
 
         public void ReplaceValue(double value)
         {
-            File.WriteAllText(CalibrationPath, String.Empty);
-
-            FileStream fileStream = new FileStream(CalibrationPath, FileMode.OpenOrCreate, FileAccess.Write);
-            StreamWriter writer = new StreamWriter(fileStream);
-            writer.WriteLine(Convert.ToString(value));
-
-            fileStream.Close();
-
+            File.WriteAllTextAsync(CalibrationPath,Convert.ToString(value));
         }
     }
 }

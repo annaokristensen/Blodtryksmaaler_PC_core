@@ -42,8 +42,6 @@ namespace LogicLayer_PC
         }
         public void Run()
         {
-            double calibration = calbrationFileAcess.ReadValue();
-
             while (IsCompleted == true)
             {
                 try
@@ -55,7 +53,7 @@ namespace LogicLayer_PC
 
                     foreach (double value in RawData)
                     {
-                        var tmp = ((value - zeropointControl.Zeropoint) * calibrationValue);
+                        var tmp = ((value - zeropointControl.Zeropoint) / calibrationValue);
                         dataList.Add(tmp);
                         Console.WriteLine(tmp);
                     }
