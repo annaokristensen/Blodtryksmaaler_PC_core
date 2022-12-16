@@ -14,7 +14,7 @@ namespace DataLayer_PC
 	public class TestMeasurementDataAccess : IMeasurementDataAccess
 	{
         private readonly BlockingCollection<Datacontainer> RawDataBlocking;
-		public string testPath2 = @"PhysionetTestFile.txt";
+		public string testPath = @"PhysionetTestFile.txt";
 		private bool shallStop = false;
         BPMesDataGUI_DTO rawDataDTOBC;
         private int countStart = 0;
@@ -40,7 +40,7 @@ namespace DataLayer_PC
             {
                 while(!shallStop)
                 {
-                    holder = File.ReadAllLines(testPath2).ToList();
+                    holder = File.ReadAllLines("testPath").ToList();
                     List<double> rawdata = new List<double>();
 
                     for (int i = countStart; i < countEnd; i++)

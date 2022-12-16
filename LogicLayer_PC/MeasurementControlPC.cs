@@ -22,8 +22,8 @@ namespace LogicLayer_PC
 
 		public MeasurementControlPC(BlockingCollection<Datacontainer> RawDataBlocking, ZeropointControlPC zeropoint)
 		{
-            //Herunder slettes "Test" i objektoprettelsen, for at skifte til UDP
-			measurementDataAccessObj = new TestMeasurementDataAccess(RawDataBlocking);
+            //Herunder tilføjes "Test" i objektoprettelsen, for at skifte til tekstfil
+			measurementDataAccessObj = new MeasurementDataAccess(RawDataBlocking);
             this.RawDataBlocking = RawDataBlocking;
             bpCalcObj = new BPCalculator();
             bpGUIlist = new List<BPMesDataGUI_DTO>();

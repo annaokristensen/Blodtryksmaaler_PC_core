@@ -58,7 +58,8 @@ namespace DataLayer_PC
 
 					holder.Add(tekst);
 					string[] input = tekst.Split(' ');
-					foreach (var item in input)
+                    
+                    foreach (var item in input)
 					{
                         try
                         {
@@ -77,7 +78,7 @@ namespace DataLayer_PC
 			}
 			while (true);
 		}
-		//GetOneSecond bruges til nulpunktjustering og kalibrering. Metoden er ikke i en tråd, så den læser kun en værdi ind.
+		//GetOneSecond bruges til nulpunktjustering og kalibrering. Metoden er ikke i en tråd, så den læser kun en værdi for 1 sekund.
 		public List<double> GetOneSecond()
 		{
             UdpClient listener = new UdpClient(listenPort);

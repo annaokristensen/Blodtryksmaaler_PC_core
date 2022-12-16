@@ -59,6 +59,7 @@ namespace Presentation_Layer_PC
 			zeropoint.GetZeropoint();
 			isZeroPointAdjDone = true;
             NulpunktjusteringComplete.Visibility = Visibility.Visible;
+
             zeroPointNotDone_errorMessage.Visibility = Visibility.Hidden;
 		}
 	}
