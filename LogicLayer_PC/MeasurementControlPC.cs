@@ -42,8 +42,6 @@ namespace LogicLayer_PC
         }
         public void Run()
         {
-            double calibration = calbrationFileAcess.ReadValue();
-
             while (IsCompleted == true)
             {
                 try
